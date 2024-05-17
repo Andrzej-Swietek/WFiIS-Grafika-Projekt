@@ -13,7 +13,11 @@ void Curve::draw() const {
 }
 
 Point Curve::getCenter() const {
-    return std::accumulate(points.begin(), points.end(), Point(0, 0), [](Point sum, Point point) { return sum + point; }) / points.size();
+    return std::accumulate(
+        points.begin(), points.end(), Point(0, 0),
+        [](Point sum, Point point) { return sum + point; }
+    ) / points.size();
+
 }
 
 std::vector<Point> Curve::getPoints() const {

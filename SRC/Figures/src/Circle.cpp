@@ -13,6 +13,11 @@ void Circle::draw() const {
     std::cout << "Drawing a circle at (" << x << ", " << y << ") with radius " << r << std::endl;
 }
 
+ Point Circle::getCenter() const
+ {
+    return Point(x, y);
+ }
+
 int Circle::getX() const {
     return x;
 }

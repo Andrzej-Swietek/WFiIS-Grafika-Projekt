@@ -11,7 +11,7 @@
 class Curve : public Shape {
 public:
     /// CONSTRUCTORS & DESTRUCTOR
-    Curve(int stroke=1, std::string outline="solid #000", std::string fill="transparent", std::vector<Point> points);
+    Curve(int stroke=1, std::string outline="solid #000", std::string fill="transparent", std::vector<Point> points = {});
 
     Curve(std::vector<Point> points);
 

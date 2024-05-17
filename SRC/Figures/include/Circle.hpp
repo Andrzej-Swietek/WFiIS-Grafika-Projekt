@@ -11,6 +11,7 @@ public:
     Circle(int x, int y, int r);
     Circle(int x, int y, int r, int stroke, std::string outline, std::string fill);
     void draw() const override;
+    Point getCenter() const override;
 
     int getX() const;
     int getY() const;

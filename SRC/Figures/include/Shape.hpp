@@ -12,7 +12,7 @@ public:
      * @brief Default Constructor Construct a new Shape object
      * @return no return
     */
-    Shape() = default;
+    Shape();
 
 
     /**
@@ -99,3 +99,4 @@ protected:
     std::string outline;
     std::string fill;
 };
+
