@@ -13,6 +13,8 @@ public:
      * @return no return
     */
     Line() = default;
+
+    Line(const Line&);
     
     Line(const Point& start, const Point& end);
 

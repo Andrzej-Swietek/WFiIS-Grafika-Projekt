@@ -60,7 +60,7 @@
     <ClCompile Include="Utils\src\SVGDataLoaderAdapter.cpp">
       <Filter>Source Files\Utils</Filter>
     </ClCompile>
-    <ClCompile Include="Utils\src\XMLDataLoaderAdapter .cpp">
+    <ClCompile Include="Utils\src\XMLDataLoaderAdapter.cpp">
       <Filter>Source Files\Utils</Filter>
     </ClCompile>
   </ItemGroup>
@@ -100,6 +100,9 @@
     </ClInclude>
     <ClInclude Include="Utils\include\DataLoader.hpp">
       <Filter>Header Files\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="Figures\include\ShapeBuilder.hpp">
+      <Filter>Header Files\Figures</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

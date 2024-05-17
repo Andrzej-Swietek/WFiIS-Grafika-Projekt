@@ -18,7 +18,7 @@ public:
      * @brief Construct a new Shape Builder object
      * @return no return
     */
-    ShapeBuilder();
+    ShapeBuilder()= default;
 
     
     /**
@@ -26,6 +26,10 @@ public:
      * @return no return
     */
     ~ShapeBuilder() = default;
+
+    ShapeBuilder* builder() {
+        return this;
+    }
 
     /// METHODS
     ShapeBuilder* setN(int n) {
@@ -81,7 +85,7 @@ public:
     }
 
     Line buildLine(){
-        return Line(points[0], points[1] ,stroke, outline, fill);
+        return Line(points[0], points[1], stroke, outline, fill);
     }
     
 

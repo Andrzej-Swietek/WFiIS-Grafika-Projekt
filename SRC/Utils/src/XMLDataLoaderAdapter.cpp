@@ -18,10 +18,11 @@ std::vector<std::unique_ptr<Shape>> XMLDataLoaderAdapter::load(const std::string
         
         for (XMLElement* elem = root->FirstChildElement(); elem != nullptr; elem = elem->NextSiblingElement()) {
             std::string type = elem->Name();
-            
+            ShapeBuilder shapeBuilder;
+
             if (type == "polygon") {
-                int n = elem->IntAttribute("n");
-                int stroke = elem->IntAttribute("stroke");
+                int n = elem->IntAttribute("n", 0);
+                int stroke = elem->IntAttribute("stroke", 1);
                 std::string outline = elem->Attribute("outline");
                 std::string fill = elem->Attribute("fill");
                 std::vector<Point> points;
@@ -30,7 +31,15 @@ std::vector<std::unique_ptr<Shape>> XMLDataLoaderAdapter::load(const std::string
                     int y = pointElem->IntAttribute("y");
                     points.push_back({ x, y });
                 }
-                shapes.push_back(ShapeBuilder::buildPolygon(n, stroke, outline, fill, points));
+
+                shapeBuilder.builder()
+                    ->setN(n)
+                    ->setStroke(stroke)
+                    ->setOutline(outline)
+                    ->setFill(fill)
+                    ->setPoints(points);
+                Polygon p = shapeBuilder.buildPolygon();
+                shapes.push_back(std::make_unique<Polygon>(p));
             } 
             // Podobne sekcje dla Circle, Ellipse, Line, Curve
 
@@ -41,7 +50,16 @@ std::vector<std::unique_ptr<Shape>> XMLDataLoaderAdapter::load(const std::string
                 int stroke = elem->IntAttribute("stroke");
                 std::string outline = elem->Attribute("outline");
                 std::string fill = elem->Attribute("fill");
-                shapes.push_back(ShapeBuilder::buildCircle(x, y, r, stroke, outline, fill));
+
+                shapeBuilder.builder()
+                    ->setX(x)
+                    ->setY(y)
+                    ->setR(r)
+                    ->setStroke(stroke)
+                    ->setOutline(outline)
+                    ->setFill(fill);
+                Circle c = shapeBuilder.buildCircle();
+                shapes.push_back(std::make_unique<Circle>(c));
             } 
             //else if (type == "ellipse") {
             //    int r = elem->IntAttribute("r");
@@ -67,7 +85,12 @@ std::vector<std::unique_ptr<Shape>> XMLDataLoaderAdapter::load(const std::string
                     int py = pointElem->IntAttribute("y");
                     points.push_back({ px, py });
                 }
-                shapes.push_back(ShapeBuilder::buildLine(x, y, stroke, fill, points));
+
+                shapeBuilder.builder();
+
+                Line l = shapeBuilder.buildLine();
+
+                shapes.push_back(std::make_unique<Line>(l));
             } else if (type == "curve") {
                 int n = elem->IntAttribute("n");
                 int stroke = elem->IntAttribute("stroke");
@@ -79,7 +102,12 @@ std::vector<std::unique_ptr<Shape>> XMLDataLoaderAdapter::load(const std::string
                     int y = pointElem->IntAttribute("y");
                     points.push_back({ x, y });
                 }
-                shapes.push_back(ShapeBuilder::buildCurve(n, stroke, outline, fill, points));
+
+                shapeBuilder.builder();
+
+                Curve c = shapeBuilder.buildCurve();
+
+                shapes.push_back(std::make_unique<Curve>(c));
             }
         }
         

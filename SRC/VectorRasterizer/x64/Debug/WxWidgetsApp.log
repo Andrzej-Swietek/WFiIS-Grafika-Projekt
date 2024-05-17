@@ -1,25 +1,4 @@
-﻿  Circle.cpp
-  Curve.cpp
-C:\Users\Andrzej\Documents\WFiIS-Grafika-Projekt\SRC\Figures\include\Curve.hpp(14,10): error C2548: 'Curve::Curve': missing default argument for parameter 4
-  (compiling source file 'Figures/src/Curve.cpp')
-  
-C:\Users\Andrzej\Documents\WFiIS-Grafika-Projekt\SRC\Figures\src\Curve.cpp(19,20): warning C4267: 'argument': conversion from 'size_t' to 'const int', possible loss of data
-  Line.cpp
-  Polygon.cpp
-C:\Users\Andrzej\Documents\WFiIS-Grafika-Projekt\SRC\Figures\src\Polygon.cpp(12,8): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-  Shape.cpp
-  MainFrame.cpp
-  SVGDataLoaderAdapter.cpp
-  XMLDataLoaderAdapter .cpp
-C:\Users\Andrzej\Documents\WFiIS-Grafika-Projekt\SRC\Utils\src\XMLDataLoaderAdapter .cpp(33,34): error C2653: 'ShapeBuilder': is not a class or namespace name
-C:\Users\Andrzej\Documents\WFiIS-Grafika-Projekt\SRC\Utils\src\XMLDataLoaderAdapter .cpp(33,48): error C3861: 'buildPolygon': identifier not found
-C:\Users\Andrzej\Documents\WFiIS-Grafika-Projekt\SRC\Utils\src\XMLDataLoaderAdapter .cpp(44,34): error C2653: 'ShapeBuilder': is not a class or namespace name
-C:\Users\Andrzej\Documents\WFiIS-Grafika-Projekt\SRC\Utils\src\XMLDataLoaderAdapter .cpp(44,48): error C3861: 'buildCircle': identifier not found
-C:\Users\Andrzej\Documents\WFiIS-Grafika-Projekt\SRC\Utils\src\XMLDataLoaderAdapter .cpp(56,34): error C2653: 'ShapeBuilder': is not a class or namespace name
-C:\Users\Andrzej\Documents\WFiIS-Grafika-Projekt\SRC\Utils\src\XMLDataLoaderAdapter .cpp(56,48): error C3861: 'buildEllipse': identifier not found
-C:\Users\Andrzej\Documents\WFiIS-Grafika-Projekt\SRC\Utils\src\XMLDataLoaderAdapter .cpp(68,34): error C2653: 'ShapeBuilder': is not a class or namespace name
-C:\Users\Andrzej\Documents\WFiIS-Grafika-Projekt\SRC\Utils\src\XMLDataLoaderAdapter .cpp(68,48): error C3861: 'buildLine': identifier not found
-C:\Users\Andrzej\Documents\WFiIS-Grafika-Projekt\SRC\Utils\src\XMLDataLoaderAdapter .cpp(80,34): error C2653: 'ShapeBuilder': is not a class or namespace name
-C:\Users\Andrzej\Documents\WFiIS-Grafika-Projekt\SRC\Utils\src\XMLDataLoaderAdapter .cpp(80,48): error C3861: 'buildCurve': identifier not found
-  Generating Code...
-C:\Users\Andrzej\Documents\WFiIS-Grafika-Projekt\SRC\Utils\src\SVGDataLoaderAdapter.cpp(13,1): error C4716: 'SVGDataLoaderAdapter::load': must return a value
+﻿  XMLDataLoaderAdapter.cpp
+  WxWidgetsApp.vcxproj -> C:\Users\Andrzej\Documents\WFiIS-Grafika-Projekt\SRC\x64\Debug\VectorRasterizer.exe
+  'pwsh.exe' is not recognized as an internal or external command,
+  operable program or batch file.

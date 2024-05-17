@@ -11,6 +11,9 @@
 #include "DataLoader.hpp"
 #include "Shape.hpp"
 #include "Point.hpp"
+#include "Polygon.hpp"
+#include "ShapeBuilder.hpp"
+
 
 using namespace tinyxml2;
 

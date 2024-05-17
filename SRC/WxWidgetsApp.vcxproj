@@ -142,7 +142,7 @@
     <ClCompile Include="Figures\src\Shape.cpp" />
     <ClCompile Include="MainFrame.cpp" />
     <ClCompile Include="Utils\src\SVGDataLoaderAdapter.cpp" />
-    <ClCompile Include="Utils\src\XMLDataLoaderAdapter .cpp" />
+    <ClCompile Include="Utils\src\XMLDataLoaderAdapter.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -154,6 +154,7 @@
     <ClInclude Include="Figures\include\Point.hpp" />
     <ClInclude Include="Figures\include\Polygon.hpp" />
     <ClInclude Include="Figures\include\Shape.hpp" />
+    <ClInclude Include="Figures\include\ShapeBuilder.hpp" />
     <ClInclude Include="GUI\include\GUI.h" />
     <ClInclude Include="Utils\include\DataLoader.hpp" />
     <ClInclude Include="Utils\include\FileSaver.hpp" />
