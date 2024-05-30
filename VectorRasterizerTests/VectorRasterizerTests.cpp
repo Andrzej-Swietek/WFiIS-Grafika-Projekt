@@ -1,5 +1,8 @@
 #include "pch.h"
 #include "CppUnitTest.h"
+#include "XMLDataLoaderAdapterTest.hpp"
+#include "XMLDataLoaderAdapter.hpp"
+
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
@@ -9,8 +12,24 @@ namespace VectorRasterizerTests
 	{
 	public:
 		
-		TEST_METHOD(TestMethod1)
-		{
-		}
+        TEST_METHOD(TestLoadPolygon)
+        {
+            XMLDataLoaderAdapterTest::TestLoadPolygon();
+        }
+
+        TEST_METHOD(TestLoadCircle)
+        {
+            XMLDataLoaderAdapterTest::TestLoadCircle();
+        }
+
+        TEST_METHOD(TestLoadLine)
+        {
+            XMLDataLoaderAdapterTest::TestLoadLine();
+        }
+
+        TEST_METHOD(TestLoadCurve)
+        {
+            XMLDataLoaderAdapterTest::TestLoadCurve();
+        }
 	};
 }
