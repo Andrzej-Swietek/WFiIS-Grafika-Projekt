@@ -6,7 +6,6 @@
 #include <vector>
 
 #include "Shape.hpp"
-#include "Point.hpp"
 
 class Polygon : public Shape {
     int n;
@@ -19,6 +18,8 @@ public:
     Polygon(int n, std::vector<Point> points);
 
     Polygon(std::vector<Point> points);
+
+    ~Polygon() = default;
 
     /// VIRTUAL METHODS
     void draw() const override;

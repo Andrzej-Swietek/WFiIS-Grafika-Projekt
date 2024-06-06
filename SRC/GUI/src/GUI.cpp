@@ -251,7 +251,12 @@ void GUI::OnExit(wxCommandEvent& event)
 
 void GUI::OnOpen(wxCommandEvent& event)
 {
-
+	wxFileDialog WxOpenFileDialog(this, wxT("Choose a file"), wxT(""), wxT(""), wxT("XML file (*.xml)|*.xml"), wxFD_OPEN | wxFD_FILE_MUST_EXIST);
+	if (WxOpenFileDialog.ShowModal() == wxID_OK) 
+	{
+		std::string file_path = WxOpenFileDialog.GetPath().ToStdString();
+		std::vector<std::unique_ptr<Shape>> shapes = XMLDataLoaderAdapter::getInstance().load(file_path);
+	}
 }
 
 

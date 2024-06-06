@@ -1,15 +1,15 @@
 #include "Polygon.hpp"
 
  Polygon::Polygon(int n, int stroke, std::string outline, std::string fill, std::vector<Point> points)
-        : n(n), Shape(stroke, outline, fill) {}
+        : n(n), points(points), Shape(stroke, outline, fill) {}
 
 
 Polygon::Polygon(int n, std::vector<Point> points)
-    : n(n), Shape() {}
+    : n(n), points(points), Shape() {}
 
 
 Polygon::Polygon(std::vector<Point> points)
-    : n(points.size()), Shape() {}
+    : n(points.size()), points(points), Shape() {}
 
 
 void Polygon::draw() const {}
@@ -30,6 +30,7 @@ std::vector<Point> Polygon::getPoints() const {
 
 void Polygon::setPoints(const std::vector<Point>& points) {
     this->points = points;
+    this->n = points.size();
 }
 
 
@@ -45,8 +46,11 @@ void Polygon::setN(int n) {
 
 Polygon& Polygon::operator=(const Polygon& other) {
     if (this != &other) {
-        n = other.n;
-        points = other.points;
+        this->n = other.n;
+        this->points = other.points;
+        this->stroke = other.stroke;
+        this->outline = other.outline;
+        this->fill = other.fill;
     }
 
     return *this;

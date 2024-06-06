@@ -17,6 +17,9 @@
 #include <wx/clrpicker.h>
 #include <wx/scrolwin.h>
 #include <wx/frame.h>
+#include <wx/filedlg.h>
+
+#include "XMLDataLoaderAdapter.hpp"
 
 
 class GUI : public wxFrame

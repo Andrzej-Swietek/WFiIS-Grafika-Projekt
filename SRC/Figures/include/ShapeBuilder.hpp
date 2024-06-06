@@ -80,13 +80,14 @@ public:
         return Curve(stroke, outline, fill, points);
     }
 
-    Polygon buildPolygon(){
-        return Polygon(n, stroke, outline, fill, points);
-    }
-
-    Line buildLine(){
+    Line buildLine() const {
         return Line(points[0], points[1], stroke, outline, fill);
     }
+
+    auto buildPolygon() const {
+        return Polygon::Polygon(n, stroke, outline, fill, points);
+    }
+
     
 
 
