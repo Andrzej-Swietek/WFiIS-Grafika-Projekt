@@ -203,6 +203,7 @@ GUI::GUI(wxWindow* parent, wxWindowID id, const wxString& title, const wxPoint& 
 	// bind the paint event - also refreshes on resize??
 	//
 	m_canvas_panel->Bind(wxEVT_PAINT, &GUI::OnPaint, this);
+	rotationSlider->Bind(wxEVT_SCROLL_THUMBTRACK, &GUI::rotationSlider_Update, this);
 
 	/*std::shared_ptr<Circle> c = std::make_shared<Circle>(new Circle(2,2,1));
 	shapes.push_back(c.get());*/
@@ -225,6 +226,22 @@ GUI::GUI(wxWindow* parent, wxWindowID id, const wxString& title, const wxPoint& 
 	std::vector<Point> polyVertices = { Point(10,10), Point(20,10), Point(30,20), Point(30,60), Point(20,50), Point(10,40) };
 	PolygonShape* p = new PolygonShape(polyVertices.size(), 5, "solid #000", "transparent", polyVertices);
 	shapes.push_back(p);
+
+
+	// rotate matrix
+	double angle = 30 * M_PI / 180;
+
+	Matrix M;
+	M.data[0][0] = cos(angle);
+	M.data[0][1] = -sin(angle);
+	M.data[1][0] = sin(angle);
+	M.data[1][1] = cos(angle);
+
+	p->rotate(M);
+
+	l->rotate(M);
+
+	curv->rotate(M);
 
 	//m_canvas_panel->Refresh();
 }
@@ -278,7 +295,7 @@ void GUI::setUpMenu()
 	
 }
 
-void GUI::OnPaint(wxPaintEvent& event)
+void GUI::Repaint() const
 {
 	wxClientDC dc1(m_canvas_panel);
 	wxBufferedDC dc(&dc1);
@@ -288,6 +305,19 @@ void GUI::OnPaint(wxPaintEvent& event)
 	m_canvas_panel->GetSize(&w, &h);
 
 	DrawShapes(dc, w, h);
+}
+
+void GUI::OnPaint(wxPaintEvent& event)
+{
+	Repaint();
+	/*wxClientDC dc1(m_canvas_panel);
+	wxBufferedDC dc(&dc1);
+	dc.SetBackground(wxBrush(wxColour(255, 255, 255)));
+	dc.Clear();
+	int w, h;
+	m_canvas_panel->GetSize(&w, &h);
+
+	DrawShapes(dc, w, h);*/
 }
 
 //
@@ -307,6 +337,28 @@ void GUI::DrawShapes(wxDC& dc, int canvWidth, int canvHeight) const
 	{
 		shape->draw(&dc, canvWidth, canvHeight);
 	}
+}
+
+void GUI::rotationSlider_Update(wxScrollEvent& event)
+{
+	//WxStaticText_alpha->SetLabel(wxString::Format(wxT("%d"), WxScrollBar_alpha->GetThumbPosition()));
+	double alpha = rotationSlider->GetValue();
+
+	// rotate matrix
+	double angle = alpha * M_PI / 180;
+
+	Matrix M;
+	M.data[0][0] = cos(angle);
+	M.data[0][1] = -sin(angle);
+	M.data[1][0] = sin(angle);
+	M.data[1][1] = cos(angle);
+
+	for (Shape* sh : shapes)
+	{
+		sh->rotate(M);
+	}
+	Repaint();
+	//curv->rotate(M);
 }
 
 

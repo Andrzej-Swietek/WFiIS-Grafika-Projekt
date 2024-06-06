@@ -60,6 +60,20 @@ void Line::draw(wxDC* dc, int canvWidth, int canvHeight) const
     dc->DrawLine(startPoint, endPoint);
 }
 
+void Line::rotate(Matrix rotationMatrix)
+{
+    Vector a, b;
+
+    a.Set(start.x, start.y);
+    b.Set(end.x, end.y);
+
+    Vector a_ = rotationMatrix * a;
+    Vector b_ = rotationMatrix * b;
+
+    start.setX(a_.GetX()); start.setY(a_.GetY());
+    end.setX(b_.GetX()); end.setY(b_.GetY());
+}
+
 Point Line::getStart() const {
     return start;
 }

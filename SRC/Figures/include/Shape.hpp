@@ -5,6 +5,7 @@
 #include "Point.hpp"
 #include <wx/dcclient.h>
 #include <wx/dcbuffer.h>
+#include "vecmat.h"
 
 
 class Shape {
@@ -42,6 +43,14 @@ public:
      * @return no return
     */
     virtual void draw(wxDC* dc, int canvWidth, int canvHeight) const = 0;
+
+
+    /**
+     * @brief Rotate the shape
+     * @param rotationMatrix - rotation matrix
+     * @return no return
+    */
+    virtual void rotate(Matrix rotationMatrix) = 0;
 
 
     /// GETTERS & SETTERS

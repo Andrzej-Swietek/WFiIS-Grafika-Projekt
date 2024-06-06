@@ -35,6 +35,21 @@ void PolygonShape::draw(wxDC* dc, int canvWidth, int canvHeight) const
     dc->DrawPolygon(vertices.size(), vertices.data());
 }
 
+void PolygonShape::rotate(Matrix rotationMatrix)
+{
+    for (Point pt : points)
+    {
+        Vector a;
+
+        a.Set(pt.x, pt.y);
+
+        Vector a_ = rotationMatrix * a;
+
+        pt.setX(a_.GetX());
+        pt.setY(a_.GetY());
+    }
+}
+
 
 Point PolygonShape::getCenter() const {
     return Point(

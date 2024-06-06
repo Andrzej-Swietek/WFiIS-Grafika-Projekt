@@ -35,6 +35,20 @@ void Circle::draw(wxDC* dc, int canvWidth, int canvHeight) const {
     dc->DrawCircle(centerX, centerY, radius);
 }
 
+//
+// does rotating a circle make sense??
+void Circle::rotate(Matrix rotationMatrix)
+{
+    /*Vector a;
+
+    a.Set(pt.x, pt.y);
+
+    Vector a_ = rotationMatrix * a;
+
+    pt.x = a_.GetX();
+    pt.y = a_.GetY();*/
+}
+
  Point Circle::getCenter() const
  {
     return Point(x, y);

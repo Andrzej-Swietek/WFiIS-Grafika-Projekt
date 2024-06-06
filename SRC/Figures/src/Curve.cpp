@@ -99,6 +99,21 @@ void Curve::draw(wxDC* dc, int canvWidth, int canvHeight) const
 //    return myPoints[0];
 //}
 
+void Curve::rotate(Matrix rotationMatrix)
+{
+    for (Point pt : points)
+    {
+        Vector a;
+
+        a.Set(pt.x, pt.y);
+
+        Vector a_ = rotationMatrix * a;
+
+        pt.setX(a_.GetX());
+        pt.setY(a_.GetY());
+    }
+}
+
 Point Curve::getCenter() const {
     return std::accumulate(
         points.begin(), points.end(), Point(0, 0),

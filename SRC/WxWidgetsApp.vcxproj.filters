@@ -66,6 +66,9 @@
     <ClCompile Include="GUI\src\GUI.cpp">
       <Filter>Source Files\GUI</Filter>
     </ClCompile>
+    <ClCompile Include="Utils\src\vecmat.cpp">
+      <Filter>Source Files\Utils</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -106,6 +109,9 @@
     </ClInclude>
     <ClInclude Include="Figures\include\ShapeBuilder.hpp">
       <Filter>Header Files\Figures</Filter>
+    </ClInclude>
+    <ClInclude Include="Utils\include\vecmat.h">
+      <Filter>Header Files\Utils</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

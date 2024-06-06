@@ -22,6 +22,8 @@ public:
     /// VIRTUAL METHODS
     void draw(wxDC* dc, int canvWidth, int canvHeight) const override;
 
+    void rotate(Matrix rotationMatrix) override;
+
     Point getCenter() const override;
 
     /// GETTERS & SETTERS

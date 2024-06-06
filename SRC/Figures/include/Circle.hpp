@@ -11,6 +11,7 @@ public:
     Circle(int x, int y, int r);
     Circle(int x, int y, int r, int stroke, std::string outline, std::string fill);
     void draw(wxDC* dc, int canvWidth, int canvHeight) const override;
+    void rotate(Matrix rotationMatrix) override;
     Point getCenter() const override;
 
     int getX() const;

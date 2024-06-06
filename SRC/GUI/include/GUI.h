@@ -62,9 +62,12 @@ public:
 	void OnSaveAs(wxCommandEvent& event);
 	void OnGoToDocs(wxCommandEvent& event);
 
+	void Repaint() const;
 	void OnPaint(wxPaintEvent& event);
 	void DrawShapes(wxDC& dc, int canvWidth, int canvHeight) const;
 	void UpdateShapesOnResize();
+	void rotationSlider_Update(wxScrollEvent& event);
+
 
 
 };
