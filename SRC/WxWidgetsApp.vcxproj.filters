@@ -66,6 +66,9 @@
     <ClCompile Include="Figures\src\PolygonShape.cpp">
       <Filter>Source Files\Figures</Filter>
     </ClCompile>
+    <ClCompile Include="Utils\src\Logger.cpp">
+      <Filter>Source Files\Utils</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -106,6 +109,9 @@
     </ClInclude>
     <ClInclude Include="Figures\include\PolygonShape.hpp">
       <Filter>Header Files\Figures</Filter>
+    </ClInclude>
+    <ClInclude Include="Utils\include\Logger.hpp">
+      <Filter>Header Files\Utils</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

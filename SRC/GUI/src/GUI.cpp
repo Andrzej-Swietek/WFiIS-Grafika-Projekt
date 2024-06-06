@@ -257,6 +257,7 @@ void GUI::OnOpen(wxCommandEvent& event)
 		std::string file_path = WxOpenFileDialog.GetPath().ToStdString();
 		std::vector<std::unique_ptr<Shape>> shapes = XMLDataLoaderAdapter::getInstance().load(file_path);
 		//PolygonShape p(3, { {1,2}, {2,3}, {3, 4}});
+		Logger::getInstance()->log("LOG TEST");
 	}
 }
 

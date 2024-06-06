@@ -20,7 +20,7 @@
 #include <wx/filedlg.h>
 
 #include "XMLDataLoaderAdapter.hpp"
-
+#include "Logger.hpp"
 
 class GUI : public wxFrame
 {

@@ -1,15 +1,9 @@
 #pragma once
 #include <iostream>
-#include <ostream>
 #include <fstream>
 #include <string>
-#include <any>
-
-enum class LogLevel {
-    INFO,
-    WARNING,
-    ERROR
-};
+#include <ctime>
+#include <sstream>
 
 enum class LogOutput {
     CONSOLE,
@@ -30,8 +24,8 @@ enum class Color {
 
 /**
  * @class Logger
- * @brief Utility class standarizing logging in the app
- * @example 
+ * @brief Utility class standardizing logging in the app
+ * @example
  * ```cpp
  *    Logger* logger = Logger::getInstance();
  *    logger->log("Test message", nullptr);
@@ -48,23 +42,53 @@ public:
     void log(const char* message, T value);
 
     void setLogFile(const std::string& logFile);
-
     void setLogOutput(LogOutput output);
 
 private:
     Logger() = default;
 
+    void logTimeStamp();
+    std::string getTimeStamp();
+
     static Logger* instance;
-    std::string logFile = "logs/logs.log";
-    LogOutput output = LogOutput::CONSOLE;
+    std::string logFile = "rasterizer_application_logs.log";
+    LogOutput output = LogOutput::FILE;
 };
 
+// Template definitions must be in the header file
 template <typename T>
 void Logger::log(const char* message, T value) {
-    std::cout << message << ": " << value << std::endl;
+    if (this->output == LogOutput::FILE || this->output == LogOutput::BOTH) {
+        std::ofstream file(this->logFile, std::ios::app);
+        file << "========================================\n";
+        file << this->getTimeStamp() << " ";
+        file << message << ": " << value << std::endl;
+        file << "========================================\n";
+        file.close();
+    }
+    if (this->output == LogOutput::CONSOLE || this->output == LogOutput::BOTH) {
+        std::cout << "========================================\n";
+        this->logTimeStamp();
+        std::cout << message << ": " << value << std::endl;
+        std::cout << "========================================\n";
+    }
 }
 
+// Template specialization for void*
 template <>
-void Logger::log(const char* message, void*) {
-    std::cout << message << std::endl;
+inline void Logger::log<void*>(const char* message, void*) {
+    if (this->output == LogOutput::FILE || this->output == LogOutput::BOTH) {
+        std::ofstream file(this->logFile, std::ios::app);
+        file << "========================================\n";
+        file << this->getTimeStamp() << " ";
+        file << message << std::endl;
+        file << "========================================\n";
+        file.close();
+    }
+    if (this->output == LogOutput::CONSOLE || this->output == LogOutput::BOTH) {
+        std::cout << "========================================\n";
+        this->logTimeStamp();
+        std::cout << message << std::endl;
+        std::cout << "========================================\n";
+    }
 }
