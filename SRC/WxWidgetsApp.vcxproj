@@ -138,7 +138,7 @@
     <ClCompile Include="Figures\src\Circle.cpp" />
     <ClCompile Include="Figures\src\Curve.cpp" />
     <ClCompile Include="Figures\src\Line.cpp" />
-    <ClCompile Include="Figures\src\Polygon.cpp" />
+    <ClCompile Include="Figures\src\PolygonShape.cpp" />
     <ClCompile Include="Figures\src\Shape.cpp" />
     <ClCompile Include="GUI\src\GUI.cpp" />
     <ClCompile Include="MainFrame.cpp" />
@@ -153,7 +153,7 @@
     <ClInclude Include="Figures\include\Curve.hpp" />
     <ClInclude Include="Figures\include\Line.hpp" />
     <ClInclude Include="Figures\include\Point.hpp" />
-    <ClInclude Include="Figures\include\Polygon.hpp" />
+    <ClInclude Include="Figures\include\PolygonShape.hpp" />
     <ClInclude Include="Figures\include\Shape.hpp" />
     <ClInclude Include="Figures\include\ShapeBuilder.hpp" />
     <ClInclude Include="GUI\include\GUI.h" />

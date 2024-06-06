@@ -7,19 +7,19 @@
 
 #include "Shape.hpp"
 
-class Polygon : public Shape {
+class PolygonShape : public Shape {
     int n;
 
     std::vector<Point> points;
 
 public:
-    Polygon(int n, int stroke, std::string outline, std::string fill, std::vector<Point> points);
+    PolygonShape(int n, int stroke, std::string outline, std::string fill, std::vector<Point> points);
 
-    Polygon(int n, std::vector<Point> points);
+    PolygonShape(int n, std::vector<Point> points);
 
-    Polygon(std::vector<Point> points);
+    PolygonShape(std::vector<Point> points);
 
-    ~Polygon() = default;
+    ~PolygonShape() = default;
 
     /// VIRTUAL METHODS
     void draw() const override;
@@ -36,7 +36,7 @@ public:
     void setN(int n);
 
     /// OPERATORS
-    Polygon& operator=(const Polygon& other);
+    PolygonShape& operator=(const PolygonShape& other);
 
     /// METHODS
     void addPoint(const Point& point);

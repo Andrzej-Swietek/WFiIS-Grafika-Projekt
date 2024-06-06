@@ -8,7 +8,7 @@
 #include "Line.hpp"
 #include "Circle.hpp"
 #include "Curve.hpp"
-#include "Polygon.hpp"
+#include "PolygonShape.hpp"
 
 class ShapeBuilder {
 public:
@@ -84,8 +84,8 @@ public:
         return Line(points[0], points[1], stroke, outline, fill);
     }
 
-    auto buildPolygon() const {
-        return Polygon::Polygon(n, stroke, outline, fill, points);
+    PolygonShape buildPolygon() const {
+        return PolygonShape(n, stroke, outline, fill, points);
     }
 
     

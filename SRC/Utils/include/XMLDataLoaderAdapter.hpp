@@ -11,7 +11,7 @@
 #include "DataLoader.hpp"
 #include "Shape.hpp"
 #include "Point.hpp"
-#include "Polygon.hpp"
+#include "PolygonShape.hpp"
 #include "ShapeBuilder.hpp"
 
 

@@ -51,9 +51,6 @@
     <ClCompile Include="Figures\src\Line.cpp">
       <Filter>Source Files\Figures</Filter>
     </ClCompile>
-    <ClCompile Include="Figures\src\Polygon.cpp">
-      <Filter>Source Files\Figures</Filter>
-    </ClCompile>
     <ClCompile Include="Figures\src\Shape.cpp">
       <Filter>Source Files\Figures</Filter>
     </ClCompile>
@@ -65,6 +62,9 @@
     </ClCompile>
     <ClCompile Include="GUI\src\GUI.cpp">
       <Filter>Source Files\GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="Figures\src\PolygonShape.cpp">
+      <Filter>Source Files\Figures</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -81,9 +81,6 @@
       <Filter>Header Files\Figures</Filter>
     </ClInclude>
     <ClInclude Include="Figures\include\Point.hpp">
-      <Filter>Header Files\Figures</Filter>
-    </ClInclude>
-    <ClInclude Include="Figures\include\Polygon.hpp">
       <Filter>Header Files\Figures</Filter>
     </ClInclude>
     <ClInclude Include="Figures\include\Shape.hpp">
@@ -105,6 +102,9 @@
       <Filter>Header Files\Utils</Filter>
     </ClInclude>
     <ClInclude Include="Figures\include\ShapeBuilder.hpp">
+      <Filter>Header Files\Figures</Filter>
+    </ClInclude>
+    <ClInclude Include="Figures\include\PolygonShape.hpp">
       <Filter>Header Files\Figures</Filter>
     </ClInclude>
   </ItemGroup>
