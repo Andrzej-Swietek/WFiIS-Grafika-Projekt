@@ -1,15 +1,4 @@
-﻿  Circle.cpp
-  Curve.cpp
-C:\Users\Marcin\source\repos\WFiIS-Grafika-Projekt\SRC\Figures\src\Curve.cpp(19,20): warning C4267: 'argument': conversion from 'size_t' to 'const int', possible loss of data
-  Line.cpp
-  Polygon.cpp
-C:\Users\Marcin\source\repos\WFiIS-Grafika-Projekt\SRC\Figures\src\Polygon.cpp(12,8): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-  Shape.cpp
-  GUI.cpp
-  MainFrame.cpp
-  SVGDataLoaderAdapter.cpp
-  XMLDataLoaderAdapter.cpp
-  Generating Code...
+﻿  PolygonShape.cpp
   WxWidgetsApp.vcxproj -> C:\Users\Marcin\source\repos\WFiIS-Grafika-Projekt\SRC\x64\Debug\VectorRasterizer.exe
   'pwsh.exe' is not recognized as an internal or external command,
   operable program or batch file.

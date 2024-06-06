@@ -8,7 +8,7 @@
 #include "Line.hpp"
 #include "Circle.hpp"
 #include "Curve.hpp"
-#include "Polygon.hpp"
+#include "PolygonShape.hpp"
 
 class ShapeBuilder {
 public:
@@ -80,8 +80,8 @@ public:
         return Curve(stroke, outline, fill, points);
     }
 
-    Polygon buildPolygon(){
-        return Polygon(n, stroke, outline, fill, points);
+    PolygonShape buildPolygonShape(){
+        return PolygonShape(n, stroke, outline, fill, points);
     }
 
     Line buildLine(){

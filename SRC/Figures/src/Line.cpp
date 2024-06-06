@@ -44,7 +44,20 @@ Point Line::getCenter() const {
     return Point((start.getX() + end.getX()) / 2, (start.getY() + end.getY()) / 2);
 }
 
-void Line::draw() const {
+void Line::draw(wxDC* dc, int canvWidth, int canvHeight) const
+{
+    int scaler = (canvWidth < canvHeight) ? canvWidth : canvHeight;
+
+    wxColour lineColor = *wxBLUE;
+    int strokeWidth = stroke;
+
+    wxPen pen(lineColor, strokeWidth);
+    dc->SetPen(pen);
+
+    wxPoint startPoint(start.getX() * scaler / 100, start.getY() * scaler /100);
+    wxPoint endPoint(end.getX() * scaler / 100, end.getY() * scaler / 100);
+
+    dc->DrawLine(startPoint, endPoint);
 }
 
 Point Line::getStart() const {

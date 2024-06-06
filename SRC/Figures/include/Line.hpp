@@ -28,7 +28,7 @@ public:
 
     /// VIRTUAL METHODS
     Point getCenter() const override;
-    void draw() const override;
+    void draw(wxDC* dc, int canvWidth, int canvHeight) const override;
 
 
     /// GETTERS & SETTERS

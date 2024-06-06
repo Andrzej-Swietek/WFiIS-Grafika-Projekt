@@ -109,7 +109,7 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_DEBUG;_WINDOWS;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
       <AdditionalIncludeDirectories>$(ProjectDir)/Figures/include;$(ProjectDir)/GUI/include;$(ProjectDir)/Panels/include;$(ProjectDir)/Utils/include;C:\Users\Marcin\Documents\vcpkg\installed\x64-windows\include</AdditionalIncludeDirectories>
@@ -140,7 +140,7 @@
     <ClCompile Include="Figures\src\Circle.cpp" />
     <ClCompile Include="Figures\src\Curve.cpp" />
     <ClCompile Include="Figures\src\Line.cpp" />
-    <ClCompile Include="Figures\src\Polygon.cpp" />
+    <ClCompile Include="Figures\src\PolygonShape.cpp" />
     <ClCompile Include="Figures\src\Shape.cpp" />
     <ClCompile Include="GUI\src\GUI.cpp" />
     <ClCompile Include="MainFrame.cpp" />
@@ -155,7 +155,7 @@
     <ClInclude Include="Figures\include\Curve.hpp" />
     <ClInclude Include="Figures\include\Line.hpp" />
     <ClInclude Include="Figures\include\Point.hpp" />
-    <ClInclude Include="Figures\include\Polygon.hpp" />
+    <ClInclude Include="Figures\include\PolygonShape.hpp" />
     <ClInclude Include="Figures\include\Shape.hpp" />
     <ClInclude Include="Figures\include\ShapeBuilder.hpp" />
     <ClInclude Include="GUI\include\GUI.h" />

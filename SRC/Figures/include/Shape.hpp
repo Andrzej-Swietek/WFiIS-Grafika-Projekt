@@ -3,6 +3,9 @@
 #include <iostream>
 #include <string>
 #include "Point.hpp"
+#include <wx/dcclient.h>
+#include <wx/dcbuffer.h>
+
 
 class Shape {
 public:
@@ -38,7 +41,7 @@ public:
      * @brief Draw the shape
      * @return no return
     */
-    virtual void draw() const = 0;
+    virtual void draw(wxDC* dc, int canvWidth, int canvHeight) const = 0;
 
 
     /// GETTERS & SETTERS

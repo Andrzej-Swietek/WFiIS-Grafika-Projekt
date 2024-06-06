@@ -51,7 +51,7 @@
     <ClCompile Include="Figures\src\Line.cpp">
       <Filter>Source Files\Figures</Filter>
     </ClCompile>
-    <ClCompile Include="Figures\src\Polygon.cpp">
+    <ClCompile Include="Figures\src\PolygonShape.cpp">
       <Filter>Source Files\Figures</Filter>
     </ClCompile>
     <ClCompile Include="Figures\src\Shape.cpp">
@@ -83,7 +83,7 @@
     <ClInclude Include="Figures\include\Point.hpp">
       <Filter>Header Files\Figures</Filter>
     </ClInclude>
-    <ClInclude Include="Figures\include\Polygon.hpp">
+    <ClInclude Include="Figures\include\PolygonShape.hpp">
       <Filter>Header Files\Figures</Filter>
     </ClInclude>
     <ClInclude Include="Figures\include\Shape.hpp">

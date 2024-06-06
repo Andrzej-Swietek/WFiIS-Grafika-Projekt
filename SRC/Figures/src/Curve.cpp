@@ -9,8 +9,95 @@ Curve::Curve(std::vector<Point> points)
 Curve::Curve()
     : Shape() {}
 
-void Curve::draw() const {
+void Curve::draw(wxDC* dc, int canvWidth, int canvHeight) const
+{
+    int scaler = (canvWidth < canvHeight) ? canvWidth : canvHeight;
+
+    wxColour lineColor = *wxGREEN;
+    int strokeWidth = stroke;
+
+    wxPen pen(lineColor, strokeWidth);
+    dc->SetPen(pen);
+
+    std::vector<wxPoint> controlPoints;
+    for (Point pt : points)
+    {
+        controlPoints.push_back(wxPoint(pt.getX() * scaler / 100, pt.getY() * scaler / 100));
+    }
+    dc->DrawSpline(controlPoints.size(), controlPoints.data());
+
+
+    //
+    // ALTERNATIVE: manual Bezier curve computing algorithm no 1
+    /*const int segments = 100;
+    for (int i = 0; i < segments; i++)
+    {
+        double t1 = static_cast<double>(i) / segments;
+        double t2 = static_cast<double>(i + 1) / segments;
+
+        wxPoint p1 = CalculateBezierPoint(t1);
+        wxPoint p2 = CalculateBezierPoint(t2);
+
+        p1.x = p1.x * scaler / 100;  p1.y = p1.y * scaler / 100;
+        p2.x = p2.x * scaler / 100;  p2.y = p2.y * scaler / 100;
+
+        dc->DrawLine(p1, p2);
+    }*/
+
+    //
+    // ALTERNATIVE: manual Bezier curve computing algorithm no 2
+    //const int segments = 10000;
+    //for (int i = 0; i < segments; i++)
+    //{
+    //    double t1 = static_cast<double>(i) / segments;
+    //    double t2 = static_cast<double>(i + 1) / segments;
+
+    //    Point p1 = DeCasteljau(t1);
+    //    Point p2 = DeCasteljau(t2);
+
+    //    //dc->DrawLine(wxPoint(p1.x * scaler / 100, p1.y * scaler / 100), wxPoint(p2.x*scaler / 100, p2.y * scaler /100));
+    //    dc->DrawLine(wxPoint(p1.x, p1.y), wxPoint(p2.x, p2.y));
+
+    //}
 }
+
+//
+// ALTERNATIVE: manual Bezier curve computing algorithm no 1
+//wxPoint Curve::CalculateBezierPoint(double t) const
+//{
+//    std::vector<Point> myPoints = points;
+//    size_t n = myPoints.size() - 1;
+//    wxPoint point(0, 0);
+//
+//    for (size_t i = 0; i <= n; ++i)
+//    {
+//        double binomialCoeff = tgamma(n + 1) / (tgamma(i + 1) * tgamma(n - i + 1));
+//        double term = binomialCoeff * pow(t, i) * pow(1 - t, n - i);
+//        point.x += static_cast<int>(term * myPoints[i].x);
+//        point.y += static_cast<int>(term * myPoints[i].y);
+//    }
+//
+//    return point;
+//}
+
+//
+// ALTERNATIVE: manual Bezier curve computing algorithm no 2
+//Point Curve::DeCasteljau(double t) const
+//{
+//    std::vector<Point> myPoints = points;
+//    size_t n = myPoints.size();
+// 
+//
+//    for (size_t k = 1; k < n; ++k)
+//    {
+//        for (size_t i = 0; i < n - k; ++i)
+//        {
+//            myPoints[i].x = static_cast<int>((1 - t) * myPoints[i].x + t * myPoints[i + 1].x);
+//            myPoints[i].y = static_cast<int>((1 - t) * myPoints[i].y + t * myPoints[i + 1].y);
+//        }
+//    }
+//    return myPoints[0];
+//}
 
 Point Curve::getCenter() const {
     return std::accumulate(

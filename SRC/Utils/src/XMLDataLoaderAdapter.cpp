@@ -38,8 +38,8 @@ std::vector<std::unique_ptr<Shape>> XMLDataLoaderAdapter::load(const std::string
                     ->setOutline(outline)
                     ->setFill(fill)
                     ->setPoints(points);
-                Polygon p = shapeBuilder.buildPolygon();
-                shapes.push_back(std::make_unique<Polygon>(p));
+                PolygonShape p = shapeBuilder.buildPolygonShape();
+                shapes.push_back(std::make_unique<PolygonShape>(p));
             } 
             // Podobne sekcje dla Circle, Ellipse, Line, Curve
 
