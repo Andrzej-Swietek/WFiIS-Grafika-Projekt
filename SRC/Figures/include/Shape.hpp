@@ -4,6 +4,13 @@
 #include <string>
 #include "Point.hpp"
 
+enum class ShapeType {
+    CIRCLE,
+    CURVE,
+    LINE,
+    POLYGON
+};
+
 class Shape {
 public:
     /// CONSTRUCTORS & DESTRUCTORS
@@ -66,7 +73,7 @@ public:
 
     /**
      * @brief Get the Fill object
-     * @return std::string fill color 
+     * @return std::string fill color
     */
     std::string getFill() const;
 
@@ -94,9 +101,32 @@ public:
     */
     void setFill(const std::string& fill);
 
+
+    /**
+     * @brief Get the Shape Type object
+     * @return ShapeType shape type
+    */
+    ShapeType getShapeType() const;
+
+    /**
+     * @brief Set the Shape Type object
+     * @param shape_type - shape type
+     * @return no return
+    */
+    void setShapeType(ShapeType shape_type);
+
+    /**
+     * @brief Convert shape type to string
+     * @param shape_type - shape type
+     * @return std::string shape type
+    */
+    static std::string shapeTypeToString(ShapeType shape_type);
+
 protected:
     int stroke;
     std::string outline;
     std::string fill;
+
+    ShapeType shape_type;
 };
 

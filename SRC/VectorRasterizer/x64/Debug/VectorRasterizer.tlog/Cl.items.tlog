@@ -1,9 +1,11 @@
 C:\Users\Andrzej\Documents\WFiIS-Grafika-Projekt\SRC\Figures\src\Circle.cpp;C:\Users\Andrzej\Documents\WFiIS-Grafika-Projekt\SRC\VectorRasterizer\x64\Debug\Circle.obj
 C:\Users\Andrzej\Documents\WFiIS-Grafika-Projekt\SRC\Figures\src\Curve.cpp;C:\Users\Andrzej\Documents\WFiIS-Grafika-Projekt\SRC\VectorRasterizer\x64\Debug\Curve.obj
 C:\Users\Andrzej\Documents\WFiIS-Grafika-Projekt\SRC\Figures\src\Line.cpp;C:\Users\Andrzej\Documents\WFiIS-Grafika-Projekt\SRC\VectorRasterizer\x64\Debug\Line.obj
-C:\Users\Andrzej\Documents\WFiIS-Grafika-Projekt\SRC\Figures\src\Polygon.cpp;C:\Users\Andrzej\Documents\WFiIS-Grafika-Projekt\SRC\VectorRasterizer\x64\Debug\Polygon.obj
+C:\Users\Andrzej\Documents\WFiIS-Grafika-Projekt\SRC\Figures\src\PolygonShape.cpp;C:\Users\Andrzej\Documents\WFiIS-Grafika-Projekt\SRC\VectorRasterizer\x64\Debug\PolygonShape.obj
 C:\Users\Andrzej\Documents\WFiIS-Grafika-Projekt\SRC\Figures\src\Shape.cpp;C:\Users\Andrzej\Documents\WFiIS-Grafika-Projekt\SRC\VectorRasterizer\x64\Debug\Shape.obj
 C:\Users\Andrzej\Documents\WFiIS-Grafika-Projekt\SRC\GUI\src\GUI.cpp;C:\Users\Andrzej\Documents\WFiIS-Grafika-Projekt\SRC\VectorRasterizer\x64\Debug\GUI.obj
 C:\Users\Andrzej\Documents\WFiIS-Grafika-Projekt\SRC\MainFrame.cpp;C:\Users\Andrzej\Documents\WFiIS-Grafika-Projekt\SRC\VectorRasterizer\x64\Debug\MainFrame.obj
+C:\Users\Andrzej\Documents\WFiIS-Grafika-Projekt\SRC\Panels\src\ShapesPanel.cpp;C:\Users\Andrzej\Documents\WFiIS-Grafika-Projekt\SRC\VectorRasterizer\x64\Debug\ShapesPanel.obj
+C:\Users\Andrzej\Documents\WFiIS-Grafika-Projekt\SRC\Utils\src\Logger.cpp;C:\Users\Andrzej\Documents\WFiIS-Grafika-Projekt\SRC\VectorRasterizer\x64\Debug\Logger.obj
 C:\Users\Andrzej\Documents\WFiIS-Grafika-Projekt\SRC\Utils\src\SVGDataLoaderAdapter.cpp;C:\Users\Andrzej\Documents\WFiIS-Grafika-Projekt\SRC\VectorRasterizer\x64\Debug\SVGDataLoaderAdapter.obj
 C:\Users\Andrzej\Documents\WFiIS-Grafika-Projekt\SRC\Utils\src\XMLDataLoaderAdapter.cpp;C:\Users\Andrzej\Documents\WFiIS-Grafika-Projekt\SRC\VectorRasterizer\x64\Debug\XMLDataLoaderAdapter.obj

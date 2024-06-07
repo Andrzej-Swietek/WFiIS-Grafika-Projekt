@@ -1,13 +1,22 @@
 #include "Curve.hpp"
 
 Curve::Curve(int stroke, std::string outline, std::string fill, std::vector<Point> points)
-    : Shape(stroke, outline, fill), points(points) {}
+    : Shape(stroke, outline, fill), points(points) 
+{
+    this->setShapeType(ShapeType::CURVE);
+}
 
 Curve::Curve(std::vector<Point> points)
-    : Shape(), points(points) {}
+    : Shape(), points(points) 
+{
+    this->setShapeType(ShapeType::CURVE);
+}
 
 Curve::Curve()
-    : Shape() {}
+    : Shape() 
+{
+    this->setShapeType(ShapeType::CURVE);
+}
 
 void Curve::draw() const {
 }

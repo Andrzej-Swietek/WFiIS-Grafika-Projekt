@@ -15,6 +15,21 @@ In Visual Studio
 ```powershell
 cd .\vcpkg
 .\vcpkg.exe integrate project
+```
+
+
+In Visual Studio Set:
+```
+Tools -> NuGet Package Manager -> Package Manager Console 
+```
+
+Paste Follwoing:
+
+```
+Install-Package "vcpkg.C.Users.[YOUR YOUERNAME].vcpkg" -Source "C:\Users\[YOUR YOUERNAME]\vcpkg"
+```
+
+```powershell
 .\vcpkg.exe install tinyxml2
 .\vcpkg.exe integrate install
 ```

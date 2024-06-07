@@ -17,7 +17,11 @@
 #include <wx/clrpicker.h>
 #include <wx/scrolwin.h>
 #include <wx/frame.h>
+#include <wx/filedlg.h>
 
+#include "XMLDataLoaderAdapter.hpp"
+#include "Logger.hpp"
+#include "ShapesPanel.hpp"
 
 class GUI : public wxFrame
 {
@@ -57,4 +61,6 @@ public:
 	void OnSaveAs(wxCommandEvent& event);
 	void OnGoToDocs(wxCommandEvent& event);
 
+
+	std::vector<std::unique_ptr<Shape>> shapes;
 };

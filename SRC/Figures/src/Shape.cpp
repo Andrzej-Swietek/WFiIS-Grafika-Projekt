@@ -29,3 +29,26 @@ void Shape::setOutline(const std::string& outline) {
 void Shape::setFill(const std::string& fill) {
     this->fill = fill;
 }
+
+ShapeType Shape::getShapeType() const {
+    return shape_type;
+}
+
+void Shape::setShapeType(ShapeType shape_type) {
+    this->shape_type = shape_type;
+}
+
+std::string Shape::shapeTypeToString(ShapeType shape_type) {
+    switch (shape_type) {
+        case ShapeType::CIRCLE:
+            return "CIRCLE";
+        case ShapeType::CURVE:
+            return "CURVE";
+        case ShapeType::LINE:
+            return "LINE";
+        case ShapeType::POLYGON:
+            return "POLYGON";
+        default:
+            return "UNKNOWN";
+    }
+}

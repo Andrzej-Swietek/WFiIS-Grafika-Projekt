@@ -2,11 +2,15 @@
 
 Circle::Circle(int x, int y, int r) 
 : x(x), y(y), r(r), Shape(1, "black", "transparent")
-{}
+{
+    this->setShapeType(ShapeType::CIRCLE);
+}
 
 Circle::Circle(int x, int y, int r, int stroke, std::string outline, std::string fill)
 : x(x), y(y), r(r), Shape(stroke, outline, fill)
-{}
+{
+    this->setShapeType(ShapeType::CIRCLE);
+}
 
 
 void Circle::draw() const {
