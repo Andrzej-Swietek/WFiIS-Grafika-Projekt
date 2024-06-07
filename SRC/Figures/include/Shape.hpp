@@ -3,6 +3,10 @@
 #include <iostream>
 #include <string>
 #include "Point.hpp"
+#include <wx/dcclient.h>
+#include <wx/dcbuffer.h>
+#include "vecmat.h"
+
 
 enum class ShapeType {
     CIRCLE,
@@ -45,7 +49,15 @@ public:
      * @brief Draw the shape
      * @return no return
     */
-    virtual void draw() const = 0;
+    virtual void draw(wxDC* dc, int canvWidth, int canvHeight) const = 0;
+
+    /* OUTDATED and not used for now - rotation implemented directly in Shape::Draw() methods */
+    /**
+     * @brief Rotate the shape
+     * @param rotationMatrix - rotation matrix
+     * @return no return
+    */
+    virtual void rotate() = 0;
 
 
     /// GETTERS & SETTERS
@@ -103,6 +115,14 @@ public:
 
 
     /**
+     * @brief Set the RotationAngle object
+     * @param rotationAngle - rotation angle
+     * @return no return
+    */
+    void setRotationAngle(const double rotationAngle);
+
+
+    /**
      * @brief Get the Shape Type object
      * @return ShapeType shape type
     */
@@ -126,6 +146,7 @@ protected:
     int stroke;
     std::string outline;
     std::string fill;
+    double rotationAngle;
 
     ShapeType shape_type;
 };

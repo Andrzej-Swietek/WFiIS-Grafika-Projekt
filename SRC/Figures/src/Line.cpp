@@ -49,7 +49,69 @@ Point Line::getCenter() const {
     return Point((start.getX() + end.getX()) / 2, (start.getY() + end.getY()) / 2);
 }
 
-void Line::draw() const {
+void Line::draw(wxDC* dc, int canvWidth, int canvHeight) const
+{
+    int scaler = (canvWidth < canvHeight) ? canvWidth : canvHeight;
+
+    wxColour lineColor = *wxBLUE;
+    int strokeWidth = stroke;
+
+    wxPen pen(lineColor, strokeWidth);
+    dc->SetPen(pen);
+
+    //
+    // creating and applying the rotation matrix
+    Matrix rotM;
+    rotM.data[0][0] = cos(rotationAngle);
+    rotM.data[0][1] = -sin(rotationAngle);
+    rotM.data[1][0] = sin(rotationAngle);
+    rotM.data[1][1] = cos(rotationAngle);
+
+   
+    Point center = getCenter();
+    //
+    // for some reason messes up the rotation centre
+    //center.x *= scaler / 100; center.y *= scaler / 100;
+
+    //
+    // applying the rotation matrix
+    Vector a, b;
+    a.Set(start.x - center.x, start.y - center.y);
+    b.Set(end.x - center.x, end.y - center.y);
+
+    Vector a_ = rotM * a;
+    Vector b_ = rotM * b;
+    
+    Point tStart, tEnd;
+    tStart.setX(a_.GetX() + center.x); tStart.setY(a_.GetY() + center.y);
+    tEnd.setX(b_.GetX() + center.x); tEnd.setY(b_.GetY() + center.y);
+
+    //
+    // scalling transformed points based on window size
+    wxPoint startPoint(tStart.getX() * scaler / 100, tStart.getY() * scaler /100);
+    wxPoint endPoint(tEnd.getX() * scaler / 100, tEnd.getY() * scaler / 100);
+
+    dc->DrawLine(startPoint, endPoint);
+}
+
+void Line::rotate()
+{
+    Matrix M;
+    M.data[0][0] = cos(rotationAngle);
+    M.data[0][1] = -sin(rotationAngle);
+    M.data[1][0] = sin(rotationAngle);
+    M.data[1][1] = cos(rotationAngle);
+
+    Vector a, b;
+    Point center = getCenter();
+    a.Set(start.x-center.x, start.y-center.y);
+    b.Set(end.x-center.x, end.y-center.y);
+
+    Vector a_ = M * a;
+    Vector b_ = M * b;
+
+    start.setX(a_.GetX()+center.x); start.setY(a_.GetY()+center.y);
+    end.setX(b_.GetX()+center.x); end.setY(b_.GetY()+center.y);
 }
 
 Point Line::getStart() const {

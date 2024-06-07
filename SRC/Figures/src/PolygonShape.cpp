@@ -1,7 +1,9 @@
 #include "PolygonShape.hpp"
+#include "vecmat.h"
+
 
 PolygonShape::PolygonShape(int n, int stroke, std::string outline, std::string fill, std::vector<Point> points)
-        : n(n), points(points), Shape(stroke, outline, fill)
+    : n(n), points(points), Shape(stroke, outline, fill)
 {
     this->setShapeType(ShapeType::POLYGON);
 }
@@ -15,13 +17,82 @@ PolygonShape::PolygonShape(int n, std::vector<Point> points)
 
 
 PolygonShape::PolygonShape(std::vector<Point> points)
-    : n(points.size()), points(points), Shape() 
+    : n(points.size()), points(points), Shape()
 {
     this->setShapeType(ShapeType::POLYGON);
 }
 
 
-void PolygonShape::draw() const {}
+void PolygonShape::draw(wxDC* dc, int canvWidth, int canvHeight) const
+{
+    int scaler = (canvWidth < canvHeight) ? canvWidth : canvHeight;
+
+    wxColour outlineColor = *wxRED;
+    wxColour fillColor = *wxGREEN;
+    int strokeWidth = stroke;
+
+    wxPen pen(outlineColor, strokeWidth);
+    dc->SetPen(pen);
+
+    wxBrush brush(fillColor);
+    dc->SetBrush(brush);
+
+    //
+    // creating the rotation matrix
+    Matrix rotM;
+    rotM.data[0][0] = cos(rotationAngle);
+    rotM.data[0][1] = -sin(rotationAngle);
+    rotM.data[1][0] = sin(rotationAngle);
+    rotM.data[1][1] = cos(rotationAngle);
+
+    Point center = getCenter();
+    //
+    // for some reason messes up the rotation centre
+    //center.x *= scaler / 100; center.y *= scaler / 100;
+
+    std::vector<wxPoint> vertices;
+    for (Point pt : points)
+    {
+        //
+        // applying the rotation matrix
+        Vector a;
+
+        a.Set(pt.x - center.x, pt.y - center.x);
+
+        Vector a_ = rotM * a;
+
+        pt.setX(a_.GetX() + center.x);
+        pt.setY(a_.GetY() + center.x);
+
+        //
+        // scalling transformed point based on window size
+        vertices.push_back(wxPoint(pt.getX() * scaler / 100, pt.getY() * scaler / 100));
+    }
+
+    dc->DrawPolygon(vertices.size(), vertices.data());
+}
+
+void PolygonShape::rotate()
+{
+    Matrix M;
+    M.data[0][0] = cos(rotationAngle);
+    M.data[0][1] = -sin(rotationAngle);
+    M.data[1][0] = sin(rotationAngle);
+    M.data[1][1] = cos(rotationAngle);
+
+    for (int i = 0; i < points.size(); i++)
+    {
+        Point center = getCenter();
+        Vector a;
+
+        a.Set(points[i].x - center.x, points[i].y - center.x);
+
+        Vector a_ = M * a;
+
+        points[i].setX(a_.GetX() + center.x);
+        points[i].setY(a_.GetY() + center.x);
+    }
+}
 
 
 Point PolygonShape::getCenter() const {

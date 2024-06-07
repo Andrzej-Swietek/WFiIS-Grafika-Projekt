@@ -1,2 +1,4 @@
 C:\Users\Andrzej\Documents\WFiIS-Grafika-Projekt\SRC\x64\Debug\tinyxml2.dll
 C:\Users\Andrzej\Documents\WFiIS-Grafika-Projekt\SRC\VectorRasterizer\x64\Debug\WxWidget.89BBF2E2.Up2Date
+C:\Users\Marcin\source\repos\WFiIS-Grafika-Projekt\SRC\x64\Debug\tinyxml2.dll
+C:\Users\Marcin\source\repos\WFiIS-Grafika-Projekt\SRC\VectorRasterizer\x64\Debug\WxWidget.89BBF2E2.Up2Date

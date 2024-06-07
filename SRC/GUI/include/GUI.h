@@ -18,6 +18,9 @@
 #include <wx/scrolwin.h>
 #include <wx/frame.h>
 #include <wx/filedlg.h>
+#include <wx/msgdlg.h>
+
+#include <Shape.hpp>
 
 #include "XMLDataLoaderAdapter.hpp"
 #include "Logger.hpp"
@@ -28,7 +31,7 @@ class GUI : public wxFrame
 private:
 
 protected:
-	wxPanel* m_panel1;
+	wxPanel* m_canvas_panel;
 	wxTextCtrl* imageStats;
 	wxStaticText* menuLabel;
 	wxStaticText* scaleLabel;
@@ -46,6 +49,8 @@ protected:
 	wxStaticText* layersLabel;
 	wxScrolledWindow* layersScrolledWindow;
 
+	// std::vector<Shape*> shapes;
+
 public:
 
 	GUI(wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = wxT("SVG Rasterizer"), const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize(1024, 708), long style = wxDEFAULT_FRAME_STYLE | wxTAB_TRAVERSAL);
@@ -60,6 +65,14 @@ public:
 	void OnSave(wxCommandEvent& event);
 	void OnSaveAs(wxCommandEvent& event);
 	void OnGoToDocs(wxCommandEvent& event);
+
+	void Repaint() const;
+	void OnPaint(wxPaintEvent& event);
+	void DrawShapes(wxDC& dc, int canvWidth, int canvHeight) const;
+	void UpdateShapesOnResize();
+	void rotationSliderUpdate(wxScrollEvent& event);
+
+
 
 
 	std::vector<std::unique_ptr<Shape>> shapes;

@@ -1,4 +1,8 @@
 #include "GUI.h"
+#include <Circle.hpp>
+#include <Line.hpp>
+#include <Curve.hpp>
+#include <PolygonShape.hpp>
 
 
 GUI::GUI(wxWindow* parent, wxWindowID id, const wxString& title, const wxPoint& pos, const wxSize& size, long style) : wxFrame(parent, id, title, pos, size, style)
@@ -12,10 +16,10 @@ GUI::GUI(wxWindow* parent, wxWindowID id, const wxString& title, const wxPoint& 
 	wxBoxSizer* canvasesSizer;
 	canvasesSizer = new wxBoxSizer(wxVERTICAL);
 
-	m_panel1 = new wxPanel(this, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxTAB_TRAVERSAL);
-	m_panel1->SetBackgroundColour(wxColour(255, 255, 255));
+	m_canvas_panel = new wxPanel(this, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxTAB_TRAVERSAL);
+	m_canvas_panel->SetBackgroundColour(wxColour(255, 255, 255));
 
-	canvasesSizer->Add(m_panel1, 4, wxEXPAND | wxALL, 5);
+	canvasesSizer->Add(m_canvas_panel, 4, wxEXPAND | wxALL, 5);
 
 	wxBoxSizer* bSizer15;
 	bSizer15 = new wxBoxSizer(wxHORIZONTAL);
@@ -194,6 +198,36 @@ GUI::GUI(wxWindow* parent, wxWindowID id, const wxString& title, const wxPoint& 
 	this->Layout();
 
 	this->Centre(wxBOTH);
+
+	//
+	// bind the paint event - also refreshes on resize??
+	//
+	m_canvas_panel->Bind(wxEVT_PAINT, &GUI::OnPaint, this);
+	rotationSlider->Bind(wxEVT_SCROLL_THUMBTRACK, &GUI::rotationSliderUpdate, this);
+
+	/*std::shared_ptr<Circle> c = std::make_shared<Circle>(new Circle(2,2,1));
+	shapes.push_back(c.get());*/
+
+	//
+	// TODO: maybe define vector image sizing? I hardcoded it to be 100 x 100,
+	// so a circle with center in (50,50) is centered on the canvas panel
+	//
+	/*Circle* c = new Circle(50, 50, 5, 10, "blue", "yellow");
+	shapes.push_back(std::make_unique<Circle>(c));
+
+	std::vector<Point> pts;
+	pts.push_back(Point(1, 2)); pts.push_back(Point(10, 30)); pts.push_back(Point(20, 35)); pts.push_back(Point(30, 100)); pts.push_back(Point(40, 75)); pts.push_back(Point(50, 90));
+	Curve* curv = new Curve(5, "solid #000", "transparent", pts);
+	shapes.push_back(std::make_unique<Curve>(curv));
+
+	Line* l = new Line(Point(4, 7), Point(70, 80), 5, "", "transparent");
+	shapes.push_back(std::make_unique<Line>(l));
+
+	std::vector<Point> polyVertices = { Point(10,10), Point(20,10), Point(30,20), Point(30,60), Point(20,50), Point(10,40) };
+	PolygonShape* p = new PolygonShape(polyVertices.size(), 5, "solid #000", "transparent", polyVertices);
+	shapes.push_back(std::make_unique<PolygonShape>(p));*/
+
+	//m_canvas_panel->Refresh();
 }
 
 GUI::~GUI()
@@ -240,6 +274,71 @@ void GUI::setUpMenu()
     Bind(wxEVT_MENU, &GUI::OnOpen, this, wxID_OPEN);
     Bind(wxEVT_MENU, &GUI::OnSave, this, wxID_SAVE);
     Bind(wxEVT_MENU, &GUI::OnSaveAs, this, wxID_SAVEAS);
+
+
+	
+}
+
+void GUI::Repaint() const
+{
+	wxClientDC dc1(m_canvas_panel);
+	wxBufferedDC dc(&dc1);
+	dc.SetBackground(wxBrush(wxColour(255, 255, 255)));
+	dc.Clear();
+	int w, h;
+	m_canvas_panel->GetSize(&w, &h);
+
+	DrawShapes(dc, w, h);
+}
+
+void GUI::OnPaint(wxPaintEvent& event)
+{
+	Repaint();
+}
+
+//
+// TODO: necessary? For now resizing is handled in the respective Shape::draw() implementations
+// UI seems to not update sometimes (like clicking on the slider instead of dragging the thumbnail or when resizing/minimizing/maximizing the window)
+//
+void GUI::UpdateShapesOnResize()
+{
+	for (const auto& shape : shapes)
+	{
+		
+	}
+}
+
+void GUI::DrawShapes(wxDC& dc, int canvWidth, int canvHeight) const
+{
+	if (shapes.size() == 0) return;
+	for (const auto& shape : shapes)
+	{
+		/*Logger::getInstance()->log("Info", Shape::shapeTypeToString(shape->getShapeType()));*/
+		shape->draw(&dc, canvWidth, canvHeight);	
+	}
+}
+
+/*
+	rotation angle stored in the Shape object and used when drawing - no alternation of vertices
+	the same can be done with other transformations
+*/
+
+void GUI::rotationSliderUpdate(wxScrollEvent& event)
+{
+	//WxStaticText_alpha->SetLabel(wxString::Format(wxT("%d"), WxScrollBar_alpha->GetThumbPosition()));
+	double alpha = rotationSlider->GetValue();
+
+	// rotation angle in radians
+	double angle = alpha * M_PI / 180.0;
+
+	//
+	// for now rotating all the shapes - it should rotate only selected shapes in the future
+	// rotation is implemented directly in the Shape::Draw() methods - perhaps it can be done better (split transformations into methods/functions?)
+	for (const auto& shape : shapes)
+	{
+		shape->setRotationAngle(angle);
+	}
+	Repaint();
 }
 
 
@@ -283,6 +382,15 @@ void GUI::OnOpen(wxCommandEvent& event)
 		layersScrolledWindow->SetSizer(layersSizer);
 		layersScrolledWindow->Layout();
 	}
+	try
+	{
+		Repaint();
+	}
+	catch (const std::exception& e)
+	{
+		Logger::getInstance()->log("Error", e.what());
+	}
+	
 }
 
 

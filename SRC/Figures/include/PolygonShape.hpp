@@ -22,7 +22,9 @@ public:
     ~PolygonShape() = default;
 
     /// VIRTUAL METHODS
-    void draw() const override;
+    void draw(wxDC* dc, int canvWidth, int canvHeight) const override;
+
+    void rotate() override;
 
     Point getCenter() const override;
 

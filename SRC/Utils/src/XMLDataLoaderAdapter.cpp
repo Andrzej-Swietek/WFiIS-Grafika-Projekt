@@ -20,7 +20,7 @@ std::vector<std::unique_ptr<Shape>> XMLDataLoaderAdapter::load(const std::string
             Logger::getInstance()->log("Error loading XML file");
             return shapes;
         }
-       
+
         //XMLElement* root = doc.RootElement();
         XMLElement* root = doc.FirstChildElement("image");
         if (!root){
@@ -119,7 +119,10 @@ std::vector<std::unique_ptr<Shape>> XMLDataLoaderAdapter::load(const std::string
                     points.push_back({ x, y });
                 }
 
-                shapeBuilder.builder();
+                shapeBuilder.builder()
+                    ->setStroke(stroke)
+                    ->setFill(fill)
+                    ->setPoints(points);
 
                 Curve c = shapeBuilder.buildCurve();
 
@@ -127,7 +130,7 @@ std::vector<std::unique_ptr<Shape>> XMLDataLoaderAdapter::load(const std::string
             }
         }
         
-      
+
         Logger::getInstance()->log("LOADER TEST", shapes.size());
         return shapes;
     }

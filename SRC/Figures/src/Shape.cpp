@@ -1,9 +1,9 @@
 #include "Shape.hpp"
 
-Shape::Shape(): stroke(1), outline("black"), fill("transparent") {}
+Shape::Shape(): stroke(1), outline("black"), fill("transparent"), rotationAngle(0) {}
 
 Shape::Shape(int stroke, std::string outline, std::string fill)
-: stroke(stroke), outline(outline), fill(fill)
+: stroke(stroke), outline(outline), fill(fill), rotationAngle(0)
 {}
 
 int Shape::getStroke() const {
@@ -51,4 +51,7 @@ std::string Shape::shapeTypeToString(ShapeType shape_type) {
         default:
             return "UNKNOWN";
     }
+}
+void Shape::setRotationAngle(const double rotationAngle) {
+    this->rotationAngle = rotationAngle;
 }

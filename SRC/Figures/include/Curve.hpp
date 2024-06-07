@@ -20,7 +20,9 @@ public:
     ~Curve() = default;
 
     /// VIRTUAL METHODS
-    void draw() const override;
+    void draw(wxDC* dc, int canvWidth, int canvHeight) const override;
+
+    void rotate() override;
 
     Point getCenter() const override;
 
@@ -41,6 +43,13 @@ public:
     void movePoint(const Point& point, const Point& newPoint);
 
     void moveVertex(const int index, const Point& newPoint);
+
+
+    //
+    // ALTERNATIVE: manual Bezier curve computing algorithms
+    //wxPoint CalculateBezierPoint(double t) const;
+    //Point DeCasteljau(double t) const;
+
 
 private:
     std::vector<Point> points;

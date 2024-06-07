@@ -80,6 +80,10 @@ public:
         return Curve(stroke, outline, fill, points);
     }
 
+    PolygonShape buildPolygonShape(){
+        return PolygonShape(n, stroke, outline, fill, points);
+    }
+
     Line buildLine() const {
         return Line(points[0], points[1], stroke, outline, fill);
     }
@@ -88,7 +92,7 @@ public:
         return PolygonShape(n, stroke, outline, fill, points);
     }
 
-    
+
 
 
 private:

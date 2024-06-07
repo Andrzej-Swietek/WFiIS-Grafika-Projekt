@@ -10,7 +10,8 @@ class Circle : public Shape {
 public:
     Circle(int x, int y, int r);
     Circle(int x, int y, int r, int stroke, std::string outline, std::string fill);
-    void draw() const override;
+    void draw(wxDC* dc, int canvWidth, int canvHeight) const override;
+    void rotate() override;
     Point getCenter() const override;
 
     int getX() const;
