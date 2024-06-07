@@ -52,6 +52,29 @@ std::string Shape::shapeTypeToString(ShapeType shape_type) {
             return "UNKNOWN";
     }
 }
+
+std::array<int,3> Shape::getRGB(const std::string& color)
+{
+    std::array<int, 3> rgb;
+    std::string delimiter = ",";
+    size_t pos = 0;
+    std::string token;
+    std::string colorCopy = color;
+    int i = 0;
+
+    while ((pos = colorCopy.find(delimiter)) != std::string::npos && i < 3) {
+        token = colorCopy.substr(0, pos);
+        rgb[i] = std::stoi(token);
+        colorCopy.erase(0, pos + delimiter.length());
+        i++;
+    }
+    if (i < 3) {
+        rgb[i] = std::stoi(colorCopy);
+    }
+
+    return rgb;
+}
+
 void Shape::setRotationAngle(const double rotationAngle) {
     this->rotationAngle = rotationAngle;
 }

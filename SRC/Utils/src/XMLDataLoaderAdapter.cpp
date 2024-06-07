@@ -89,6 +89,7 @@ std::vector<std::unique_ptr<Shape>> XMLDataLoaderAdapter::load(const std::string
                 int x = elem->IntAttribute("x");
                 int y = elem->IntAttribute("y");
                 int stroke = elem->IntAttribute("stroke");
+                std::string outline = elem->Attribute("outline");
                 std::string fill = elem->Attribute("fill");
                 std::vector<Point> points;
                 for (XMLElement* pointElem = elem->FirstChildElement("point"); pointElem != nullptr; pointElem = pointElem->NextSiblingElement("point")) {
@@ -101,6 +102,7 @@ std::vector<std::unique_ptr<Shape>> XMLDataLoaderAdapter::load(const std::string
                     ->setX(x)
                     ->setY(y)
                     ->setStroke(stroke)
+                    ->setOutline(outline)
                     ->setFill(fill)
                     ->setPoints(points);
 
@@ -121,6 +123,7 @@ std::vector<std::unique_ptr<Shape>> XMLDataLoaderAdapter::load(const std::string
 
                 shapeBuilder.builder()
                     ->setStroke(stroke)
+                    ->setOutline(outline)
                     ->setFill(fill)
                     ->setPoints(points);
 

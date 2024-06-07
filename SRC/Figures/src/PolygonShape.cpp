@@ -27,7 +27,9 @@ void PolygonShape::draw(wxDC* dc, int canvWidth, int canvHeight) const
 {
     int scaler = (canvWidth < canvHeight) ? canvWidth : canvHeight;
 
-    wxColour outlineColor = *wxRED;
+    std::array<int, 3> rgb = Shape::getRGB(outline);
+
+    wxColour outlineColor(rgb.at(0), rgb.at(1), rgb.at(2));
     wxColour fillColor = *wxGREEN;
     int strokeWidth = stroke;
 

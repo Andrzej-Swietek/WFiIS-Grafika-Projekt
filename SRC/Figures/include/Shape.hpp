@@ -6,6 +6,7 @@
 #include <wx/dcclient.h>
 #include <wx/dcbuffer.h>
 #include "vecmat.h"
+#include <array>
 
 
 enum class ShapeType {
@@ -141,6 +142,8 @@ public:
      * @return std::string shape type
     */
     static std::string shapeTypeToString(ShapeType shape_type);
+
+    static std::array<int,3> getRGB(const std::string& color);
 
 protected:
     int stroke;
