@@ -84,10 +84,15 @@ public:
         return PolygonShape(n, stroke, outline, fill, points);
     }
 
-    Line buildLine(){
+    Line buildLine() const {
         return Line(points[0], points[1], stroke, outline, fill);
     }
-    
+
+    PolygonShape buildPolygon() const {
+        return PolygonShape(n, stroke, outline, fill, points);
+    }
+
+
 
 
 private:

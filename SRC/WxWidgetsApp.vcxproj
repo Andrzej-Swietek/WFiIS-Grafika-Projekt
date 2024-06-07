@@ -144,6 +144,8 @@
     <ClCompile Include="Figures\src\Shape.cpp" />
     <ClCompile Include="GUI\src\GUI.cpp" />
     <ClCompile Include="MainFrame.cpp" />
+    <ClCompile Include="Panels\src\ShapesPanel.cpp" />
+    <ClCompile Include="Utils\src\Logger.cpp" />
     <ClCompile Include="Utils\src\SVGDataLoaderAdapter.cpp" />
     <ClCompile Include="Utils\src\vecmat.cpp" />
     <ClCompile Include="Utils\src\XMLDataLoaderAdapter.cpp" />
@@ -160,8 +162,10 @@
     <ClInclude Include="Figures\include\Shape.hpp" />
     <ClInclude Include="Figures\include\ShapeBuilder.hpp" />
     <ClInclude Include="GUI\include\GUI.h" />
+    <ClInclude Include="Panels\include\ShapesPanel.hpp" />
     <ClInclude Include="Utils\include\DataLoader.hpp" />
     <ClInclude Include="Utils\include\FileSaver.hpp" />
+    <ClInclude Include="Utils\include\Logger.hpp" />
     <ClInclude Include="Utils\include\SVGDataLoaderAdapter.hpp" />
     <ClInclude Include="Utils\include\vecmat.h" />
     <ClInclude Include="Utils\include\XMLDataLoaderAdapter.hpp" />

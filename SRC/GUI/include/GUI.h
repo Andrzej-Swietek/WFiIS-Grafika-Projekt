@@ -17,10 +17,14 @@
 #include <wx/clrpicker.h>
 #include <wx/scrolwin.h>
 #include <wx/frame.h>
+#include <wx/filedlg.h>
 #include <wx/msgdlg.h>
 
 #include <Shape.hpp>
 
+#include "XMLDataLoaderAdapter.hpp"
+#include "Logger.hpp"
+#include "ShapesPanel.hpp"
 
 class GUI : public wxFrame
 {
@@ -45,7 +49,7 @@ protected:
 	wxStaticText* layersLabel;
 	wxScrolledWindow* layersScrolledWindow;
 
-	std::vector<Shape*> shapes;
+	// std::vector<Shape*> shapes;
 
 public:
 
@@ -70,4 +74,6 @@ public:
 
 
 
+
+	std::vector<std::unique_ptr<Shape>> shapes;
 };

@@ -13,7 +13,7 @@ PolygonShape::PolygonShape(std::vector<Point> points)
     : n(points.size()), points(points), Shape() {}
 
 
-void PolygonShape::draw(wxDC* dc, int canvWidth, int canvHeight) const 
+void PolygonShape::draw(wxDC* dc, int canvWidth, int canvHeight) const
 {
     int scaler = (canvWidth < canvHeight) ? canvWidth : canvHeight;
 
@@ -83,6 +83,29 @@ void PolygonShape::rotate()
         points[i].setY(a_.GetY() + center.x);
     }
 }
+
+PolygonShape::PolygonShape(int n, int stroke, std::string outline, std::string fill, std::vector<Point> points)
+        : n(n), points(points), Shape(stroke, outline, fill)
+{
+    this->setShapeType(ShapeType::POLYGON);
+}
+
+
+PolygonShape::PolygonShape(int n, std::vector<Point> points)
+    : n(n), points(points), Shape()
+{
+    this->setShapeType(ShapeType::POLYGON);
+}
+
+
+PolygonShape::PolygonShape(std::vector<Point> points)
+    : n(points.size()), points(points), Shape()
+{
+    this->setShapeType(ShapeType::POLYGON);
+}
+
+
+void PolygonShape::draw() const {}
 
 
 Point PolygonShape::getCenter() const {

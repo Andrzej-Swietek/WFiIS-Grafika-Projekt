@@ -1,32 +1,20 @@
-<image figure-count="3">
-
+<?xml version="1.0" encoding="UTF-8"?>
+<image figure-count="5">
     <polygon n="5" stroke="1" outline="solid #f00" fill="transparent">
         <point x="1" y="3" />
         <point x="1" y="3" />
         <point x="1" y="3" />
         <point x="1" y="3" />
         <point x="1" y="3" />
-    <polygon>
-
-    <circle
-        x="500" y="400" r="40"
-        stroke="1" outline="solid #f00" fill="#fff"
-    />
-
-    <ellipse r="40" stroke="1" outline="solid #f00" fill="#fff">
-        <point x="1" y="3" />   
-        <point x="1" y="3" /> 
-    </ellipse>
-
-    <line x="30" y="30" stroke="3" fill="#fff">
-        <point x="20" y="20" />
-        <point x="40" y="40" />
-    </line>
-
+    </polygon>
+    <circle x="500" y="400" r="40" stroke="1" outline="solid #f00" fill="#fff" />
     <curve n="3" stroke="1" outline="solid #f00" fill="#fff">
         <point x="1" y="3" />
         <point x="1" y="3" />
         <point x="1" y="3" />
     </curve>
-
+    <line x="30" y="30" stroke="3" fill="#fff">
+        <point x="20" y="20" />
+        <point x="40" y="40" />
+    </line>
 </image>
