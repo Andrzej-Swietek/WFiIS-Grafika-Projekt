@@ -1,16 +1,26 @@
 #include "PolygonShape.hpp"
 #include "vecmat.h"
 
+
 PolygonShape::PolygonShape(int n, int stroke, std::string outline, std::string fill, std::vector<Point> points)
-    : n(n), points(points), Shape(stroke, outline, fill) {}
+    : n(n), points(points), Shape(stroke, outline, fill)
+{
+    this->setShapeType(ShapeType::POLYGON);
+}
 
 
 PolygonShape::PolygonShape(int n, std::vector<Point> points)
-    : n(n), points(points), Shape() {}
+    : n(n), points(points), Shape()
+{
+    this->setShapeType(ShapeType::POLYGON);
+}
 
 
 PolygonShape::PolygonShape(std::vector<Point> points)
-    : n(points.size()), points(points), Shape() {}
+    : n(points.size()), points(points), Shape()
+{
+    this->setShapeType(ShapeType::POLYGON);
+}
 
 
 void PolygonShape::draw(wxDC* dc, int canvWidth, int canvHeight) const
@@ -83,29 +93,6 @@ void PolygonShape::rotate()
         points[i].setY(a_.GetY() + center.x);
     }
 }
-
-PolygonShape::PolygonShape(int n, int stroke, std::string outline, std::string fill, std::vector<Point> points)
-        : n(n), points(points), Shape(stroke, outline, fill)
-{
-    this->setShapeType(ShapeType::POLYGON);
-}
-
-
-PolygonShape::PolygonShape(int n, std::vector<Point> points)
-    : n(n), points(points), Shape()
-{
-    this->setShapeType(ShapeType::POLYGON);
-}
-
-
-PolygonShape::PolygonShape(std::vector<Point> points)
-    : n(points.size()), points(points), Shape()
-{
-    this->setShapeType(ShapeType::POLYGON);
-}
-
-
-void PolygonShape::draw() const {}
 
 
 Point PolygonShape::getCenter() const {

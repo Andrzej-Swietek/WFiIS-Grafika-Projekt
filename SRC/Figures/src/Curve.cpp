@@ -1,4 +1,5 @@
 #include "Curve.hpp"
+#include <Logger.hpp>
 
 Curve::Curve(int stroke, std::string outline, std::string fill, std::vector<Point> points)
     : Shape(stroke, outline, fill), points(points) 
@@ -20,6 +21,8 @@ Curve::Curve()
 
 void Curve::draw(wxDC* dc, int canvWidth, int canvHeight) const
 {
+    Logger::getInstance()->log("Info", rotationAngle);
+
     int scaler = (canvWidth < canvHeight) ? canvWidth : canvHeight;
 
     wxColour lineColor = *wxGREEN;
@@ -40,6 +43,8 @@ void Curve::draw(wxDC* dc, int canvWidth, int canvHeight) const
     //
     // for some reason messes up the rotation centre
     //center.x *= (scaler / 100); center.y *= (scaler / 100);
+
+    Logger::getInstance()->log("Info", "Drawing curve2");
 
     std::vector<wxPoint> controlPoints;
     for (Point pt : points)

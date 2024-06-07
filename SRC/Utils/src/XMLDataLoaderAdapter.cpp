@@ -119,7 +119,10 @@ std::vector<std::unique_ptr<Shape>> XMLDataLoaderAdapter::load(const std::string
                     points.push_back({ x, y });
                 }
 
-                shapeBuilder.builder();
+                shapeBuilder.builder()
+                    ->setStroke(stroke)
+                    ->setFill(fill)
+                    ->setPoints(points);
 
                 Curve c = shapeBuilder.buildCurve();
 

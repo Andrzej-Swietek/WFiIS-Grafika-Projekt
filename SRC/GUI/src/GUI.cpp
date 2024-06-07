@@ -212,20 +212,20 @@ GUI::GUI(wxWindow* parent, wxWindowID id, const wxString& title, const wxPoint& 
 	// TODO: maybe define vector image sizing? I hardcoded it to be 100 x 100,
 	// so a circle with center in (50,50) is centered on the canvas panel
 	//
-	Circle* c = new Circle(50, 50, 5, 10, "blue", "yellow");
-	shapes.push_back(c);
+	/*Circle* c = new Circle(50, 50, 5, 10, "blue", "yellow");
+	shapes.push_back(std::make_unique<Circle>(c));
 
 	std::vector<Point> pts;
 	pts.push_back(Point(1, 2)); pts.push_back(Point(10, 30)); pts.push_back(Point(20, 35)); pts.push_back(Point(30, 100)); pts.push_back(Point(40, 75)); pts.push_back(Point(50, 90));
 	Curve* curv = new Curve(5, "solid #000", "transparent", pts);
-	shapes.push_back(curv);
+	shapes.push_back(std::make_unique<Curve>(curv));
 
 	Line* l = new Line(Point(4, 7), Point(70, 80), 5, "", "transparent");
-	shapes.push_back(l);
+	shapes.push_back(std::make_unique<Line>(l));
 
 	std::vector<Point> polyVertices = { Point(10,10), Point(20,10), Point(30,20), Point(30,60), Point(20,50), Point(10,40) };
 	PolygonShape* p = new PolygonShape(polyVertices.size(), 5, "solid #000", "transparent", polyVertices);
-	shapes.push_back(p);
+	shapes.push_back(std::make_unique<PolygonShape>(p));*/
 
 	//m_canvas_panel->Refresh();
 }
@@ -302,7 +302,7 @@ void GUI::OnPaint(wxPaintEvent& event)
 //
 void GUI::UpdateShapesOnResize()
 {
-	for (Shape* shape : shapes)
+	for (const auto& shape : shapes)
 	{
 		
 	}
@@ -310,9 +310,11 @@ void GUI::UpdateShapesOnResize()
 
 void GUI::DrawShapes(wxDC& dc, int canvWidth, int canvHeight) const
 {
-	for (Shape* shape : shapes)
+	if (shapes.size() == 0) return;
+	for (const auto& shape : shapes)
 	{
-		shape->draw(&dc, canvWidth, canvHeight);
+		/*Logger::getInstance()->log("Info", Shape::shapeTypeToString(shape->getShapeType()));*/
+		shape->draw(&dc, canvWidth, canvHeight);	
 	}
 }
 
@@ -332,9 +334,9 @@ void GUI::rotationSliderUpdate(wxScrollEvent& event)
 	//
 	// for now rotating all the shapes - it should rotate only selected shapes in the future
 	// rotation is implemented directly in the Shape::Draw() methods - perhaps it can be done better (split transformations into methods/functions?)
-	for (Shape* sh : shapes)
+	for (const auto& shape : shapes)
 	{
-		sh->setRotationAngle(angle);
+		shape->setRotationAngle(angle);
 	}
 	Repaint();
 }
@@ -380,6 +382,15 @@ void GUI::OnOpen(wxCommandEvent& event)
 		layersScrolledWindow->SetSizer(layersSizer);
 		layersScrolledWindow->Layout();
 	}
+	try
+	{
+		Repaint();
+	}
+	catch (const std::exception& e)
+	{
+		Logger::getInstance()->log("Error", e.what());
+	}
+	
 }
 
 
