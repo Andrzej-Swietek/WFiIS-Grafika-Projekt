@@ -50,7 +50,7 @@ public:
      * @param rotationMatrix - rotation matrix
      * @return no return
     */
-    virtual void rotate(Matrix rotationMatrix) = 0;
+    virtual void rotate() = 0;
 
 
     /// GETTERS & SETTERS
@@ -106,9 +106,18 @@ public:
     */
     void setFill(const std::string& fill);
 
+
+    /**
+     * @brief Set the RotationAngle object
+     * @param rotationAngle - rotation angle
+     * @return no return
+    */
+    void setRotationAngle(const double rotationAngle);
+
 protected:
     int stroke;
     std::string outline;
     std::string fill;
+    double rotationAngle;
 };
 

@@ -1,4 +1,5 @@
 #include "PolygonShape.hpp"
+#include "vecmat.h"
 
 PolygonShape::PolygonShape(int n, int stroke, std::string outline, std::string fill, std::vector<Point> points)
     : n(n), points(points), Shape(stroke, outline, fill) {}
@@ -26,6 +27,8 @@ void PolygonShape::draw(wxDC* dc, int canvWidth, int canvHeight) const
     wxBrush brush(fillColor);
     dc->SetBrush(brush);
 
+    // draw rotated copy of vertices?
+
     std::vector<wxPoint> vertices;
     for (Point pt : points)
     {
@@ -35,18 +38,25 @@ void PolygonShape::draw(wxDC* dc, int canvWidth, int canvHeight) const
     dc->DrawPolygon(vertices.size(), vertices.data());
 }
 
-void PolygonShape::rotate(Matrix rotationMatrix)
+void PolygonShape::rotate()
 {
-    for (Point pt : points)
+    Matrix M;
+    M.data[0][0] = cos(rotationAngle);
+    M.data[0][1] = -sin(rotationAngle);
+    M.data[1][0] = sin(rotationAngle);
+    M.data[1][1] = cos(rotationAngle);
+
+    for (int i = 0; i < points.size(); i++)
     {
+        Point center = getCenter();
         Vector a;
 
-        a.Set(pt.x, pt.y);
+        a.Set(points[i].x - center.x, points[i].y - center.x);
 
-        Vector a_ = rotationMatrix * a;
+        Vector a_ = M * a;
 
-        pt.setX(a_.GetX());
-        pt.setY(a_.GetY());
+        points[i].setX(a_.GetX() + center.x);
+        points[i].setY(a_.GetY() + center.x);
     }
 }
 

@@ -228,20 +228,20 @@ GUI::GUI(wxWindow* parent, wxWindowID id, const wxString& title, const wxPoint& 
 	shapes.push_back(p);
 
 
-	// rotate matrix
-	double angle = 30 * M_PI / 180;
+	//// rotate matrix
+	//double angle = 30 * M_PI / 180;
 
-	Matrix M;
-	M.data[0][0] = cos(angle);
-	M.data[0][1] = -sin(angle);
-	M.data[1][0] = sin(angle);
-	M.data[1][1] = cos(angle);
+	//Matrix M;
+	//M.data[0][0] = cos(angle);
+	//M.data[0][1] = -sin(angle);
+	//M.data[1][0] = sin(angle);
+	//M.data[1][1] = cos(angle);
 
-	p->rotate(M);
+	//p->rotate(M);
 
-	l->rotate(M);
+	//l->rotate(M);
 
-	curv->rotate(M);
+	//curv->rotate(M);
 
 	//m_canvas_panel->Refresh();
 }
@@ -339,23 +339,23 @@ void GUI::DrawShapes(wxDC& dc, int canvWidth, int canvHeight) const
 	}
 }
 
+/*
+	rotation angle stored in the Shape object and used when drawing - no alternation of vertices
+	the same can be done with other transformations
+
+*/
+
 void GUI::rotationSlider_Update(wxScrollEvent& event)
 {
 	//WxStaticText_alpha->SetLabel(wxString::Format(wxT("%d"), WxScrollBar_alpha->GetThumbPosition()));
 	double alpha = rotationSlider->GetValue();
 
 	// rotate matrix
-	double angle = alpha * M_PI / 180;
-
-	Matrix M;
-	M.data[0][0] = cos(angle);
-	M.data[0][1] = -sin(angle);
-	M.data[1][0] = sin(angle);
-	M.data[1][1] = cos(angle);
+	double angle = alpha * M_PI / 180.0;
 
 	for (Shape* sh : shapes)
 	{
-		sh->rotate(M);
+		sh->setRotationAngle(angle);
 	}
 	Repaint();
 	//curv->rotate(M);

@@ -99,18 +99,25 @@ void Curve::draw(wxDC* dc, int canvWidth, int canvHeight) const
 //    return myPoints[0];
 //}
 
-void Curve::rotate(Matrix rotationMatrix)
+void Curve::rotate()
 {
-    for (Point pt : points)
+    Matrix M;
+    M.data[0][0] = cos(rotationAngle);
+    M.data[0][1] = -sin(rotationAngle);
+    M.data[1][0] = sin(rotationAngle);
+    M.data[1][1] = cos(rotationAngle);
+
+    for (int i = 0; i < points.size(); i++)
     {
+        Point center = getCenter();
         Vector a;
 
-        a.Set(pt.x, pt.y);
+        a.Set(points[i].x-center.x, points[i].y-center.x);
 
-        Vector a_ = rotationMatrix * a;
+        Vector a_ = M * a;
 
-        pt.setX(a_.GetX());
-        pt.setY(a_.GetY());
+        points[i].setX(a_.GetX()+center.x);
+        points[i].setY(a_.GetY()+center.x);
     }
 }
 

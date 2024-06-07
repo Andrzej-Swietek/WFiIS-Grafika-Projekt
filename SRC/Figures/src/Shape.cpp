@@ -29,3 +29,7 @@ void Shape::setOutline(const std::string& outline) {
 void Shape::setFill(const std::string& fill) {
     this->fill = fill;
 }
+
+void Shape::setRotationAngle(const double rotationAngle) {
+    this->rotationAngle = rotationAngle;
+}

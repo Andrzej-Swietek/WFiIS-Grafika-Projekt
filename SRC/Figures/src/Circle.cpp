@@ -37,7 +37,7 @@ void Circle::draw(wxDC* dc, int canvWidth, int canvHeight) const {
 
 //
 // does rotating a circle make sense??
-void Circle::rotate(Matrix rotationMatrix)
+void Circle::rotate()
 {
     /*Vector a;
 

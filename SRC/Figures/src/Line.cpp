@@ -60,18 +60,24 @@ void Line::draw(wxDC* dc, int canvWidth, int canvHeight) const
     dc->DrawLine(startPoint, endPoint);
 }
 
-void Line::rotate(Matrix rotationMatrix)
+void Line::rotate()
 {
+    Matrix M;
+    M.data[0][0] = cos(rotationAngle);
+    M.data[0][1] = -sin(rotationAngle);
+    M.data[1][0] = sin(rotationAngle);
+    M.data[1][1] = cos(rotationAngle);
+
     Vector a, b;
+    Point center = getCenter();
+    a.Set(start.x-center.x, start.y-center.y);
+    b.Set(end.x-center.x, end.y-center.y);
 
-    a.Set(start.x, start.y);
-    b.Set(end.x, end.y);
+    Vector a_ = M * a;
+    Vector b_ = M * b;
 
-    Vector a_ = rotationMatrix * a;
-    Vector b_ = rotationMatrix * b;
-
-    start.setX(a_.GetX()); start.setY(a_.GetY());
-    end.setX(b_.GetX()); end.setY(b_.GetY());
+    start.setX(a_.GetX()+center.x); start.setY(a_.GetY()+center.y);
+    end.setX(b_.GetX()+center.x); end.setY(b_.GetY()+center.y);
 }
 
 Point Line::getStart() const {
