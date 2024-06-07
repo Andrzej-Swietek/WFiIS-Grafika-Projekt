@@ -203,7 +203,7 @@ GUI::GUI(wxWindow* parent, wxWindowID id, const wxString& title, const wxPoint& 
 	// bind the paint event - also refreshes on resize??
 	//
 	m_canvas_panel->Bind(wxEVT_PAINT, &GUI::OnPaint, this);
-	rotationSlider->Bind(wxEVT_SCROLL_THUMBTRACK, &GUI::rotationSlider_Update, this);
+	rotationSlider->Bind(wxEVT_SCROLL_THUMBTRACK, &GUI::rotationSliderUpdate, this);
 
 	/*std::shared_ptr<Circle> c = std::make_shared<Circle>(new Circle(2,2,1));
 	shapes.push_back(c.get());*/
@@ -226,22 +226,6 @@ GUI::GUI(wxWindow* parent, wxWindowID id, const wxString& title, const wxPoint& 
 	std::vector<Point> polyVertices = { Point(10,10), Point(20,10), Point(30,20), Point(30,60), Point(20,50), Point(10,40) };
 	PolygonShape* p = new PolygonShape(polyVertices.size(), 5, "solid #000", "transparent", polyVertices);
 	shapes.push_back(p);
-
-
-	//// rotate matrix
-	//double angle = 30 * M_PI / 180;
-
-	//Matrix M;
-	//M.data[0][0] = cos(angle);
-	//M.data[0][1] = -sin(angle);
-	//M.data[1][0] = sin(angle);
-	//M.data[1][1] = cos(angle);
-
-	//p->rotate(M);
-
-	//l->rotate(M);
-
-	//curv->rotate(M);
 
 	//m_canvas_panel->Refresh();
 }
@@ -310,18 +294,11 @@ void GUI::Repaint() const
 void GUI::OnPaint(wxPaintEvent& event)
 {
 	Repaint();
-	/*wxClientDC dc1(m_canvas_panel);
-	wxBufferedDC dc(&dc1);
-	dc.SetBackground(wxBrush(wxColour(255, 255, 255)));
-	dc.Clear();
-	int w, h;
-	m_canvas_panel->GetSize(&w, &h);
-
-	DrawShapes(dc, w, h);*/
 }
 
 //
 // TODO: necessary? For now resizing is handled in the respective Shape::draw() implementations
+// UI seems to not update sometimes (like clicking on the slider instead of dragging the thumbnail or when resizing/minimizing/maximizing the window)
 //
 void GUI::UpdateShapesOnResize()
 {
@@ -342,23 +319,24 @@ void GUI::DrawShapes(wxDC& dc, int canvWidth, int canvHeight) const
 /*
 	rotation angle stored in the Shape object and used when drawing - no alternation of vertices
 	the same can be done with other transformations
-
 */
 
-void GUI::rotationSlider_Update(wxScrollEvent& event)
+void GUI::rotationSliderUpdate(wxScrollEvent& event)
 {
 	//WxStaticText_alpha->SetLabel(wxString::Format(wxT("%d"), WxScrollBar_alpha->GetThumbPosition()));
 	double alpha = rotationSlider->GetValue();
 
-	// rotate matrix
+	// rotation angle in radians
 	double angle = alpha * M_PI / 180.0;
 
+	//
+	// for now rotating all the shapes - it should rotate only selected shapes in the future
+	// rotation is implemented directly in the Shape::Draw() methods - perhaps it can be done better (split transformations into methods/functions?)
 	for (Shape* sh : shapes)
 	{
 		sh->setRotationAngle(angle);
 	}
 	Repaint();
-	//curv->rotate(M);
 }
 
 

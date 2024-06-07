@@ -19,6 +19,8 @@ void Curve::draw(wxDC* dc, int canvWidth, int canvHeight) const
     wxPen pen(lineColor, strokeWidth);
     dc->SetPen(pen);
 
+    //
+    // creating the rotation matrix
     Matrix rotM;
     rotM.data[0][0] = cos(rotationAngle);
     rotM.data[0][1] = -sin(rotationAngle);
@@ -26,11 +28,15 @@ void Curve::draw(wxDC* dc, int canvWidth, int canvHeight) const
     rotM.data[1][1] = cos(rotationAngle);
 
     Point center = getCenter();
-    center.x *= (scaler / 100); center.y *= (scaler / 100);
+    //
+    // for some reason messes up the rotation centre
+    //center.x *= (scaler / 100); center.y *= (scaler / 100);
 
     std::vector<wxPoint> controlPoints;
     for (Point pt : points)
     {
+        //
+        // applying the rotation matrix
         Vector a;
 
         a.Set(pt.x - center.x, pt.y - center.x);
@@ -39,6 +45,9 @@ void Curve::draw(wxDC* dc, int canvWidth, int canvHeight) const
 
         pt.setX(a_.GetX() + center.x);
         pt.setY(a_.GetY() + center.x);
+
+        //
+        // scalling transformed point based on window size
         controlPoints.push_back(wxPoint(pt.getX() * scaler / 100, pt.getY() * scaler / 100));
     }
 

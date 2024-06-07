@@ -44,7 +44,7 @@ public:
     */
     virtual void draw(wxDC* dc, int canvWidth, int canvHeight) const = 0;
 
-
+    /* OUTDATED and not used for now - rotation implemented directly in Shape::Draw() methods */
     /**
      * @brief Rotate the shape
      * @param rotationMatrix - rotation matrix

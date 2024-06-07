@@ -66,7 +66,7 @@ public:
 	void OnPaint(wxPaintEvent& event);
 	void DrawShapes(wxDC& dc, int canvWidth, int canvHeight) const;
 	void UpdateShapesOnResize();
-	void rotationSlider_Update(wxScrollEvent& event);
+	void rotationSliderUpdate(wxScrollEvent& event);
 
 
 
