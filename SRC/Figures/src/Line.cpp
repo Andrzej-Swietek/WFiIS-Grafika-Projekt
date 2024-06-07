@@ -3,15 +3,20 @@
 Line::Line(const Line& other)
     : start(other.start), end(other.end),Shape(other.stroke, other.outline, other.fill)
 {
+    this->setShapeType(ShapeType::LINE);
 }
 
 Line::Line(const Point& start, const Point& end)
  : start(start), end(end), Shape() 
- {}
+ {
+    this->setShapeType(ShapeType::LINE);
+ }
 
 Line::Line(const Point& start, const Point& end, int stroke, std::string outline, std::string fill)
  : start(start), end(end), Shape(stroke, outline, fill) 
- {}
+ {
+    this->setShapeType(ShapeType::LINE);
+ }
 
 Line& Line::operator=(const Line& other)
 {

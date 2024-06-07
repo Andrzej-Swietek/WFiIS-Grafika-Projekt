@@ -270,9 +270,13 @@ void GUI::OnOpen(wxCommandEvent& event)
 		wxBoxSizer* layersSizer = new wxBoxSizer(wxVERTICAL);
 		int id = 0;
 		for (const auto& shape : shapes) {
-			wxString shapeName = "SHAPE";	/* TODO: Get the shape name */
+			wxString shapeName = Shape::shapeTypeToString(shape->getShapeType());	/* TODO: Get the shape name */
 			int shapeId = id++;				/* TODO: Get the shape ID */
-			ShapesPanel* shapePanel = new ShapesPanel(layersScrolledWindow, shapeName, shapeId);
+			ShapesPanel* shapePanel = new ShapesPanel(
+				layersScrolledWindow,
+				shapeName.append(": ").append(std::to_string(shapeId)),
+				shapeId
+			);
 			layersSizer->Add(shapePanel, 0, wxEXPAND | wxALL, 5);
 		}
 
