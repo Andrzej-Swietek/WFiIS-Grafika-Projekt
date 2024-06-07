@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <image figure-count="5">
-    <polygon n="5" stroke="1" outline="solid #f00" fill="transparent">
+    <polygon n="5" stroke="5" outline="255,0,255" fill="transparent">
         <point x="1" y="3" />
-        <point x="1" y="3" />
-        <point x="1" y="3" />
-        <point x="1" y="3" />
-        <point x="1" y="3" />
+        <point x="2" y="4" />
+        <point x="10" y="5" />
+        <point x="30" y="6" />
+        <point x="50" y="7" />
     </polygon>
-    <circle x="500" y="400" r="40" stroke="1" outline="solid #f00" fill="#fff" />
-    <curve n="3" stroke="1" outline="solid #f00" fill="#fff">
-        <point x="1" y="3" />
-        <point x="1" y="3" />
-        <point x="1" y="3" />
-    </curve>
-    <line x="30" y="30" stroke="3" fill="#fff">
+    <circle x="5" y="4" r="5" stroke="10" outline="0,255,255" fill="#fff" />
+    <line x="30" y="30" stroke="5" outline="100,200,50" fill="#fff">
         <point x="20" y="20" />
         <point x="40" y="40" />
     </line>
+    <curve n="3" stroke="5" outline="255,255,0" fill="#fff">
+        <point x="10" y="30" />
+        <point x="20" y="3" />
+        <point x="50" y="10" />
+    </curve>
 </image>
