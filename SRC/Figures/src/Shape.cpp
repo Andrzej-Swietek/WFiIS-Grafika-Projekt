@@ -3,7 +3,7 @@
 Shape::Shape(): stroke(1), outline("black"), fill("transparent") {}
 
 Shape::Shape(int stroke, std::string outline, std::string fill)
-: stroke(stroke), outline(outline), fill(fill)
+: stroke(stroke), outline(outline), fill(fill), rotationAngle(0)
 {}
 
 int Shape::getStroke() const {

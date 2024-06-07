@@ -19,11 +19,29 @@ void Curve::draw(wxDC* dc, int canvWidth, int canvHeight) const
     wxPen pen(lineColor, strokeWidth);
     dc->SetPen(pen);
 
+    Matrix rotM;
+    rotM.data[0][0] = cos(rotationAngle);
+    rotM.data[0][1] = -sin(rotationAngle);
+    rotM.data[1][0] = sin(rotationAngle);
+    rotM.data[1][1] = cos(rotationAngle);
+
+    Point center = getCenter();
+    center.x *= (scaler / 100); center.y *= (scaler / 100);
+
     std::vector<wxPoint> controlPoints;
     for (Point pt : points)
     {
+        Vector a;
+
+        a.Set(pt.x - center.x, pt.y - center.x);
+
+        Vector a_ = rotM * a;
+
+        pt.setX(a_.GetX() + center.x);
+        pt.setY(a_.GetY() + center.x);
         controlPoints.push_back(wxPoint(pt.getX() * scaler / 100, pt.getY() * scaler / 100));
     }
+
     dc->DrawSpline(controlPoints.size(), controlPoints.data());
 
 

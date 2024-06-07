@@ -54,8 +54,28 @@ void Line::draw(wxDC* dc, int canvWidth, int canvHeight) const
     wxPen pen(lineColor, strokeWidth);
     dc->SetPen(pen);
 
-    wxPoint startPoint(start.getX() * scaler / 100, start.getY() * scaler /100);
-    wxPoint endPoint(end.getX() * scaler / 100, end.getY() * scaler / 100);
+    Matrix rotM;
+    rotM.data[0][0] = cos(rotationAngle);
+    rotM.data[0][1] = -sin(rotationAngle);
+    rotM.data[1][0] = sin(rotationAngle);
+    rotM.data[1][1] = cos(rotationAngle);
+
+    Vector a, b;
+    Point center = getCenter();
+    center.x *= scaler / 100; center.y *= scaler / 100;
+
+    a.Set(start.x - center.x, start.y - center.y);
+    b.Set(end.x - center.x, end.y - center.y);
+
+    Vector a_ = rotM * a;
+    Vector b_ = rotM * b;
+    
+    Point tStart, tEnd;
+    tStart.setX(a_.GetX() + center.x); tStart.setY(a_.GetY() + center.y);
+    tEnd.setX(b_.GetX() + center.x); tEnd.setY(b_.GetY() + center.y);
+    
+    wxPoint startPoint(tStart.getX() * scaler / 100, tStart.getY() * scaler /100);
+    wxPoint endPoint(tEnd.getX() * scaler / 100, tEnd.getY() * scaler / 100);
 
     dc->DrawLine(startPoint, endPoint);
 }
