@@ -4,6 +4,7 @@
 *.vcxproj
 *.config
 *.sln
+
 *.exe 
 # User-specific files
 *.rsuser
@@ -443,4 +444,8 @@ yarn-error.log
 
 # Rider
 .idea/
+
 *.sln.iml
+
+*.sln.iml
+
