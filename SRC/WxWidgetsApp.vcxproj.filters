@@ -69,6 +69,9 @@
     <ClCompile Include="Utils\src\Logger.cpp">
       <Filter>Source Files\Utils</Filter>
     </ClCompile>
+    <ClCompile Include="Panels\src\ShapesPanel.cpp">
+      <Filter>Source Files\Panels</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -112,6 +115,9 @@
     </ClInclude>
     <ClInclude Include="Utils\include\Logger.hpp">
       <Filter>Header Files\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="Panels\include\ShapesPanel.hpp">
+      <Filter>Header Files\Panels</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

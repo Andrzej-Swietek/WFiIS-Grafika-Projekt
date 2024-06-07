@@ -21,6 +21,7 @@
 
 #include "XMLDataLoaderAdapter.hpp"
 #include "Logger.hpp"
+#include "ShapesPanel.hpp"
 
 class GUI : public wxFrame
 {
@@ -60,4 +61,6 @@ public:
 	void OnSaveAs(wxCommandEvent& event);
 	void OnGoToDocs(wxCommandEvent& event);
 
+
+	std::vector<std::unique_ptr<Shape>> shapes;
 };

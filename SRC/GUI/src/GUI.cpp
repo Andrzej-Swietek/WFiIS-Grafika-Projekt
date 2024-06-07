@@ -255,9 +255,29 @@ void GUI::OnOpen(wxCommandEvent& event)
 	if (WxOpenFileDialog.ShowModal() == wxID_OK) 
 	{
 		std::string file_path = WxOpenFileDialog.GetPath().ToStdString();
-		std::vector<std::unique_ptr<Shape>> shapes = XMLDataLoaderAdapter::getInstance().load(file_path);
+		this->shapes = XMLDataLoaderAdapter::getInstance().load(file_path);
 		//PolygonShape p(3, { {1,2}, {2,3}, {3, 4}});
-		Logger::getInstance()->log("LOG TEST");
+		//Logger::getInstance()->log("LOG TEST", this->shapes.size());
+	
+		// Clear existing contents of the layersScrolledWindow
+		wxWindowList& children = layersScrolledWindow->GetChildren();
+		for (wxWindowList::iterator it = children.begin(); it != children.end(); ++it) {
+			wxWindow* child = *it;
+			child->Destroy();
+		}
+
+		// Create ShapePanel instances for each shape and add them to layersScrolledWindow
+		wxBoxSizer* layersSizer = new wxBoxSizer(wxVERTICAL);
+		int id = 0;
+		for (const auto& shape : shapes) {
+			wxString shapeName = "SHAPE";	/* TODO: Get the shape name */
+			int shapeId = id++;				/* TODO: Get the shape ID */
+			ShapesPanel* shapePanel = new ShapesPanel(layersScrolledWindow, shapeName, shapeId);
+			layersSizer->Add(shapePanel, 0, wxEXPAND | wxALL, 5);
+		}
+
+		layersScrolledWindow->SetSizer(layersSizer);
+		layersScrolledWindow->Layout();
 	}
 }
 
