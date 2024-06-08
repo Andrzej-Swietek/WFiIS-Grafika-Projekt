@@ -25,6 +25,7 @@
 #include "XMLDataLoaderAdapter.hpp"
 #include "Logger.hpp"
 #include "ShapesPanel.hpp"
+#include "ImageSaver.hpp"
 
 class GUI : public wxFrame
 {
@@ -49,6 +50,8 @@ protected:
 	wxStaticText* layersLabel;
 	wxScrolledWindow* layersScrolledWindow;
 
+	//ImageSaver* m_imageSaver;
+
 	// std::vector<Shape*> shapes;
 
 public:
@@ -70,7 +73,7 @@ public:
 	void OnPaint(wxPaintEvent& event);
 	void DrawShapes(wxDC& dc, int canvWidth, int canvHeight) const;
 	void UpdateShapesOnResize();
-	void rotationSliderUpdate(wxScrollEvent& event);
+	void RotationSliderUpdate(wxScrollEvent& event);
 
 
 
