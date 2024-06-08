@@ -49,7 +49,7 @@ public:
     // ALTERNATIVE: manual Bezier curve computing algorithms
     //wxPoint CalculateBezierPoint(double t) const;
     //Point DeCasteljau(double t) const;
-
+    virtual std::string toString();
 
 private:
     std::vector<Point> points;

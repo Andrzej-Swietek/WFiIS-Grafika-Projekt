@@ -159,3 +159,25 @@ void PolygonShape::movePoint(const Point& point, const Point& newPoint) {
 void PolygonShape::moveVertex(const int index, const Point& newPoint) {
     points[index] = newPoint;
 }
+
+std::string PolygonShape::toString()
+{
+    std::stringstream ss;
+    ss << "PolygonShape: {"
+        << "Vertices: " << n << ", "
+        << "Stroke: " << getStroke() << ", "
+        << "Outline Color: " << getOutline() << ", "
+        << "Fill Color: " << getFill() << ", "
+        << "Shape Type: " << (getShapeType() == ShapeType::POLYGON ? "POLYGON" : "UNKNOWN")
+        << ", Points: [";
+
+    for (size_t i = 0; i < points.size(); ++i) {
+        ss << "(" << points[i].getX() << ", " << points[i].getY() << ")";
+        if (i != points.size() - 1) {
+            ss << ", ";
+        }
+    }
+
+    ss << "]}";
+    return ss.str();
+}

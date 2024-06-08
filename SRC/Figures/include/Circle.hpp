@@ -22,4 +22,5 @@ public:
     void setY(int y);
     void setR(int r);
 
+    virtual std::string toString();
 };

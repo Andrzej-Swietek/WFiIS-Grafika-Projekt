@@ -139,3 +139,17 @@ void Line::setEnd(const Point& end) {
     this->end = end;
 }
 
+std::string Line::toString()
+{
+    std::stringstream ss;
+    ss << "Line: {"
+        << "Start: (" << start.getX() << ", " << start.getY() << "), "
+        << "End: (" << end.getX() << ", " << end.getY() << "), "
+        << "Stroke: " << getStroke() << ", "
+        << "Outline Color: " << getOutline() << ", "
+        << "Fill Color: " << getFill() << ", "
+        << "Shape Type: " << (getShapeType() == ShapeType::LINE ? "LINE" : "UNKNOWN")
+        << "}";
+    return ss.str();
+}
+

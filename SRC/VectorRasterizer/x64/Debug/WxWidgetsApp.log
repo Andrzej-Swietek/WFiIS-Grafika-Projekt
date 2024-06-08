@@ -1,7 +1,12 @@
-﻿  PolygonShape.cpp
+﻿  Circle.cpp
+  Curve.cpp
+  Line.cpp
+  PolygonShape.cpp
+  Shape.cpp
   GUI.cpp
   MainFrame.cpp
   ShapesPanel.cpp
+  SVGDataLoaderAdapter.cpp
   XMLDataLoaderAdapter.cpp
   Generating Code...
   WxWidgetsApp.vcxproj -> C:\Users\Andrzej\Documents\WFiIS-Grafika-Projekt\SRC\x64\Debug\VectorRasterizer.exe

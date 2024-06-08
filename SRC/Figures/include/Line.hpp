@@ -39,6 +39,8 @@ public:
     void setStart(const Point& start);
     void setEnd(const Point& end);
 
+    virtual std::string toString();
+
 private:
     Point start;
     Point end;

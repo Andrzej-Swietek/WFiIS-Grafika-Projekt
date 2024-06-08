@@ -50,4 +50,5 @@ public:
 
     void moveVertex(const int index, const Point& newPoint);
 
+    virtual std::string toString();
 };
