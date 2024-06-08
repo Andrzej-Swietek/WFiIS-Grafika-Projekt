@@ -26,6 +26,8 @@
 #include "Logger.hpp"
 #include "ShapesPanel.hpp"
 
+#include "Menu.hpp"
+
 class GUI : public wxFrame
 {
 private:
@@ -47,9 +49,16 @@ protected:
 	wxStaticText* m_staticText7;
 	wxSlider* transparencySlider;
 	wxStaticText* layersLabel;
+
+	wxStaticText* orderLayersLabel;
+	wxButton* upLayerBtn;
+	wxButton* downLayerBtn;
+
 	wxScrolledWindow* layersScrolledWindow;
+	Menu* menu;
 
 	// std::vector<Shape*> shapes;
+
 
 public:
 
@@ -57,14 +66,15 @@ public:
 
 	~GUI();
 
-	void setUpMenu();
-
 
 	void OnExit(wxCommandEvent& event);
 	void OnOpen(wxCommandEvent& event);
 	void OnSave(wxCommandEvent& event);
 	void OnSaveAs(wxCommandEvent& event);
 	void OnGoToDocs(wxCommandEvent& event);
+
+	void OnUpLayerButtonClick(wxCommandEvent& event);
+	void OnDownLayerButtonClick(wxCommandEvent& event);
 
 	void Repaint() const;
 	void OnPaint(wxPaintEvent& event);

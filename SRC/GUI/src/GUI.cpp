@@ -5,10 +5,22 @@
 #include <PolygonShape.hpp>
 
 
+enum {
+	ID_UP_LAYER_BUTTON = wxID_HIGHEST + 1,
+	ID_DOWN_LAYER_BUTTON = wxID_HIGHEST + 2
+};
+
 GUI::GUI(wxWindow* parent, wxWindowID id, const wxString& title, const wxPoint& pos, const wxSize& size, long style) 
 	: wxFrame(parent, id, title, pos, size, style)
 {
-	this->setUpMenu();
+	menu = new Menu(this);
+	menu->SetOnExitHandler([this](wxCommandEvent& event) { OnExit(event); });
+	menu->SetOnOpenHandler([this](wxCommandEvent& event) { OnOpen(event); });
+	menu->SetOnSaveHandler([this](wxCommandEvent& event) { OnSave(event); });
+	menu->SetOnSaveAsHandler([this](wxCommandEvent& event) { OnSaveAs(event); });
+	menu->SetOnUpLayerHandler([this](wxCommandEvent& event) { OnUpLayerButtonClick(event); });
+	menu->SetOnDownLayerHandler([this](wxCommandEvent& event) { OnDownLayerButtonClick(event); });
+
 	this->SetSizeHints(wxDefaultSize, wxDefaultSize);
 
 	wxBoxSizer* mainSizer;
@@ -182,6 +194,28 @@ GUI::GUI(wxWindow* parent, wxWindowID id, const wxString& title, const wxPoint& 
 
 	layersSizer->Add(labelSizer, 1, wxEXPAND, 5);
 
+
+	// Layer UP / Down
+
+	wxBoxSizer* layerUpDownSizer;
+	layerUpDownSizer = new wxBoxSizer(wxHORIZONTAL);
+
+	orderLayersLabel = new wxStaticText(this, wxID_ANY, wxT("Move Layer"), wxDefaultPosition, wxDefaultSize, 0);
+	orderLayersLabel->Wrap(-1);
+	layerUpDownSizer->Add(orderLayersLabel, 0, wxALIGN_CENTER_VERTICAL | wxALL, 5);
+
+	upLayerBtn = new wxButton(this, wxID_ANY, wxT("Up"), wxDefaultPosition, wxDefaultSize, 0);
+	layerUpDownSizer->Add(upLayerBtn, 0, wxALIGN_CENTER_VERTICAL | wxALL, 5);
+
+	downLayerBtn = new wxButton(this, wxID_ANY, wxT("Down"), wxDefaultPosition, wxDefaultSize, 0);
+	layerUpDownSizer->Add(downLayerBtn, 0, wxALIGN_CENTER_VERTICAL | wxALL, 5);
+
+
+	layersSizer->Add(layerUpDownSizer, 1, wxEXPAND, 5);
+
+	//
+
+
 	layersScrolledWindow = new wxScrolledWindow(this, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxHSCROLL | wxVSCROLL);
 	layersScrolledWindow->SetScrollRate(5, 5);
 	layersScrolledWindow->SetBackgroundColour(wxColour(125, 122, 122));
@@ -205,80 +239,17 @@ GUI::GUI(wxWindow* parent, wxWindowID id, const wxString& title, const wxPoint& 
 	//
 	m_canvas_panel->Bind(wxEVT_PAINT, &GUI::OnPaint, this);
 	rotationSlider->Bind(wxEVT_SCROLL_THUMBTRACK, &GUI::rotationSliderUpdate, this);
+	
 
-	/*std::shared_ptr<Circle> c = std::make_shared<Circle>(new Circle(2,2,1));
-	shapes.push_back(c.get());*/
-
-	//
-	// TODO: maybe define vector image sizing? I hardcoded it to be 100 x 100,
-	// so a circle with center in (50,50) is centered on the canvas panel
-	//
-	/*Circle* c = new Circle(50, 50, 5, 10, "blue", "yellow");
-	shapes.push_back(std::make_unique<Circle>(c));
-
-	std::vector<Point> pts;
-	pts.push_back(Point(1, 2)); pts.push_back(Point(10, 30)); pts.push_back(Point(20, 35)); pts.push_back(Point(30, 100)); pts.push_back(Point(40, 75)); pts.push_back(Point(50, 90));
-	Curve* curv = new Curve(5, "solid #000", "transparent", pts);
-	shapes.push_back(std::make_unique<Curve>(curv));
-
-	Line* l = new Line(Point(4, 7), Point(70, 80), 5, "", "transparent");
-	shapes.push_back(std::make_unique<Line>(l));
-
-	std::vector<Point> polyVertices = { Point(10,10), Point(20,10), Point(30,20), Point(30,60), Point(20,50), Point(10,40) };
-	PolygonShape* p = new PolygonShape(polyVertices.size(), 5, "solid #000", "transparent", polyVertices);
-	shapes.push_back(std::make_unique<PolygonShape>(p));*/
-
-	//m_canvas_panel->Refresh();
+	// Bind events to buttons
+	Bind(wxEVT_BUTTON, &GUI::OnUpLayerButtonClick, this, ID_UP_LAYER_BUTTON);
+	Bind(wxEVT_BUTTON, &GUI::OnDownLayerButtonClick, this, ID_DOWN_LAYER_BUTTON);
 }
 
 GUI::~GUI()
 {
 }
 
-void GUI::setUpMenu()
-{
-	wxMenu* fileMenu = new wxMenu;
-    fileMenu->Append(wxID_OPEN, "&Open\tCtrl+O");
-    fileMenu->Append(wxID_SAVE, "&Save\tCtrl+S");
-    fileMenu->Append(wxID_SAVEAS, "Save &As...\tCtrl+Shift+S");
-    fileMenu->AppendSeparator();
-    fileMenu->Append(wxID_EXIT, "E&xit\tCtrl+Q");
-    
-
-    wxMenu* editMenu = new wxMenu;
-    editMenu->Append(wxID_COPY, "&Copy\tCtrl+C");
-    editMenu->Append(wxID_CUT, "Cu&t\tCtrl+X");
-    editMenu->Append(wxID_PASTE, "&Paste\tCtrl+V");
-
-
-    wxMenu* settingsMenu = new wxMenu;
-    settingsMenu->Append(wxID_EXIT);
-
-    wxMenu* helpMenu = new wxMenu;
-    helpMenu->Append(wxID_HELP, "&Help\tF1");
-    helpMenu->Append(wxID_ABOUT, "&About\tF2");
-    helpMenu->AppendSeparator();
-    helpMenu->Append(wxID_ANY, "Go to &Docs", "Go to documentation");
-    helpMenu->Append(wxID_EXIT);
-
-
-    wxMenuBar* menuBar = new wxMenuBar;
-    menuBar->Append(fileMenu, "&File");
-    menuBar->Append(editMenu, "&Edit");
-    menuBar->Append(settingsMenu, "&Settings");
-    menuBar->Append(helpMenu, "&Help");
-
-
-    SetMenuBar(menuBar);
-
-    Bind(wxEVT_MENU, &GUI::OnExit, this, wxID_EXIT);
-    Bind(wxEVT_MENU, &GUI::OnOpen, this, wxID_OPEN);
-    Bind(wxEVT_MENU, &GUI::OnSave, this, wxID_SAVE);
-    Bind(wxEVT_MENU, &GUI::OnSaveAs, this, wxID_SAVEAS);
-
-
-	
-}
 
 void GUI::Repaint() const
 {
@@ -409,4 +380,14 @@ void GUI::OnSaveAs(wxCommandEvent& event)
 void GUI::OnGoToDocs(wxCommandEvent& event)
 {
     wxLaunchDefaultBrowser("https://docs.wxwidgets.org/");
+}
+
+void GUI::OnUpLayerButtonClick(wxCommandEvent& event) {
+	wxLogMessage("Up button clicked");
+	
+}
+
+void GUI::OnDownLayerButtonClick(wxCommandEvent& event) {
+	wxLogMessage("Down button clicked");
+	
 }
