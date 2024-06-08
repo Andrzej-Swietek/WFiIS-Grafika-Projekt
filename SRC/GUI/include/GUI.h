@@ -72,8 +72,5 @@ public:
 	void UpdateShapesOnResize();
 	void rotationSliderUpdate(wxScrollEvent& event);
 
-
-
-
 	std::vector<std::unique_ptr<Shape>> shapes;
 };

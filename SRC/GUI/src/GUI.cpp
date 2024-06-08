@@ -5,7 +5,8 @@
 #include <PolygonShape.hpp>
 
 
-GUI::GUI(wxWindow* parent, wxWindowID id, const wxString& title, const wxPoint& pos, const wxSize& size, long style) : wxFrame(parent, id, title, pos, size, style)
+GUI::GUI(wxWindow* parent, wxWindowID id, const wxString& title, const wxPoint& pos, const wxSize& size, long style) 
+	: wxFrame(parent, id, title, pos, size, style)
 {
 	this->setUpMenu();
 	this->SetSizeHints(wxDefaultSize, wxDefaultSize);

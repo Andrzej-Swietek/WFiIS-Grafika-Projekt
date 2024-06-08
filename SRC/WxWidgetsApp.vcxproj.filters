@@ -72,6 +72,12 @@
     <ClCompile Include="Panels\src\ShapesPanel.cpp">
       <Filter>Source Files\Panels</Filter>
     </ClCompile>
+    <ClCompile Include="Utils\src\vecmat.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Utils\src\SelectionManager.cpp">
+      <Filter>Source Files\Utils</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -118,6 +124,12 @@
     </ClInclude>
     <ClInclude Include="Panels\include\ShapesPanel.hpp">
       <Filter>Header Files\Panels</Filter>
+    </ClInclude>
+    <ClInclude Include="Utils\include\vecmat.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Utils\include\SelectionManager.hpp">
+      <Filter>Header Files\Utils</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
