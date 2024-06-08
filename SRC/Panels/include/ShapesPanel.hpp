@@ -5,11 +5,15 @@
 #include <wx/sizer.h>
 #include <wx/button.h>
 
+#include <functional>
+
 #include "SelectionManager.hpp"
 
 class ShapesPanel : public wxPanel {
 public:
     ShapesPanel(wxWindow* parent, const wxString& shapeName, int shapeId);
+
+    void SetSelectionCallback(std::function<void()> callback);
 
 private:
     void OnHideButtonClick(wxCommandEvent& event);
@@ -19,6 +23,8 @@ private:
     wxStaticText* m_shapeNameLabel;
     wxButton* m_selectButton;
     wxButton* m_hideButton;
+
+    std::function<void()> selectionCallback;
 
     wxDECLARE_EVENT_TABLE();
 };

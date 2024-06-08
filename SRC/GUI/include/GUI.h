@@ -54,11 +54,15 @@ protected:
 	wxButton* upLayerBtn;
 	wxButton* downLayerBtn;
 
+	wxStaticText* selectedLabelText;
+	wxStaticText* selectedShapeStatus;
+
 	wxScrolledWindow* layersScrolledWindow;
 	Menu* menu;
 
 	// std::vector<Shape*> shapes;
 
+	void updateSelectionStatusDisplay();
 
 public:
 
@@ -77,6 +81,7 @@ public:
 	void OnDownLayerButtonClick(wxCommandEvent& event);
 
 	void Repaint() const;
+	void RefreshLayersDisplay() const;
 	void OnPaint(wxPaintEvent& event);
 	void DrawShapes(wxDC& dc, int canvWidth, int canvHeight) const;
 	void UpdateShapesOnResize();

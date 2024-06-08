@@ -4,6 +4,7 @@
 #include <algorithm>
 #include <numeric>
 #include <vector>
+#include <functional>
 
 #include "Shape.hpp"
 
@@ -48,4 +49,5 @@ public:
     void movePoint(const Point& point, const Point& newPoint);
 
     void moveVertex(const int index, const Point& newPoint);
+
 };

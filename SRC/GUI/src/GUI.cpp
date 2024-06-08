@@ -5,12 +5,17 @@
 #include <PolygonShape.hpp>
 
 
-enum {
-	ID_UP_LAYER_BUTTON = wxID_HIGHEST + 1,
-	ID_DOWN_LAYER_BUTTON = wxID_HIGHEST + 2
-};
+//enum {
+//	ID_UP_LAYER_BUTTON = wxID_HIGHEST + 1,
+//	ID_DOWN_LAYER_BUTTON = wxID_HIGHEST + 2
+//};
 
-GUI::GUI(wxWindow* parent, wxWindowID id, const wxString& title, const wxPoint& pos, const wxSize& size, long style) 
+const int ID_UP_LAYER_BUTTON = 6500;
+const int ID_DOWN_LAYER_BUTTON = 6501;
+
+
+
+GUI::GUI(wxWindow* parent, wxWindowID id, const wxString& title, const wxPoint& pos, const wxSize& size, long style)
 	: wxFrame(parent, id, title, pos, size, style)
 {
 	menu = new Menu(this);
@@ -204,17 +209,34 @@ GUI::GUI(wxWindow* parent, wxWindowID id, const wxString& title, const wxPoint& 
 	orderLayersLabel->Wrap(-1);
 	layerUpDownSizer->Add(orderLayersLabel, 0, wxALIGN_CENTER_VERTICAL | wxALL, 5);
 
-	upLayerBtn = new wxButton(this, wxID_ANY, wxT("Up"), wxDefaultPosition, wxDefaultSize, 0);
+	upLayerBtn = new wxButton(this, ID_UP_LAYER_BUTTON, wxT("Up"), wxDefaultPosition, wxDefaultSize, 0);
 	layerUpDownSizer->Add(upLayerBtn, 0, wxALIGN_CENTER_VERTICAL | wxALL, 5);
 
-	downLayerBtn = new wxButton(this, wxID_ANY, wxT("Down"), wxDefaultPosition, wxDefaultSize, 0);
+	downLayerBtn = new wxButton(this, ID_DOWN_LAYER_BUTTON, wxT("Down"), wxDefaultPosition, wxDefaultSize, 0);
 	layerUpDownSizer->Add(downLayerBtn, 0, wxALIGN_CENTER_VERTICAL | wxALL, 5);
 
 
 	layersSizer->Add(layerUpDownSizer, 1, wxEXPAND, 5);
 
-	//
+	// SELECTION STATUS
 
+	wxBoxSizer* selectedSizer;
+	selectedSizer = new wxBoxSizer(wxHORIZONTAL);
+
+	selectedLabelText = new wxStaticText(this, wxID_ANY, wxT("Selected Shape:"), wxDefaultPosition, wxDefaultSize, 0);
+	selectedLabelText->Wrap(-1);
+	selectedLabelText->SetFont(wxFont(wxNORMAL_FONT->GetPointSize(), wxFONTFAMILY_DEFAULT, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_BOLD, false, wxEmptyString));
+
+	selectedSizer->Add(selectedLabelText, 0, wxALIGN_CENTER_VERTICAL | wxALL, 5);
+
+	selectedShapeStatus = new wxStaticText(this, wxID_ANY, wxT("No Selection"), wxDefaultPosition, wxDefaultSize, 0);
+	selectedShapeStatus->Wrap(-1);
+	selectedSizer->Add(selectedShapeStatus, 0, wxALIGN_CENTER_VERTICAL | wxALL, 5);
+
+
+	layersSizer->Add(selectedSizer, 1, wxEXPAND, 5);
+
+	//
 
 	layersScrolledWindow = new wxScrolledWindow(this, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxHSCROLL | wxVSCROLL);
 	layersScrolledWindow->SetScrollRate(5, 5);
@@ -242,6 +264,9 @@ GUI::GUI(wxWindow* parent, wxWindowID id, const wxString& title, const wxPoint& 
 	
 
 	// Bind events to buttons
+	//Bind(wxEVT_BUTTON, &GUI::OnUpLayerButtonClick, this, ID_UP_LAYER_BUTTON);
+	//Bind(wxEVT_BUTTON, &GUI::OnDownLayerButtonClick, this, ID_DOWN_LAYER_BUTTON);
+
 	Bind(wxEVT_BUTTON, &GUI::OnUpLayerButtonClick, this, ID_UP_LAYER_BUTTON);
 	Bind(wxEVT_BUTTON, &GUI::OnDownLayerButtonClick, this, ID_DOWN_LAYER_BUTTON);
 }
@@ -261,6 +286,37 @@ void GUI::Repaint() const
 	m_canvas_panel->GetSize(&w, &h);
 
 	DrawShapes(dc, w, h);
+}
+
+void GUI::RefreshLayersDisplay() const
+{
+	// Clear old components
+	wxWindowList& children = layersScrolledWindow->GetChildren();
+	Logger::getInstance()->log("Children", children.size()); int i = 0;
+	for (wxWindowList::iterator it = children.begin(); it != children.end(); ++it) {
+		//wxWindow* child = *it;
+		//child->Destroy();
+		Logger::getInstance()->log("Children", i++);
+	}
+
+
+	// Create ShapePanel instances for each shape and add them to layersScrolledWindow
+	wxBoxSizer* layersSizer = new wxBoxSizer(wxVERTICAL);
+	int id = 0;
+	for (const auto& shape : shapes) {
+		wxString shapeName = Shape::shapeTypeToString(shape->getShapeType());    
+		int shapeId = id++;														 /* TODO: Get the shape ID */
+		ShapesPanel* shapePanel = new ShapesPanel(
+			layersScrolledWindow,
+			shapeName.append(": ").append(std::to_string(shapeId)),
+			shapeId
+		);
+		layersSizer->Add(shapePanel, 0, wxEXPAND | wxALL, 5);
+	}
+
+	layersScrolledWindow->SetSizer(layersSizer);
+	layersScrolledWindow->Layout();
+	layersScrolledWindow->Refresh();
 }
 
 void GUI::OnPaint(wxPaintEvent& event)
@@ -337,6 +393,7 @@ void GUI::OnOpen(wxCommandEvent& event)
 			child->Destroy();
 		}
 
+
 		// Create ShapePanel instances for each shape and add them to layersScrolledWindow
 		wxBoxSizer* layersSizer = new wxBoxSizer(wxVERTICAL);
 		int id = 0;
@@ -348,6 +405,7 @@ void GUI::OnOpen(wxCommandEvent& event)
 				shapeName.append(": ").append(std::to_string(shapeId)),
 				shapeId
 			);
+			shapePanel->SetSelectionCallback([this] { updateSelectionStatusDisplay(); });
 			layersSizer->Add(shapePanel, 0, wxEXPAND | wxALL, 5);
 		}
 
@@ -383,11 +441,52 @@ void GUI::OnGoToDocs(wxCommandEvent& event)
 }
 
 void GUI::OnUpLayerButtonClick(wxCommandEvent& event) {
-	wxLogMessage("Up button clicked");
-	
+	if (!SelectionManager::getInstance()->isShapeSelected()) return;
+	const int selected_index = SelectionManager::getInstance()
+													->getSelectedShapeIndex();
+	if (selected_index == 0) {
+		wxLogMessage("This action is not permitted");
+		return;
+	}
+
+	std::swap(shapes[selected_index], shapes[selected_index - 1]);
+	// wxLogMessage("Up button clicked");
+
+	SelectionManager::getInstance()
+		->selectShape(selected_index - 1);
+
+	Repaint();
+	RefreshLayersDisplay();
+	this->updateSelectionStatusDisplay();
 }
 
 void GUI::OnDownLayerButtonClick(wxCommandEvent& event) {
-	wxLogMessage("Down button clicked");
-	
+	if (!SelectionManager::getInstance()->isShapeSelected()) return;
+	const int selected_index = SelectionManager::getInstance()
+												->getSelectedShapeIndex();
+
+	if (selected_index == shapes.size()-1 ) {
+		wxLogMessage("This action is not permitted");
+		return;
+	}
+
+	std::swap(shapes[selected_index], shapes[selected_index + 1]);
+	//wxLogMessage("Down button clicked");
+
+	SelectionManager::getInstance()
+		->selectShape(selected_index + 1);
+
+	Repaint();
+	RefreshLayersDisplay();
+	this->updateSelectionStatusDisplay();
+}
+
+void GUI::updateSelectionStatusDisplay() {
+	const int selected_index = SelectionManager::getInstance()
+											->getSelectedShapeIndex();
+
+	this->selectedShapeStatus->SetLabel(
+		selected_index == -1 ?
+			"No Selection" : Shape::shapeTypeToString( shapes[selected_index]->getShapeType() )
+	);
 }

@@ -23,6 +23,11 @@ ShapesPanel::ShapesPanel(wxWindow* parent, const wxString& shapeName, int shapeI
     this->Layout();
 }
 
+void ShapesPanel::SetSelectionCallback(std::function<void()> callback)
+{
+    selectionCallback = callback;
+}
+
 void ShapesPanel::OnHideButtonClick(wxCommandEvent& event) {
     wxLogMessage("Hide button clicked for shape ID: %d", m_shapeId);
 
@@ -30,7 +35,11 @@ void ShapesPanel::OnHideButtonClick(wxCommandEvent& event) {
 }
 
 void ShapesPanel::SelectShape(wxCommandEvent& event) {
-    wxLogMessage("Shape selected: %d", m_shapeId);
+    //wxLogMessage("Shape selected: %d", m_shapeId);
 
     SelectionManager::getInstance()->selectShape(m_shapeId);
+
+    if (selectionCallback) {
+        selectionCallback();
+    }
 }
