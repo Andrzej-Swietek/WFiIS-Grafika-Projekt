@@ -194,8 +194,6 @@ GUI::GUI(wxWindow* parent, wxWindowID id, const wxString& title, const wxPoint& 
 	mainSizer->Add(controlsSizer, 3, wxEXPAND, 5);
 
 
-	//m_imageSaver = new ImageSaver(m_canvas_panel);
-
 	this->SetSizer(mainSizer);
 	this->Layout();
 

@@ -50,9 +50,6 @@ protected:
 	wxStaticText* layersLabel;
 	wxScrolledWindow* layersScrolledWindow;
 
-	//ImageSaver* m_imageSaver;
-
-	// std::vector<Shape*> shapes;
 
 public:
 
