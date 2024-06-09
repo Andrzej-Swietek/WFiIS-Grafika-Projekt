@@ -298,13 +298,15 @@ void GUI::Repaint() const
 
 void GUI::RefreshLayersDisplay() const
 {
+
 	// Clear old components
 	wxWindowList& children = layersScrolledWindow->GetChildren();
 	Logger::getInstance()->log("Children", children.size()); int i = 0;
-	for (wxWindowList::iterator it = children.begin(); it != children.end(); ++it) {
-		//wxWindow* child = *it;
-		//child->Destroy();
-		Logger::getInstance()->log("Children", i++);
+
+	while (!children.empty()) {
+		wxWindow* child = children.front();
+		children.erase(children.begin()); // Remove child from list
+		child->Destroy(); // Destroy the child window
 	}
 
 
