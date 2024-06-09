@@ -12,6 +12,7 @@
 
 const int ID_UP_LAYER_BUTTON = 6500;
 const int ID_DOWN_LAYER_BUTTON = 6501;
+const int ID_LIST_SHAPES_BUTTON = 6502;
 
 
 
@@ -215,6 +216,8 @@ GUI::GUI(wxWindow* parent, wxWindowID id, const wxString& title, const wxPoint& 
 	downLayerBtn = new wxButton(this, ID_DOWN_LAYER_BUTTON, wxT("Down"), wxDefaultPosition, wxDefaultSize, 0);
 	layerUpDownSizer->Add(downLayerBtn, 0, wxALIGN_CENTER_VERTICAL | wxALL, 5);
 
+	listShapesBtn = new  wxButton(this, ID_LIST_SHAPES_BUTTON, wxT("List Shapes"), wxDefaultPosition, wxDefaultSize, 0);
+	layerUpDownSizer->Add(listShapesBtn, 0, wxALIGN_CENTER_VERTICAL | wxALL, 5);
 
 	layersSizer->Add(layerUpDownSizer, 1, wxEXPAND, 5);
 
@@ -273,6 +276,7 @@ GUI::GUI(wxWindow* parent, wxWindowID id, const wxString& title, const wxPoint& 
 
 	Bind(wxEVT_BUTTON, &GUI::OnUpLayerButtonClick, this, ID_UP_LAYER_BUTTON);
 	Bind(wxEVT_BUTTON, &GUI::OnDownLayerButtonClick, this, ID_DOWN_LAYER_BUTTON);
+	Bind(wxEVT_BUTTON, &GUI::OnListShapesButtonClick, this, ID_LIST_SHAPES_BUTTON);
 }
 
 GUI::~GUI()
@@ -484,6 +488,12 @@ void GUI::OnDownLayerButtonClick(wxCommandEvent& event) {
 	Repaint();
 	RefreshLayersDisplay();
 	this->updateSelectionStatusDisplay();
+}
+
+void GUI::OnListShapesButtonClick(wxCommandEvent& event)
+{
+	ShapeDialog dialog(this, shapes);
+	dialog.ShowModal();
 }
 
 void GUI::updateSelectionStatusDisplay() {

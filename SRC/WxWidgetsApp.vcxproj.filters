@@ -81,6 +81,15 @@
     <ClCompile Include="GUI\src\Menu.cpp">
       <Filter>Source Files\GUI</Filter>
     </ClCompile>
+    <ClCompile Include="Utils\src\ImageSaver.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Utils\src\ImageSaverDialog.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GUI\src\ShapeDialog.cpp">
+      <Filter>Source Files\GUI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -135,6 +144,15 @@
       <Filter>Header Files\Utils</Filter>
     </ClInclude>
     <ClInclude Include="GUI\include\Menu.hpp">
+      <Filter>Header Files\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="Utils\include\ImageSaver.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Utils\include\ImageSaverDialog.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GUI\include\ShapeDialog.hpp">
       <Filter>Header Files\GUI</Filter>
     </ClInclude>
   </ItemGroup>
