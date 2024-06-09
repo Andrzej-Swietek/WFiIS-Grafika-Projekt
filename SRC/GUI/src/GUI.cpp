@@ -261,7 +261,11 @@ GUI::GUI(wxWindow* parent, wxWindowID id, const wxString& title, const wxPoint& 
 	//
 	m_canvas_panel->Bind(wxEVT_PAINT, &GUI::OnPaint, this);
 	rotationSlider->Bind(wxEVT_SCROLL_THUMBTRACK, &GUI::rotationSliderUpdate, this);
-	
+
+	// rotationSlider->Bind(wxEVT_SCROLL_THUMBTRACK, &GUI::RotationSliderUpdate, this);
+
+	/*std::shared_ptr<Circle> c = std::make_shared<Circle>(new Circle(2,2,1));
+	shapes.push_back(c.get());*/
 
 	// Bind events to buttons
 	//Bind(wxEVT_BUTTON, &GUI::OnUpLayerButtonClick, this, ID_UP_LAYER_BUTTON);
@@ -304,7 +308,7 @@ void GUI::RefreshLayersDisplay() const
 	wxBoxSizer* layersSizer = new wxBoxSizer(wxVERTICAL);
 	int id = 0;
 	for (const auto& shape : shapes) {
-		wxString shapeName = Shape::shapeTypeToString(shape->getShapeType());    
+		wxString shapeName = Shape::shapeTypeToString(shape->getShapeType());
 		int shapeId = id++;														 /* TODO: Get the shape ID */
 		ShapesPanel* shapePanel = new ShapesPanel(
 			layersScrolledWindow,
@@ -351,7 +355,7 @@ void GUI::DrawShapes(wxDC& dc, int canvWidth, int canvHeight) const
 	the same can be done with other transformations
 */
 
-void GUI::rotationSliderUpdate(wxScrollEvent& event)
+void GUI::RotationSliderUpdate(wxScrollEvent& event)
 {
 	//WxStaticText_alpha->SetLabel(wxString::Format(wxT("%d"), WxScrollBar_alpha->GetThumbPosition()));
 	double alpha = rotationSlider->GetValue();
@@ -426,13 +430,14 @@ void GUI::OnOpen(wxCommandEvent& event)
 
 void GUI::OnSave(wxCommandEvent& event)
 {
-
+	ImageSaver::getInstance(m_canvas_panel)->SaveImage(this);
+	//m_imageSaver->SaveImage(this);
 }
 
 
 void GUI::OnSaveAs(wxCommandEvent& event)
 {
-
+	ImageSaver::getInstance(m_canvas_panel)->SaveImage(this);
 }
 
 void GUI::OnGoToDocs(wxCommandEvent& event)

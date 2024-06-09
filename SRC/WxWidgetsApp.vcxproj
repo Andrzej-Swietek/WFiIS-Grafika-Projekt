@@ -145,6 +145,8 @@
     <ClCompile Include="GUI\src\Menu.cpp" />
     <ClCompile Include="MainFrame.cpp" />
     <ClCompile Include="Panels\src\ShapesPanel.cpp" />
+    <ClCompile Include="Utils\src\ImageSaver.cpp" />
+    <ClCompile Include="Utils\src\ImageSaverDialog.cpp" />
     <ClCompile Include="Utils\src\Logger.cpp" />
     <ClCompile Include="Utils\src\SelectionManager.cpp" />
     <ClCompile Include="Utils\src\SVGDataLoaderAdapter.cpp" />
@@ -167,6 +169,8 @@
     <ClInclude Include="Panels\include\ShapesPanel.hpp" />
     <ClInclude Include="Utils\include\DataLoader.hpp" />
     <ClInclude Include="Utils\include\FileSaver.hpp" />
+    <ClInclude Include="Utils\include\ImageSaver.hpp" />
+    <ClInclude Include="Utils\include\ImageSaverDialog.hpp" />
     <ClInclude Include="Utils\include\Logger.hpp" />
     <ClInclude Include="Utils\include\SelectionManager.hpp" />
     <ClInclude Include="Utils\include\SVGDataLoaderAdapter.hpp" />

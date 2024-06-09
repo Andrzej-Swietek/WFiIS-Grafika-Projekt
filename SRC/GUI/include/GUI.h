@@ -25,6 +25,7 @@
 #include "XMLDataLoaderAdapter.hpp"
 #include "Logger.hpp"
 #include "ShapesPanel.hpp"
+#include "ImageSaver.hpp"
 
 #include "Menu.hpp"
 
@@ -60,7 +61,6 @@ protected:
 	wxScrolledWindow* layersScrolledWindow;
 	Menu* menu;
 
-	// std::vector<Shape*> shapes;
 
 	void updateSelectionStatusDisplay();
 
@@ -85,7 +85,7 @@ public:
 	void OnPaint(wxPaintEvent& event);
 	void DrawShapes(wxDC& dc, int canvWidth, int canvHeight) const;
 	void UpdateShapesOnResize();
-	void rotationSliderUpdate(wxScrollEvent& event);
+	void RotationSliderUpdate(wxScrollEvent& event);
 
 	std::vector<std::unique_ptr<Shape>> shapes;
 };
