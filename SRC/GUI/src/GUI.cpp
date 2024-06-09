@@ -203,7 +203,7 @@ GUI::GUI(wxWindow* parent, wxWindowID id, const wxString& title, const wxPoint& 
 	// bind the paint event - also refreshes on resize??
 	//
 	m_canvas_panel->Bind(wxEVT_PAINT, &GUI::OnPaint, this);
-	rotationSlider->Bind(wxEVT_SCROLL_THUMBTRACK, &GUI::rotationSliderUpdate, this);
+	rotationSlider->Bind(wxEVT_SCROLL_THUMBTRACK, &GUI::RotationSliderUpdate, this);
 
 	/*std::shared_ptr<Circle> c = std::make_shared<Circle>(new Circle(2,2,1));
 	shapes.push_back(c.get());*/
@@ -323,7 +323,7 @@ void GUI::DrawShapes(wxDC& dc, int canvWidth, int canvHeight) const
 	the same can be done with other transformations
 */
 
-void GUI::rotationSliderUpdate(wxScrollEvent& event)
+void GUI::RotationSliderUpdate(wxScrollEvent& event)
 {
 	//WxStaticText_alpha->SetLabel(wxString::Format(wxT("%d"), WxScrollBar_alpha->GetThumbPosition()));
 	double alpha = rotationSlider->GetValue();
@@ -396,13 +396,14 @@ void GUI::OnOpen(wxCommandEvent& event)
 
 void GUI::OnSave(wxCommandEvent& event)
 {
-
+	ImageSaver::getInstance(m_canvas_panel)->SaveImage(this);
+	//m_imageSaver->SaveImage(this);
 }
 
 
 void GUI::OnSaveAs(wxCommandEvent& event)
 {
-
+	ImageSaver::getInstance(m_canvas_panel)->SaveImage(this);
 }
 
 void GUI::OnGoToDocs(wxCommandEvent& event)
