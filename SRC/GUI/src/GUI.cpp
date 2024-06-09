@@ -393,16 +393,15 @@ void GUI::OnOpen(wxCommandEvent& event)
 	{
 		std::string file_path = WxOpenFileDialog.GetPath().ToStdString();
 		this->shapes = XMLDataLoaderAdapter::getInstance().load(file_path);
-		//PolygonShape p(3, { {1,2}, {2,3}, {3, 4}});
-		//Logger::getInstance()->log("LOG TEST", this->shapes.size());
 	
-		// Clear existing contents of the layersScrolledWindow
+		// Clear old components
 		wxWindowList& children = layersScrolledWindow->GetChildren();
-		for (wxWindowList::iterator it = children.begin(); it != children.end(); ++it) {
-			wxWindow* child = *it;
-			child->Destroy();
-		}
 
+		while (!children.empty()) {
+			wxWindow* child = children.front();
+			children.erase(children.begin()); // Remove child from list
+			child->Destroy(); // Destroy the child window
+		}
 
 		// Create ShapePanel instances for each shape and add them to layersScrolledWindow
 		wxBoxSizer* layersSizer = new wxBoxSizer(wxVERTICAL);
