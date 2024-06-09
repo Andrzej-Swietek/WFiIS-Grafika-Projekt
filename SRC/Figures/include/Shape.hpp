@@ -7,7 +7,7 @@
 #include <wx/dcbuffer.h>
 #include "vecmat.h"
 #include <array>
-
+#include <sstream>
 
 enum class ShapeType {
     CIRCLE,
@@ -144,6 +144,13 @@ public:
     static std::string shapeTypeToString(ShapeType shape_type);
 
     static std::array<int,3> getRGB(const std::string& color);
+
+
+    /**
+    * @brief Virtual method giving string representation of class
+    * @return text 
+    */
+    virtual std::string toString() = 0;
 
 protected:
     int stroke;

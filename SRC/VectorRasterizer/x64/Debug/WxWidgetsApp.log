@@ -1,6 +1,7 @@
 ﻿  GUI.cpp
-  MainFrame.cpp
+  ImageSaverDialog.cpp
   Generating Code...
-  WxWidgetsApp.vcxproj -> C:\Users\Marcin\source\repos\WFiIS-Grafika-Projekt\SRC\x64\Debug\VectorRasterizer.exe
+  LINK : C:\Users\Andrzej\Documents\WFiIS-Grafika-Projekt\SRC\x64\Debug\VectorRasterizer.exe not found or not built by the last incremental link; performing full link
+  WxWidgetsApp.vcxproj -> C:\Users\Andrzej\Documents\WFiIS-Grafika-Projekt\SRC\x64\Debug\VectorRasterizer.exe
   'pwsh.exe' is not recognized as an internal or external command,
   operable program or batch file.

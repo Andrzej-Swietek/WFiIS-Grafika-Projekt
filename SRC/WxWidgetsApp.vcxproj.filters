@@ -75,11 +75,11 @@
     <ClCompile Include="Utils\src\vecmat.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Utils\src\ImageSaver.cpp">
+    <ClCompile Include="Utils\src\SelectionManager.cpp">
       <Filter>Source Files\Utils</Filter>
     </ClCompile>
-    <ClCompile Include="Utils\src\ImageSaverDialog.cpp">
-      <Filter>Source Files\Utils</Filter>
+    <ClCompile Include="GUI\src\Menu.cpp">
+      <Filter>Source Files\GUI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -131,11 +131,11 @@
     <ClInclude Include="Utils\include\vecmat.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Utils\include\ImageSaver.hpp">
+    <ClInclude Include="Utils\include\SelectionManager.hpp">
       <Filter>Header Files\Utils</Filter>
     </ClInclude>
-    <ClInclude Include="Utils\include\ImageSaverDialog.hpp">
-      <Filter>Header Files\Utils</Filter>
+    <ClInclude Include="GUI\include\Menu.hpp">
+      <Filter>Header Files\GUI</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

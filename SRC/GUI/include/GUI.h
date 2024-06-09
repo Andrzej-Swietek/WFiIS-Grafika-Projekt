@@ -27,6 +27,8 @@
 #include "ShapesPanel.hpp"
 #include "ImageSaver.hpp"
 
+#include "Menu.hpp"
+
 class GUI : public wxFrame
 {
 private:
@@ -48,16 +50,25 @@ protected:
 	wxStaticText* m_staticText7;
 	wxSlider* transparencySlider;
 	wxStaticText* layersLabel;
-	wxScrolledWindow* layersScrolledWindow;
 
+	wxStaticText* orderLayersLabel;
+	wxButton* upLayerBtn;
+	wxButton* downLayerBtn;
+
+	wxStaticText* selectedLabelText;
+	wxStaticText* selectedShapeStatus;
+
+	wxScrolledWindow* layersScrolledWindow;
+	Menu* menu;
+
+
+	void updateSelectionStatusDisplay();
 
 public:
 
 	GUI(wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = wxT("SVG Rasterizer"), const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize(1024, 708), long style = wxDEFAULT_FRAME_STYLE | wxTAB_TRAVERSAL);
 
 	~GUI();
-
-	void setUpMenu();
 
 
 	void OnExit(wxCommandEvent& event);
@@ -66,14 +77,15 @@ public:
 	void OnSaveAs(wxCommandEvent& event);
 	void OnGoToDocs(wxCommandEvent& event);
 
+	void OnUpLayerButtonClick(wxCommandEvent& event);
+	void OnDownLayerButtonClick(wxCommandEvent& event);
+
 	void Repaint() const;
+	void RefreshLayersDisplay() const;
 	void OnPaint(wxPaintEvent& event);
 	void DrawShapes(wxDC& dc, int canvWidth, int canvHeight) const;
 	void UpdateShapesOnResize();
 	void RotationSliderUpdate(wxScrollEvent& event);
-
-
-
 
 	std::vector<std::unique_ptr<Shape>> shapes;
 };

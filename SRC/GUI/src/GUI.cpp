@@ -5,9 +5,27 @@
 #include <PolygonShape.hpp>
 
 
-GUI::GUI(wxWindow* parent, wxWindowID id, const wxString& title, const wxPoint& pos, const wxSize& size, long style) : wxFrame(parent, id, title, pos, size, style)
+//enum {
+//	ID_UP_LAYER_BUTTON = wxID_HIGHEST + 1,
+//	ID_DOWN_LAYER_BUTTON = wxID_HIGHEST + 2
+//};
+
+const int ID_UP_LAYER_BUTTON = 6500;
+const int ID_DOWN_LAYER_BUTTON = 6501;
+
+
+
+GUI::GUI(wxWindow* parent, wxWindowID id, const wxString& title, const wxPoint& pos, const wxSize& size, long style)
+	: wxFrame(parent, id, title, pos, size, style)
 {
-	this->setUpMenu();
+	menu = new Menu(this);
+	menu->SetOnExitHandler([this](wxCommandEvent& event) { OnExit(event); });
+	menu->SetOnOpenHandler([this](wxCommandEvent& event) { OnOpen(event); });
+	menu->SetOnSaveHandler([this](wxCommandEvent& event) { OnSave(event); });
+	menu->SetOnSaveAsHandler([this](wxCommandEvent& event) { OnSaveAs(event); });
+	menu->SetOnUpLayerHandler([this](wxCommandEvent& event) { OnUpLayerButtonClick(event); });
+	menu->SetOnDownLayerHandler([this](wxCommandEvent& event) { OnDownLayerButtonClick(event); });
+
 	this->SetSizeHints(wxDefaultSize, wxDefaultSize);
 
 	wxBoxSizer* mainSizer;
@@ -181,6 +199,45 @@ GUI::GUI(wxWindow* parent, wxWindowID id, const wxString& title, const wxPoint& 
 
 	layersSizer->Add(labelSizer, 1, wxEXPAND, 5);
 
+
+	// Layer UP / Down
+
+	wxBoxSizer* layerUpDownSizer;
+	layerUpDownSizer = new wxBoxSizer(wxHORIZONTAL);
+
+	orderLayersLabel = new wxStaticText(this, wxID_ANY, wxT("Move Layer"), wxDefaultPosition, wxDefaultSize, 0);
+	orderLayersLabel->Wrap(-1);
+	layerUpDownSizer->Add(orderLayersLabel, 0, wxALIGN_CENTER_VERTICAL | wxALL, 5);
+
+	upLayerBtn = new wxButton(this, ID_UP_LAYER_BUTTON, wxT("Up"), wxDefaultPosition, wxDefaultSize, 0);
+	layerUpDownSizer->Add(upLayerBtn, 0, wxALIGN_CENTER_VERTICAL | wxALL, 5);
+
+	downLayerBtn = new wxButton(this, ID_DOWN_LAYER_BUTTON, wxT("Down"), wxDefaultPosition, wxDefaultSize, 0);
+	layerUpDownSizer->Add(downLayerBtn, 0, wxALIGN_CENTER_VERTICAL | wxALL, 5);
+
+
+	layersSizer->Add(layerUpDownSizer, 1, wxEXPAND, 5);
+
+	// SELECTION STATUS
+
+	wxBoxSizer* selectedSizer;
+	selectedSizer = new wxBoxSizer(wxHORIZONTAL);
+
+	selectedLabelText = new wxStaticText(this, wxID_ANY, wxT("Selected Shape:"), wxDefaultPosition, wxDefaultSize, 0);
+	selectedLabelText->Wrap(-1);
+	selectedLabelText->SetFont(wxFont(wxNORMAL_FONT->GetPointSize(), wxFONTFAMILY_DEFAULT, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_BOLD, false, wxEmptyString));
+
+	selectedSizer->Add(selectedLabelText, 0, wxALIGN_CENTER_VERTICAL | wxALL, 5);
+
+	selectedShapeStatus = new wxStaticText(this, wxID_ANY, wxT("No Selection"), wxDefaultPosition, wxDefaultSize, 0);
+	selectedShapeStatus->Wrap(-1);
+	selectedSizer->Add(selectedShapeStatus, 0, wxALIGN_CENTER_VERTICAL | wxALL, 5);
+
+
+	layersSizer->Add(selectedSizer, 1, wxEXPAND, 5);
+
+	//
+
 	layersScrolledWindow = new wxScrolledWindow(this, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxHSCROLL | wxVSCROLL);
 	layersScrolledWindow->SetScrollRate(5, 5);
 	layersScrolledWindow->SetBackgroundColour(wxColour(125, 122, 122));
@@ -203,81 +260,25 @@ GUI::GUI(wxWindow* parent, wxWindowID id, const wxString& title, const wxPoint& 
 	// bind the paint event - also refreshes on resize??
 	//
 	m_canvas_panel->Bind(wxEVT_PAINT, &GUI::OnPaint, this);
+	// rotationSlider->Bind(wxEVT_SCROLL_THUMBTRACK, &GUI::RotationSliderUpdate, this);
+
 	rotationSlider->Bind(wxEVT_SCROLL_THUMBTRACK, &GUI::RotationSliderUpdate, this);
 
 	/*std::shared_ptr<Circle> c = std::make_shared<Circle>(new Circle(2,2,1));
 	shapes.push_back(c.get());*/
 
-	//
-	// TODO: maybe define vector image sizing? I hardcoded it to be 100 x 100,
-	// so a circle with center in (50,50) is centered on the canvas panel
-	//
-	/*Circle* c = new Circle(50, 50, 5, 10, "blue", "yellow");
-	shapes.push_back(std::make_unique<Circle>(c));
+	// Bind events to buttons
+	//Bind(wxEVT_BUTTON, &GUI::OnUpLayerButtonClick, this, ID_UP_LAYER_BUTTON);
+	//Bind(wxEVT_BUTTON, &GUI::OnDownLayerButtonClick, this, ID_DOWN_LAYER_BUTTON);
 
-	std::vector<Point> pts;
-	pts.push_back(Point(1, 2)); pts.push_back(Point(10, 30)); pts.push_back(Point(20, 35)); pts.push_back(Point(30, 100)); pts.push_back(Point(40, 75)); pts.push_back(Point(50, 90));
-	Curve* curv = new Curve(5, "solid #000", "transparent", pts);
-	shapes.push_back(std::make_unique<Curve>(curv));
-
-	Line* l = new Line(Point(4, 7), Point(70, 80), 5, "", "transparent");
-	shapes.push_back(std::make_unique<Line>(l));
-
-	std::vector<Point> polyVertices = { Point(10,10), Point(20,10), Point(30,20), Point(30,60), Point(20,50), Point(10,40) };
-	PolygonShape* p = new PolygonShape(polyVertices.size(), 5, "solid #000", "transparent", polyVertices);
-	shapes.push_back(std::make_unique<PolygonShape>(p));*/
-
-	//m_canvas_panel->Refresh();
+	Bind(wxEVT_BUTTON, &GUI::OnUpLayerButtonClick, this, ID_UP_LAYER_BUTTON);
+	Bind(wxEVT_BUTTON, &GUI::OnDownLayerButtonClick, this, ID_DOWN_LAYER_BUTTON);
 }
 
 GUI::~GUI()
 {
 }
 
-void GUI::setUpMenu()
-{
-	wxMenu* fileMenu = new wxMenu;
-    fileMenu->Append(wxID_OPEN, "&Open\tCtrl+O");
-    fileMenu->Append(wxID_SAVE, "&Save\tCtrl+S");
-    fileMenu->Append(wxID_SAVEAS, "Save &As...\tCtrl+Shift+S");
-    fileMenu->AppendSeparator();
-    fileMenu->Append(wxID_EXIT, "E&xit\tCtrl+Q");
-    
-
-    wxMenu* editMenu = new wxMenu;
-    editMenu->Append(wxID_COPY, "&Copy\tCtrl+C");
-    editMenu->Append(wxID_CUT, "Cu&t\tCtrl+X");
-    editMenu->Append(wxID_PASTE, "&Paste\tCtrl+V");
-
-
-    wxMenu* settingsMenu = new wxMenu;
-    settingsMenu->Append(wxID_EXIT);
-
-    wxMenu* helpMenu = new wxMenu;
-    helpMenu->Append(wxID_HELP, "&Help\tF1");
-    helpMenu->Append(wxID_ABOUT, "&About\tF2");
-    helpMenu->AppendSeparator();
-    helpMenu->Append(wxID_ANY, "Go to &Docs", "Go to documentation");
-    helpMenu->Append(wxID_EXIT);
-
-
-    wxMenuBar* menuBar = new wxMenuBar;
-    menuBar->Append(fileMenu, "&File");
-    menuBar->Append(editMenu, "&Edit");
-    menuBar->Append(settingsMenu, "&Settings");
-    menuBar->Append(helpMenu, "&Help");
-
-
-    SetMenuBar(menuBar);
-
-    Bind(wxEVT_MENU, &GUI::OnExit, this, wxID_EXIT);
-    Bind(wxEVT_MENU, &GUI::OnOpen, this, wxID_OPEN);
-    Bind(wxEVT_MENU, &GUI::OnSave, this, wxID_SAVE);
-    Bind(wxEVT_MENU, &GUI::OnSaveAs, this, wxID_SAVEAS);
-
-
-	
-}
 
 void GUI::Repaint() const
 {
@@ -289,6 +290,37 @@ void GUI::Repaint() const
 	m_canvas_panel->GetSize(&w, &h);
 
 	DrawShapes(dc, w, h);
+}
+
+void GUI::RefreshLayersDisplay() const
+{
+	// Clear old components
+	wxWindowList& children = layersScrolledWindow->GetChildren();
+	Logger::getInstance()->log("Children", children.size()); int i = 0;
+	for (wxWindowList::iterator it = children.begin(); it != children.end(); ++it) {
+		//wxWindow* child = *it;
+		//child->Destroy();
+		Logger::getInstance()->log("Children", i++);
+	}
+
+
+	// Create ShapePanel instances for each shape and add them to layersScrolledWindow
+	wxBoxSizer* layersSizer = new wxBoxSizer(wxVERTICAL);
+	int id = 0;
+	for (const auto& shape : shapes) {
+		wxString shapeName = Shape::shapeTypeToString(shape->getShapeType());
+		int shapeId = id++;														 /* TODO: Get the shape ID */
+		ShapesPanel* shapePanel = new ShapesPanel(
+			layersScrolledWindow,
+			shapeName.append(": ").append(std::to_string(shapeId)),
+			shapeId
+		);
+		layersSizer->Add(shapePanel, 0, wxEXPAND | wxALL, 5);
+	}
+
+	layersScrolledWindow->SetSizer(layersSizer);
+	layersScrolledWindow->Layout();
+	layersScrolledWindow->Refresh();
 }
 
 void GUI::OnPaint(wxPaintEvent& event)
@@ -365,6 +397,7 @@ void GUI::OnOpen(wxCommandEvent& event)
 			child->Destroy();
 		}
 
+
 		// Create ShapePanel instances for each shape and add them to layersScrolledWindow
 		wxBoxSizer* layersSizer = new wxBoxSizer(wxVERTICAL);
 		int id = 0;
@@ -376,6 +409,7 @@ void GUI::OnOpen(wxCommandEvent& event)
 				shapeName.append(": ").append(std::to_string(shapeId)),
 				shapeId
 			);
+			shapePanel->SetSelectionCallback([this] { updateSelectionStatusDisplay(); });
 			layersSizer->Add(shapePanel, 0, wxEXPAND | wxALL, 5);
 		}
 
@@ -409,4 +443,55 @@ void GUI::OnSaveAs(wxCommandEvent& event)
 void GUI::OnGoToDocs(wxCommandEvent& event)
 {
     wxLaunchDefaultBrowser("https://docs.wxwidgets.org/");
+}
+
+void GUI::OnUpLayerButtonClick(wxCommandEvent& event) {
+	if (!SelectionManager::getInstance()->isShapeSelected()) return;
+	const int selected_index = SelectionManager::getInstance()
+													->getSelectedShapeIndex();
+	if (selected_index == 0) {
+		wxLogMessage("This action is not permitted");
+		return;
+	}
+
+	std::swap(shapes[selected_index], shapes[selected_index - 1]);
+	// wxLogMessage("Up button clicked");
+
+	SelectionManager::getInstance()
+		->selectShape(selected_index - 1);
+
+	Repaint();
+	RefreshLayersDisplay();
+	this->updateSelectionStatusDisplay();
+}
+
+void GUI::OnDownLayerButtonClick(wxCommandEvent& event) {
+	if (!SelectionManager::getInstance()->isShapeSelected()) return;
+	const int selected_index = SelectionManager::getInstance()
+												->getSelectedShapeIndex();
+
+	if (selected_index == shapes.size()-1 ) {
+		wxLogMessage("This action is not permitted");
+		return;
+	}
+
+	std::swap(shapes[selected_index], shapes[selected_index + 1]);
+	//wxLogMessage("Down button clicked");
+
+	SelectionManager::getInstance()
+		->selectShape(selected_index + 1);
+
+	Repaint();
+	RefreshLayersDisplay();
+	this->updateSelectionStatusDisplay();
+}
+
+void GUI::updateSelectionStatusDisplay() {
+	const int selected_index = SelectionManager::getInstance()
+											->getSelectedShapeIndex();
+
+	this->selectedShapeStatus->SetLabel(
+		selected_index == -1 ?
+			"No Selection" : Shape::shapeTypeToString( shapes[selected_index]->getShapeType() )
+	);
 }

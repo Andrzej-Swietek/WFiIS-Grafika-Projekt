@@ -81,3 +81,17 @@ void Circle::setY(int y) {
 void Circle::setR(int r) {
     this->r = r;
 }
+
+std::string Circle::toString()
+{
+    std::stringstream ss;
+    ss << "Circle: {"
+        << "Center: (" << x << ", " << y << "), "
+        << "Radius: " << r << ", "
+        << "Stroke: " << getStroke() << ", "
+        << "Outline Color: " << getOutline() << ", "
+        << "Fill Color: " << getFill() << ", "
+        << "Shape Type: " << (getShapeType() == ShapeType::CIRCLE ? "CIRCLE" : "UNKNOWN")
+        << "}";
+    return ss.str();
+}
