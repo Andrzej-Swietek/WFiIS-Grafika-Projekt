@@ -260,9 +260,9 @@ GUI::GUI(wxWindow* parent, wxWindowID id, const wxString& title, const wxPoint& 
 	// bind the paint event - also refreshes on resize??
 	//
 	m_canvas_panel->Bind(wxEVT_PAINT, &GUI::OnPaint, this);
-	rotationSlider->Bind(wxEVT_SCROLL_THUMBTRACK, &GUI::rotationSliderUpdate, this);
-
 	// rotationSlider->Bind(wxEVT_SCROLL_THUMBTRACK, &GUI::RotationSliderUpdate, this);
+
+	rotationSlider->Bind(wxEVT_SCROLL_THUMBTRACK, &GUI::RotationSliderUpdate, this);
 
 	/*std::shared_ptr<Circle> c = std::make_shared<Circle>(new Circle(2,2,1));
 	shapes.push_back(c.get());*/

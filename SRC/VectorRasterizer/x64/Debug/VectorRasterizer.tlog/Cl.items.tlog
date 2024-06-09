@@ -7,6 +7,8 @@ C:\Users\Andrzej\Documents\WFiIS-Grafika-Projekt\SRC\GUI\src\GUI.cpp;C:\Users\An
 C:\Users\Andrzej\Documents\WFiIS-Grafika-Projekt\SRC\GUI\src\Menu.cpp;C:\Users\Andrzej\Documents\WFiIS-Grafika-Projekt\SRC\VectorRasterizer\x64\Debug\Menu.obj
 C:\Users\Andrzej\Documents\WFiIS-Grafika-Projekt\SRC\MainFrame.cpp;C:\Users\Andrzej\Documents\WFiIS-Grafika-Projekt\SRC\VectorRasterizer\x64\Debug\MainFrame.obj
 C:\Users\Andrzej\Documents\WFiIS-Grafika-Projekt\SRC\Panels\src\ShapesPanel.cpp;C:\Users\Andrzej\Documents\WFiIS-Grafika-Projekt\SRC\VectorRasterizer\x64\Debug\ShapesPanel.obj
+C:\Users\Andrzej\Documents\WFiIS-Grafika-Projekt\SRC\Utils\src\ImageSaver.cpp;C:\Users\Andrzej\Documents\WFiIS-Grafika-Projekt\SRC\VectorRasterizer\x64\Debug\ImageSaver.obj
+C:\Users\Andrzej\Documents\WFiIS-Grafika-Projekt\SRC\Utils\src\ImageSaverDialog.cpp;C:\Users\Andrzej\Documents\WFiIS-Grafika-Projekt\SRC\VectorRasterizer\x64\Debug\ImageSaverDialog.obj
 C:\Users\Andrzej\Documents\WFiIS-Grafika-Projekt\SRC\Utils\src\Logger.cpp;C:\Users\Andrzej\Documents\WFiIS-Grafika-Projekt\SRC\VectorRasterizer\x64\Debug\Logger.obj
 C:\Users\Andrzej\Documents\WFiIS-Grafika-Projekt\SRC\Utils\src\SelectionManager.cpp;C:\Users\Andrzej\Documents\WFiIS-Grafika-Projekt\SRC\VectorRasterizer\x64\Debug\SelectionManager.obj
 C:\Users\Andrzej\Documents\WFiIS-Grafika-Projekt\SRC\Utils\src\SVGDataLoaderAdapter.cpp;C:\Users\Andrzej\Documents\WFiIS-Grafika-Projekt\SRC\VectorRasterizer\x64\Debug\SVGDataLoaderAdapter.obj
