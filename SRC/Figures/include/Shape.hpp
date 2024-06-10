@@ -122,6 +122,12 @@ public:
     */
     void setRotationAngle(const double rotationAngle);
 
+    /**
+     * @brief Get the rotation angle
+     * @return rotation angle
+    */
+    double getRotationAngle() const;
+
 
     /**
      * @brief Get the Shape Type object

@@ -74,6 +74,7 @@ void PolygonShape::draw(wxDC* dc, int canvWidth, int canvHeight) const
     dc->DrawPolygon(vertices.size(), vertices.data());
 }
 
+// can be refactored to something like GetRotatedVertices()
 void PolygonShape::rotate()
 {
     Matrix M;

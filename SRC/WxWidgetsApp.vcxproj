@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="packages\vcpkg.C.Users.Andrzej.vcpkg.1.0.0\build\native\vcpkg.C.Users.Andrzej.vcpkg.props" Condition="Exists('packages\vcpkg.C.Users.Andrzej.vcpkg.1.0.0\build\native\vcpkg.C.Users.Andrzej.vcpkg.props')" />
+  <Import Project="packages\vcpkg.C.Users.Marcin.Documents.vcpkg.1.0.0\build\native\vcpkg.C.Users.Marcin.Documents.vcpkg.props" Condition="Exists('packages\vcpkg.C.Users.Marcin.Documents.vcpkg.1.0.0\build\native\vcpkg.C.Users.Marcin.Documents.vcpkg.props')" />
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
       <Configuration>Debug</Configuration>
@@ -73,8 +73,8 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IncludePath>C:\Users\Andrzej\wxWidgets-3.2.4\include;C:\Users\Andrzej\wxWidgets-3.2.4\include\msvc;$(IncludePath)</IncludePath>
-    <LibraryPath>C:\Users\Andrzej\wxWidgets-3.2.4\lib\vc_x64_lib;$(LibraryPath)</LibraryPath>
+    <IncludePath>C:\Users\Marcin\Documents\wxWidgets-3.2.4\include;C:\Users\Marcin\Documents\wxWidgets-3.2.4\include\msvc;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\Users\Marcin\Documents\wxWidgets-3.2.4\lib\vc_x64_lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -111,12 +111,12 @@
       <PreprocessorDefinitions>_DEBUG;_WINDOWS;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
-      <AdditionalIncludeDirectories>C:\Users\Andrzej\vcpkg\installed\x64-windows\include;$(ProjectDir)/Figures/include;$(ProjectDir)/GUI/include;$(ProjectDir)/Panels/include;$(ProjectDir)/Utils/include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\Marcin\Documents\vcpkg\installed\x64-windows\include;$(ProjectDir)/Figures/include;$(ProjectDir)/GUI/include;$(ProjectDir)/Panels/include;$(ProjectDir)/Utils/include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>C:\Users\Andrzej\vcpkg\installed\x64-windows\lib</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>C:\Users\Marcin\Documents\vcpkg\installed\x64-windows\lib</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -179,13 +179,13 @@
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
-    <Import Project="packages\vcpkg.C.Users.Andrzej.vcpkg.1.0.0\build\native\vcpkg.C.Users.Andrzej.vcpkg.targets" Condition="Exists('packages\vcpkg.C.Users.Andrzej.vcpkg.1.0.0\build\native\vcpkg.C.Users.Andrzej.vcpkg.targets')" />
+    <Import Project="packages\vcpkg.C.Users.Marcin.Documents.vcpkg.1.0.0\build\native\vcpkg.C.Users.Marcin.Documents.vcpkg.targets" Condition="Exists('packages\vcpkg.C.Users.Marcin.Documents.vcpkg.1.0.0\build\native\vcpkg.C.Users.Marcin.Documents.vcpkg.targets')" />
   </ImportGroup>
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
-    <Error Condition="!Exists('packages\vcpkg.C.Users.Andrzej.vcpkg.1.0.0\build\native\vcpkg.C.Users.Andrzej.vcpkg.props')" Text="$([System.String]::Format('$(ErrorText)', 'packages\vcpkg.C.Users.Andrzej.vcpkg.1.0.0\build\native\vcpkg.C.Users.Andrzej.vcpkg.props'))" />
-    <Error Condition="!Exists('packages\vcpkg.C.Users.Andrzej.vcpkg.1.0.0\build\native\vcpkg.C.Users.Andrzej.vcpkg.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\vcpkg.C.Users.Andrzej.vcpkg.1.0.0\build\native\vcpkg.C.Users.Andrzej.vcpkg.targets'))" />
+    <Error Condition="!Exists('packages\vcpkg.C.Users.Marcin.Documents.vcpkg.1.0.0\build\native\vcpkg.C.Users.Marcin.Documents.vcpkg.props')" Text="$([System.String]::Format('$(ErrorText)', 'packages\vcpkg.C.Users.Marcin.Documents.vcpkg.1.0.0\build\native\vcpkg.C.Users.Marcin.Documents.vcpkg.props'))" />
+    <Error Condition="!Exists('packages\vcpkg.C.Users.Marcin.Documents.vcpkg.1.0.0\build\native\vcpkg.C.Users.Marcin.Documents.vcpkg.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\vcpkg.C.Users.Marcin.Documents.vcpkg.1.0.0\build\native\vcpkg.C.Users.Marcin.Documents.vcpkg.targets'))" />
   </Target>
 </Project>

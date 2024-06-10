@@ -13,6 +13,7 @@
 const int ID_UP_LAYER_BUTTON = 6500;
 const int ID_DOWN_LAYER_BUTTON = 6501;
 
+const int ID_VERTEX_EDIT_TEXT = 6502;
 
 
 GUI::GUI(wxWindow* parent, wxWindowID id, const wxString& title, const wxPoint& pos, const wxSize& size, long style)
@@ -39,17 +40,35 @@ GUI::GUI(wxWindow* parent, wxWindowID id, const wxString& title, const wxPoint& 
 
 	canvasesSizer->Add(m_canvas_panel, 4, wxEXPAND | wxALL, 5);
 
-	wxBoxSizer* bSizer15;
-	bSizer15 = new wxBoxSizer(wxHORIZONTAL);
 
-	imageStats = new wxTextCtrl(this, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, wxTE_CENTER);
+	vertexEditorSizer = new wxBoxSizer(wxVERTICAL);
+
+	vertexEditorScrolledWindow = new wxScrolledWindow(this, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxHSCROLL | wxVSCROLL);
+	vertexEditorScrolledWindow->SetScrollRate(5, 5);
+	vertexEditorScrolledWindow->SetBackgroundColour(wxColour(125, 122, 122));
+	
+	vertexEditorSizer->Add(vertexEditorScrolledWindow, 6, wxEXPAND | wxALL, 5);
+
+	/*layersScrolledWindow = new wxScrolledWindow(this, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxHSCROLL | wxVSCROLL);
+	layersScrolledWindow->SetScrollRate(5, 5);
+	layersScrolledWindow->SetBackgroundColour(wxColour(125, 122, 122));
+
+	layersSizer->Add(layersScrolledWindow, 6, wxEXPAND | wxALL, 5);
+
+
+	controlsSizer->Add(layersSizer, 1, wxEXPAND, 5);*/
+
+
+	/*imageStats = new wxTextCtrl(this, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, wxTE_CENTER);
 	imageStats->SetForegroundColour(wxColour(255, 255, 255));
 	imageStats->SetBackgroundColour(wxColour(33, 35, 27));
 
-	bSizer15->Add(imageStats, 1, wxALL, 5);
+	vertexEditorSizer->Add(imageStats, 1, wxALL, 5);*/
 
 
-	canvasesSizer->Add(bSizer15, 1, wxEXPAND, 5);
+	//canvasesSizer->Add(vertexEditorSizer, 1, wxEXPAND, 5);
+	canvasesSizer->Add(vertexEditorSizer, 1, wxEXPAND, 5);
+
 
 
 	mainSizer->Add(canvasesSizer, 6, wxEXPAND, 5);
@@ -260,12 +279,11 @@ GUI::GUI(wxWindow* parent, wxWindowID id, const wxString& title, const wxPoint& 
 	// bind the paint event - also refreshes on resize??
 	//
 	m_canvas_panel->Bind(wxEVT_PAINT, &GUI::OnPaint, this);
-	// rotationSlider->Bind(wxEVT_SCROLL_THUMBTRACK, &GUI::RotationSliderUpdate, this);
+	m_canvas_panel->Bind(wxEVT_SIZE, &GUI::OnSize, this);
 
 	rotationSlider->Bind(wxEVT_SCROLL_THUMBTRACK, &GUI::RotationSliderUpdate, this);
+	rotationSlider->Bind(wxEVT_SCROLL_CHANGED, &GUI::RotationSliderUpdate, this);
 
-	/*std::shared_ptr<Circle> c = std::make_shared<Circle>(new Circle(2,2,1));
-	shapes.push_back(c.get());*/
 
 	// Bind events to buttons
 	//Bind(wxEVT_BUTTON, &GUI::OnUpLayerButtonClick, this, ID_UP_LAYER_BUTTON);
@@ -273,6 +291,8 @@ GUI::GUI(wxWindow* parent, wxWindowID id, const wxString& title, const wxPoint& 
 
 	Bind(wxEVT_BUTTON, &GUI::OnUpLayerButtonClick, this, ID_UP_LAYER_BUTTON);
 	Bind(wxEVT_BUTTON, &GUI::OnDownLayerButtonClick, this, ID_DOWN_LAYER_BUTTON);
+
+	Bind(wxEVT_TEXT, &GUI::OnVertexTextChange, this, ID_VERTEX_EDIT_TEXT);
 }
 
 GUI::~GUI()
@@ -328,17 +348,11 @@ void GUI::OnPaint(wxPaintEvent& event)
 	Repaint();
 }
 
-//
-// TODO: necessary? For now resizing is handled in the respective Shape::draw() implementations
-// UI seems to not update sometimes (like clicking on the slider instead of dragging the thumbnail or when resizing/minimizing/maximizing the window)
-//
-void GUI::UpdateShapesOnResize()
+void GUI::OnSize(wxSizeEvent& event)
 {
-	for (const auto& shape : shapes)
-	{
-		
-	}
+	Repaint();
 }
+
 
 void GUI::DrawShapes(wxDC& dc, int canvWidth, int canvHeight) const
 {
@@ -357,7 +371,6 @@ void GUI::DrawShapes(wxDC& dc, int canvWidth, int canvHeight) const
 
 void GUI::RotationSliderUpdate(wxScrollEvent& event)
 {
-	//WxStaticText_alpha->SetLabel(wxString::Format(wxT("%d"), WxScrollBar_alpha->GetThumbPosition()));
 	double alpha = rotationSlider->GetValue();
 
 	// rotation angle in radians
@@ -366,10 +379,16 @@ void GUI::RotationSliderUpdate(wxScrollEvent& event)
 	//
 	// for now rotating all the shapes - it should rotate only selected shapes in the future
 	// rotation is implemented directly in the Shape::Draw() methods - perhaps it can be done better (split transformations into methods/functions?)
-	for (const auto& shape : shapes)
+	/*for (const auto& shape : shapes)
 	{
 		shape->setRotationAngle(angle);
-	}
+	}*/
+
+	const int selected_index = SelectionManager::getInstance()
+		->getSelectedShapeIndex();
+
+	if (selected_index == -1) return;
+	shapes[selected_index]->setRotationAngle(angle);
 	Repaint();
 }
 
@@ -431,7 +450,6 @@ void GUI::OnOpen(wxCommandEvent& event)
 void GUI::OnSave(wxCommandEvent& event)
 {
 	ImageSaver::getInstance(m_canvas_panel)->SaveImage(this);
-	//m_imageSaver->SaveImage(this);
 }
 
 
@@ -494,4 +512,177 @@ void GUI::updateSelectionStatusDisplay() {
 		selected_index == -1 ?
 			"No Selection" : Shape::shapeTypeToString( shapes[selected_index]->getShapeType() )
 	);
+	
+	if (selected_index!= -1)
+		rotationSlider->SetValue(shapes[selected_index]->getRotationAngle()*180.0/M_PI);
+
+
+	// update vertices inputs
+	PopulateVertexEditor();
+}
+
+
+void GUI::PopulateVertexEditor()
+{
+	const int selected_index = SelectionManager::getInstance()
+		->getSelectedShapeIndex();
+
+	vertexEditorSizer->Clear(true);
+
+	m_vertexXFields.clear();
+	m_vertexYFields.clear();
+
+
+	if (shapes[selected_index]->getShapeType() == ShapeType::CIRCLE) {
+		Circle* circle = dynamic_cast<Circle*>(shapes[selected_index].get());
+
+		wxBoxSizer* sizer = new wxBoxSizer(wxHORIZONTAL);
+
+		wxTextCtrl* xField = new wxTextCtrl(this, ID_VERTEX_EDIT_TEXT, std::to_string(circle->getX()), wxDefaultPosition, wxSize(50, -1));
+		wxTextCtrl* yField = new wxTextCtrl(this, ID_VERTEX_EDIT_TEXT, std::to_string(circle->getY()), wxDefaultPosition, wxSize(50, -1));
+
+		m_vertexXFields.push_back(xField);
+		m_vertexYFields.push_back(yField);
+
+		sizer->Add(new wxStaticText(this, wxID_ANY, "X:"), 0, wxALIGN_CENTER | wxALL, 5);
+		sizer->Add(xField, 1, wxALIGN_CENTER | wxALL, 5);
+
+		sizer->Add(new wxStaticText(this, wxID_ANY, "Y:"), 0, wxALIGN_CENTER | wxALL, 5);
+		sizer->Add(yField, 1, wxALIGN_CENTER | wxALL, 5);
+
+		vertexEditorSizer->Add(sizer, 0, wxEXPAND | wxALL, 5);
+	}
+	else if (shapes[selected_index]->getShapeType() == ShapeType::LINE) {
+		Line* line = dynamic_cast<Line*>(shapes[selected_index].get());
+
+		Point start = line->getStart();
+		Point end = line->getEnd();
+
+		std::vector<Point> points = { start, end };
+
+		for (const Point pt : points) {
+			wxBoxSizer* sizer = new wxBoxSizer(wxHORIZONTAL);
+
+			wxTextCtrl* xField = new wxTextCtrl(this, ID_VERTEX_EDIT_TEXT, std::to_string(pt.getX()), wxDefaultPosition, wxSize(50, -1));
+			wxTextCtrl* yField = new wxTextCtrl(this, ID_VERTEX_EDIT_TEXT, std::to_string(pt.getY()), wxDefaultPosition, wxSize(50, -1));
+
+			sizer->Add(new wxStaticText(this, wxID_ANY, "X:"), 0, wxALIGN_CENTER | wxALL, 5);
+			sizer->Add(xField, 1, wxALIGN_CENTER | wxALL, 5);
+
+			sizer->Add(new wxStaticText(this, wxID_ANY, "Y:"), 0, wxALIGN_CENTER | wxALL, 5);
+			sizer->Add(yField, 1, wxALIGN_CENTER | wxALL, 5);
+
+			vertexEditorSizer->Add(sizer, 0, wxEXPAND | wxALL, 5);
+
+			m_vertexXFields.push_back(xField);
+			m_vertexYFields.push_back(yField);
+		}
+	}
+	else if (shapes[selected_index]->getShapeType() == ShapeType::CURVE) {
+		for (const Point pt : dynamic_cast<Curve*>(shapes[selected_index].get())->getPoints()) {
+			wxBoxSizer* sizer = new wxBoxSizer(wxHORIZONTAL);
+
+			wxTextCtrl* xField = new wxTextCtrl(this, ID_VERTEX_EDIT_TEXT, std::to_string(pt.getX()), wxDefaultPosition, wxSize(50, -1));
+			wxTextCtrl* yField = new wxTextCtrl(this, ID_VERTEX_EDIT_TEXT, std::to_string(pt.getY()), wxDefaultPosition, wxSize(50, -1));
+
+			sizer->Add(new wxStaticText(this, wxID_ANY, "X:"), 0, wxALIGN_CENTER | wxALL, 5);
+			sizer->Add(xField, 1, wxALIGN_CENTER | wxALL, 5);
+
+			sizer->Add(new wxStaticText(this, wxID_ANY, "Y:"), 0, wxALIGN_CENTER | wxALL, 5);
+			sizer->Add(yField, 1, wxALIGN_CENTER | wxALL, 5);
+
+			vertexEditorSizer->Add(sizer, 0, wxEXPAND | wxALL, 5);
+
+			m_vertexXFields.push_back(xField);
+			m_vertexYFields.push_back(yField);
+		}
+	}
+	else if (shapes[selected_index]->getShapeType() == ShapeType::POLYGON) {
+		for (const Point pt : dynamic_cast<PolygonShape*>(shapes[selected_index].get())->getPoints()) {
+			wxBoxSizer* sizer = new wxBoxSizer(wxHORIZONTAL);
+
+			wxTextCtrl* xField = new wxTextCtrl(this, ID_VERTEX_EDIT_TEXT, std::to_string(pt.getX()), wxDefaultPosition, wxSize(50, -1));
+			wxTextCtrl* yField = new wxTextCtrl(this, ID_VERTEX_EDIT_TEXT, std::to_string(pt.getY()), wxDefaultPosition, wxSize(50, -1));
+
+			sizer->Add(new wxStaticText(this, wxID_ANY, "X:"), 0, wxALIGN_CENTER | wxALL, 5);
+			sizer->Add(xField, 1, wxALIGN_CENTER | wxALL, 5);
+
+			sizer->Add(new wxStaticText(this, wxID_ANY, "Y:"), 0, wxALIGN_CENTER | wxALL, 5);
+			sizer->Add(yField, 1, wxALIGN_CENTER | wxALL, 5);
+
+			vertexEditorSizer->Add(sizer, 0, wxEXPAND | wxALL, 5);
+
+			m_vertexXFields.push_back(xField);
+			m_vertexYFields.push_back(yField);
+		}
+	}
+
+	/*vertexEditorScrolledWindow->FitInside();
+	vertexEditorScrolledWindow->Layout();*/
+
+	this->Layout();
+}
+
+
+void GUI::OnVertexTextChange(wxCommandEvent& event)
+{
+	const int selected_index = SelectionManager::getInstance()
+		->getSelectedShapeIndex();
+
+	if (shapes[selected_index]->getShapeType() == ShapeType::CIRCLE) {
+
+		if (m_vertexXFields.size() > 0) {
+			Circle* circle = dynamic_cast<Circle*>(shapes[selected_index].get());
+
+			long x, y;
+			m_vertexXFields[0]->GetValue().ToLong(&x);
+			m_vertexYFields[0]->GetValue().ToLong(&y);
+
+			circle->setX(x);
+			circle->setY(y);
+		}
+	}
+	else if (shapes[selected_index]->getShapeType() == ShapeType::LINE) {
+
+		if (m_vertexXFields.size() > 1) {
+			Line* line = dynamic_cast<Line*>(shapes[selected_index].get());
+
+			long x1, y1, x2, y2;
+			m_vertexXFields[0]->GetValue().ToLong(&x1);
+			m_vertexYFields[0]->GetValue().ToLong(&y1);
+			m_vertexXFields[1]->GetValue().ToLong(&x2);
+			m_vertexYFields[1]->GetValue().ToLong(&y2);
+			Point start, end;
+			start.setX(x1); start.setY(y1); end.setX(x2); end.setY(y2);
+
+			line->setStart(start);
+			line->setEnd(end);
+		}
+	}
+	else if (shapes[selected_index]->getShapeType() == ShapeType::CURVE) {
+		Curve* curve = dynamic_cast<Curve*>(shapes[selected_index].get());
+
+		for (size_t i = 0; i < m_vertexXFields.size(); i++) {
+			long x, y;
+			Point newVertex;
+			if (m_vertexXFields[i]->GetValue().ToLong(&x) && m_vertexYFields[i]->GetValue().ToLong(&y)) {
+				newVertex.setX(x); newVertex.setY(y);
+				curve->moveVertex(i, newVertex);
+			}
+		}
+	}
+	else if (shapes[selected_index]->getShapeType() == ShapeType::POLYGON) {
+		PolygonShape* polygonShape = dynamic_cast<PolygonShape*>(shapes[selected_index].get());
+
+		for (size_t i = 0; i < m_vertexXFields.size(); i++) {
+			long x, y;
+			Point newVertex;
+			if (m_vertexXFields[i]->GetValue().ToLong(&x) && m_vertexYFields[i]->GetValue().ToLong(&y)) {
+				newVertex.setX(x); newVertex.setY(y);
+				polygonShape->moveVertex(i, newVertex);
+			}
+		}
+	}
+
+	Repaint();
 }
