@@ -12,6 +12,7 @@
 
 const int ID_UP_LAYER_BUTTON = 6500;
 const int ID_DOWN_LAYER_BUTTON = 6501;
+const int ID_LIST_SHAPES_BUTTON = 6502;
 
 
 
@@ -215,6 +216,8 @@ GUI::GUI(wxWindow* parent, wxWindowID id, const wxString& title, const wxPoint& 
 	downLayerBtn = new wxButton(this, ID_DOWN_LAYER_BUTTON, wxT("Down"), wxDefaultPosition, wxDefaultSize, 0);
 	layerUpDownSizer->Add(downLayerBtn, 0, wxALIGN_CENTER_VERTICAL | wxALL, 5);
 
+	listShapesBtn = new  wxButton(this, ID_LIST_SHAPES_BUTTON, wxT("List Shapes"), wxDefaultPosition, wxDefaultSize, 0);
+	layerUpDownSizer->Add(listShapesBtn, 0, wxALIGN_CENTER_VERTICAL | wxALL, 5);
 
 	layersSizer->Add(layerUpDownSizer, 1, wxEXPAND, 5);
 
@@ -273,6 +276,7 @@ GUI::GUI(wxWindow* parent, wxWindowID id, const wxString& title, const wxPoint& 
 
 	Bind(wxEVT_BUTTON, &GUI::OnUpLayerButtonClick, this, ID_UP_LAYER_BUTTON);
 	Bind(wxEVT_BUTTON, &GUI::OnDownLayerButtonClick, this, ID_DOWN_LAYER_BUTTON);
+	Bind(wxEVT_BUTTON, &GUI::OnListShapesButtonClick, this, ID_LIST_SHAPES_BUTTON);
 }
 
 GUI::~GUI()
@@ -294,13 +298,15 @@ void GUI::Repaint() const
 
 void GUI::RefreshLayersDisplay() const
 {
+
 	// Clear old components
 	wxWindowList& children = layersScrolledWindow->GetChildren();
 	Logger::getInstance()->log("Children", children.size()); int i = 0;
-	for (wxWindowList::iterator it = children.begin(); it != children.end(); ++it) {
-		//wxWindow* child = *it;
-		//child->Destroy();
-		Logger::getInstance()->log("Children", i++);
+
+	while (!children.empty()) {
+		wxWindow* child = children.front();
+		children.erase(children.begin()); // Remove child from list
+		child->Destroy(); // Destroy the child window
 	}
 
 
@@ -387,16 +393,15 @@ void GUI::OnOpen(wxCommandEvent& event)
 	{
 		std::string file_path = WxOpenFileDialog.GetPath().ToStdString();
 		this->shapes = XMLDataLoaderAdapter::getInstance().load(file_path);
-		//PolygonShape p(3, { {1,2}, {2,3}, {3, 4}});
-		//Logger::getInstance()->log("LOG TEST", this->shapes.size());
 	
-		// Clear existing contents of the layersScrolledWindow
+		// Clear old components
 		wxWindowList& children = layersScrolledWindow->GetChildren();
-		for (wxWindowList::iterator it = children.begin(); it != children.end(); ++it) {
-			wxWindow* child = *it;
-			child->Destroy();
-		}
 
+		while (!children.empty()) {
+			wxWindow* child = children.front();
+			children.erase(children.begin()); // Remove child from list
+			child->Destroy(); // Destroy the child window
+		}
 
 		// Create ShapePanel instances for each shape and add them to layersScrolledWindow
 		wxBoxSizer* layersSizer = new wxBoxSizer(wxVERTICAL);
@@ -484,6 +489,12 @@ void GUI::OnDownLayerButtonClick(wxCommandEvent& event) {
 	Repaint();
 	RefreshLayersDisplay();
 	this->updateSelectionStatusDisplay();
+}
+
+void GUI::OnListShapesButtonClick(wxCommandEvent& event)
+{
+	ShapeDialog dialog(this, shapes);
+	dialog.ShowModal();
 }
 
 void GUI::updateSelectionStatusDisplay() {
