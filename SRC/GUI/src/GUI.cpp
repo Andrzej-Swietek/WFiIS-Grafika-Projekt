@@ -13,7 +13,7 @@
 const int ID_UP_LAYER_BUTTON = 6500;
 const int ID_DOWN_LAYER_BUTTON = 6501;
 
-const int ID_VERTEX_EDIT_TEXT = 6502;
+const int ID_VERTEX_EDIT_TEXT = 6552;
 
 
 GUI::GUI(wxWindow* parent, wxWindowID id, const wxString& title, const wxPoint& pos, const wxSize& size, long style)
