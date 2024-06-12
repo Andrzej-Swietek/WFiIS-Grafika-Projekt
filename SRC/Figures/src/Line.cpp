@@ -75,9 +75,6 @@ void Line::draw(wxDC* dc, int canvWidth, int canvHeight) const
 
    
     Point center = getCenter();
-    //
-    // for some reason messes up the rotation centre
-    //center.x *= scaler / 100; center.y *= scaler / 100;
 
     //
     // applying the rotation matrix
@@ -149,4 +146,3 @@ std::string Line::toString()
         << "}";
     return ss.str();
 }
-

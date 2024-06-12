@@ -48,9 +48,7 @@ void PolygonShape::draw(wxDC* dc, int canvWidth, int canvHeight) const
     rotM.data[1][1] = cos(rotationAngle);
 
     Point center = getCenter();
-    //
-    // for some reason messes up the rotation centre
-    //center.x *= scaler / 100; center.y *= scaler / 100;
+
 
     std::vector<wxPoint> vertices;
     for (Point pt : points)

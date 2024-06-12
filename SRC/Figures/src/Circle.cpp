@@ -20,8 +20,6 @@ void Circle::draw(wxDC* dc, int canvWidth, int canvHeight) const {
     //dc->SetPen(*wxBLACK);  // outline
     //dc->SetBrush(wxBrush(*wxBLUE_BRUSH));  // fill
 
-    // TODO: shape scaling policy is??
-    //dc->DrawCircle(wxPoint(x*canvWidth/100, y*canvHeight/100), r*canvWidth/100);
     int scaler = (canvWidth < canvHeight) ? canvWidth : canvHeight;
 
     int centerX = x * scaler / 100;

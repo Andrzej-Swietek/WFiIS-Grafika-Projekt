@@ -49,26 +49,8 @@ GUI::GUI(wxWindow* parent, wxWindowID id, const wxString& title, const wxPoint& 
 	
 	vertexEditorSizer->Add(vertexEditorScrolledWindow, 6, wxEXPAND | wxALL, 5);
 
-	/*layersScrolledWindow = new wxScrolledWindow(this, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxHSCROLL | wxVSCROLL);
-	layersScrolledWindow->SetScrollRate(5, 5);
-	layersScrolledWindow->SetBackgroundColour(wxColour(125, 122, 122));
 
-	layersSizer->Add(layersScrolledWindow, 6, wxEXPAND | wxALL, 5);
-
-
-	controlsSizer->Add(layersSizer, 1, wxEXPAND, 5);*/
-
-
-	/*imageStats = new wxTextCtrl(this, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, wxTE_CENTER);
-	imageStats->SetForegroundColour(wxColour(255, 255, 255));
-	imageStats->SetBackgroundColour(wxColour(33, 35, 27));
-
-	vertexEditorSizer->Add(imageStats, 1, wxALL, 5);*/
-
-
-	//canvasesSizer->Add(vertexEditorSizer, 1, wxEXPAND, 5);
 	canvasesSizer->Add(vertexEditorSizer, 1, wxEXPAND, 5);
-
 
 
 	mainSizer->Add(canvasesSizer, 6, wxEXPAND, 5);
@@ -276,8 +258,7 @@ GUI::GUI(wxWindow* parent, wxWindowID id, const wxString& title, const wxPoint& 
 	this->Centre(wxBOTH);
 
 	//
-	// bind the paint event - also refreshes on resize??
-	//
+	// bind the paint event
 	m_canvas_panel->Bind(wxEVT_PAINT, &GUI::OnPaint, this);
 	m_canvas_panel->Bind(wxEVT_SIZE, &GUI::OnSize, this);
 
@@ -364,10 +345,6 @@ void GUI::DrawShapes(wxDC& dc, int canvWidth, int canvHeight) const
 	}
 }
 
-/*
-	rotation angle stored in the Shape object and used when drawing - no alternation of vertices
-	the same can be done with other transformations
-*/
 
 void GUI::RotationSliderUpdate(wxScrollEvent& event)
 {
@@ -376,9 +353,7 @@ void GUI::RotationSliderUpdate(wxScrollEvent& event)
 	// rotation angle in radians
 	double angle = alpha * M_PI / 180.0;
 
-	//
-	// for now rotating all the shapes - it should rotate only selected shapes in the future
-	// rotation is implemented directly in the Shape::Draw() methods - perhaps it can be done better (split transformations into methods/functions?)
+	
 	/*for (const auto& shape : shapes)
 	{
 		shape->setRotationAngle(angle);
