@@ -30,12 +30,16 @@ void PolygonShape::draw(wxDC* dc, int canvWidth, int canvHeight) const
     std::array<int, 3> rgb = Shape::getRGB(outline);
 
     wxColour outlineColor(rgb.at(0), rgb.at(1), rgb.at(2));
-    wxColour fillColor = *wxGREEN;
+    
     int strokeWidth = stroke;
 
     wxPen pen(outlineColor, strokeWidth);
     dc->SetPen(pen);
 
+
+    rgb = Shape::getRGB(fill);
+
+    wxColour fillColor(rgb.at(0), rgb.at(1), rgb.at(2));
     wxBrush brush(fillColor);
     dc->SetBrush(brush);
 
@@ -52,6 +56,8 @@ void PolygonShape::draw(wxDC* dc, int canvWidth, int canvHeight) const
     // for some reason messes up the rotation centre
     //center.x *= scaler / 100; center.y *= scaler / 100;
 
+    double scaleFactor = static_cast<double>(scale) / 100.0;
+
     std::vector<wxPoint> vertices;
     for (Point pt : points)
     {
@@ -63,8 +69,8 @@ void PolygonShape::draw(wxDC* dc, int canvWidth, int canvHeight) const
 
         Vector a_ = rotM * a;
 
-        pt.setX(a_.GetX() + center.x);
-        pt.setY(a_.GetY() + center.x);
+        pt.setX(a_.GetX() * scaleFactor + center.x);
+        pt.setY(a_.GetY() * scaleFactor + center.x);
 
         //
         // scalling transformed point based on window size
@@ -95,6 +101,7 @@ void PolygonShape::rotate()
         points[i].setY(a_.GetY() + center.x);
     }
 }
+
 
 
 Point PolygonShape::getCenter() const {

@@ -50,6 +50,9 @@ void Curve::draw(wxDC* dc, int canvWidth, int canvHeight) const
 
     Logger::getInstance()->log("Info", "Drawing curve2");
 
+    double scaleFactor = static_cast<double>(scale) / 100.0;
+
+
     std::vector<wxPoint> controlPoints;
     for (Point pt : points)
     {
@@ -61,8 +64,8 @@ void Curve::draw(wxDC* dc, int canvWidth, int canvHeight) const
 
         Vector a_ = rotM * a;
 
-        pt.setX(a_.GetX() + center.x);
-        pt.setY(a_.GetY() + center.x);
+        pt.setX(a_.GetX()*scaleFactor + center.x);
+        pt.setY(a_.GetY()*scaleFactor + center.x);
 
         //
         // scalling transformed point based on window size
@@ -165,6 +168,8 @@ void Curve::rotate()
         points[i].setY(a_.GetY()+center.x);
     }
 }
+
+
 
 Point Curve::getCenter() const {
     return std::accumulate(

@@ -24,6 +24,7 @@ public:
 
     void rotate() override;
 
+
     Point getCenter() const override;
 
     /// GETTERS & SETTERS

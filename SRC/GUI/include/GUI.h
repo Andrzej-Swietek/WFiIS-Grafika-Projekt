@@ -82,6 +82,12 @@ public:
 	void OnUpLayerButtonClick(wxCommandEvent& event);
 	void OnDownLayerButtonClick(wxCommandEvent& event);
 	void OnListShapesButtonClick(wxCommandEvent& event);
+	//void OnColorPickerChange(wxColourPickerEvent& event);
+	void OnStrokePickerChange(wxColourPickerEvent& event);
+	void OnFillPickerChange(wxColourPickerEvent& event);
+	void OnScaleSliderChange(wxScrollEvent& event);
+
+
 
 	void Repaint() const;
 	void RefreshLayersDisplay() const;
