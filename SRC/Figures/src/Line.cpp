@@ -91,14 +91,17 @@ void Line::draw(wxDC* dc, int canvWidth, int canvHeight) const
     Vector a_ = rotM * a;
     Vector b_ = rotM * b;
     
+    double scaleFactor = static_cast<double>(scale) / 100.0;
+    
     Point tStart, tEnd;
-    tStart.setX(a_.GetX() + center.x); tStart.setY(a_.GetY() + center.y);
-    tEnd.setX(b_.GetX() + center.x); tEnd.setY(b_.GetY() + center.y);
+    tStart.setX((a_.GetX() + center.x)); tStart.setY((a_.GetY() + center.y));
+    tEnd.setX((b_.GetX() + center.x)); tEnd.setY((b_.GetY() + center.y));
+    Logger::getInstance()->log("scaleFactor", scale); 
 
     //
     // scalling transformed points based on window size
-    wxPoint startPoint(tStart.getX() * scaler / 100, tStart.getY() * scaler /100);
-    wxPoint endPoint(tEnd.getX() * scaler / 100, tEnd.getY() * scaler / 100);
+    wxPoint startPoint((a_.GetX() * scaleFactor + center.getX()) * scaler / 100, (a_.GetY() * scaleFactor + center.getY()) * scaler / 100);
+    wxPoint endPoint((b_.GetX() * scaleFactor + center.getX()) * scaler / 100, (b_.GetY() * scaleFactor + center.getY()) * scaler / 100);
 
     dc->DrawLine(startPoint, endPoint);
 }

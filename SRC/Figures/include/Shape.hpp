@@ -115,6 +115,7 @@ public:
     */
     void setFill(const std::string& fill);
 
+    void setScale(const int& scale);
 
     /**
      * @brief Set the RotationAngle object
@@ -123,7 +124,7 @@ public:
     */
     void setRotationAngle(const double rotationAngle);
 
-    //void setColor
+    
 
     /**
      * @brief Get the Shape Type object
@@ -160,6 +161,7 @@ protected:
     std::string outline;
     std::string fill;
     double rotationAngle;
+    int scale=100;
 
     ShapeType shape_type;
 };

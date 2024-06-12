@@ -270,6 +270,8 @@ GUI::GUI(wxWindow* parent, wxWindowID id, const wxString& title, const wxPoint& 
 
 	rotationSlider->Bind(wxEVT_SCROLL_THUMBTRACK, &GUI::RotationSliderUpdate, this);
 
+	scaleSlider->Bind(wxEVT_SCROLL_THUMBTRACK, &GUI::OnScaleSliderChange, this);
+
 	/*std::shared_ptr<Circle> c = std::make_shared<Circle>(new Circle(2,2,1));
 	shapes.push_back(c.get());*/
 
@@ -385,6 +387,17 @@ void GUI::RotationSliderUpdate(wxScrollEvent& event)
 
 	Repaint();
 }
+
+void GUI::OnScaleSliderChange(wxScrollEvent& event) {
+	int scale = scaleSlider->GetValue();
+	const int selected_index = SelectionManager::getInstance()->getSelectedShapeIndex();
+	if (selected_index == -1) return;
+	shapes[selected_index]->setScale(scale);
+	Repaint();
+
+}
+
+
 
 
 void GUI::OnExit(wxCommandEvent& event)

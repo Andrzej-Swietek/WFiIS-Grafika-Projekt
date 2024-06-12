@@ -56,6 +56,8 @@ void PolygonShape::draw(wxDC* dc, int canvWidth, int canvHeight) const
     // for some reason messes up the rotation centre
     //center.x *= scaler / 100; center.y *= scaler / 100;
 
+    double scaleFactor = static_cast<double>(scale) / 100.0;
+
     std::vector<wxPoint> vertices;
     for (Point pt : points)
     {
@@ -67,8 +69,8 @@ void PolygonShape::draw(wxDC* dc, int canvWidth, int canvHeight) const
 
         Vector a_ = rotM * a;
 
-        pt.setX(a_.GetX() + center.x);
-        pt.setY(a_.GetY() + center.x);
+        pt.setX(a_.GetX() * scaleFactor + center.x);
+        pt.setY(a_.GetY() * scaleFactor + center.x);
 
         //
         // scalling transformed point based on window size

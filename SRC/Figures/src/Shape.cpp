@@ -32,6 +32,12 @@ void Shape::setFill(const std::string& fill) {
 
 }
 
+void Shape::setScale(const int& scale) {
+    this->scale = scale;
+    Logger::getInstance()->log("setScale", scale);
+
+}
+
 ShapeType Shape::getShapeType() const {
     return shape_type;
 }

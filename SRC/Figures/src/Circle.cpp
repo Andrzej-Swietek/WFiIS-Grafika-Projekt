@@ -24,12 +24,14 @@ void Circle::draw(wxDC* dc, int canvWidth, int canvHeight) const {
     //dc->DrawCircle(wxPoint(x*canvWidth/100, y*canvHeight/100), r*canvWidth/100);
     int scaler = (canvWidth < canvHeight) ? canvWidth : canvHeight;
 
+    double scaleFactor = static_cast<double>(scale) / 100.0;
+
+
     int centerX = x * scaler / 100;
     int centerY = y * scaler / 100;
-    int radius = r * scaler / 100;
-    wxColour outlineColor = *wxBLUE;
-    int strokeWidth = stroke /** canvWidth / 100*/;
-    //wxColour fillColor = *wxYELLOW;
+    int radius = r * scaleFactor * scaler / 100;
+
+    int strokeWidth = stroke * scaleFactor /** canvWidth / 100*/;
 
     //Logger::getInstance()->log("Info line", outline);
 
