@@ -28,6 +28,8 @@ void Shape::setOutline(const std::string& outline) {
 
 void Shape::setFill(const std::string& fill) {
     this->fill = fill;
+    Logger::getInstance()->log("setFill", fill);
+
 }
 
 ShapeType Shape::getShapeType() const {
@@ -37,6 +39,7 @@ ShapeType Shape::getShapeType() const {
 void Shape::setShapeType(ShapeType shape_type) {
     this->shape_type = shape_type;
 }
+
 
 std::string Shape::shapeTypeToString(ShapeType shape_type) {
     switch (shape_type) {

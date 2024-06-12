@@ -30,12 +30,16 @@ void PolygonShape::draw(wxDC* dc, int canvWidth, int canvHeight) const
     std::array<int, 3> rgb = Shape::getRGB(outline);
 
     wxColour outlineColor(rgb.at(0), rgb.at(1), rgb.at(2));
-    wxColour fillColor = *wxGREEN;
+    
     int strokeWidth = stroke;
 
     wxPen pen(outlineColor, strokeWidth);
     dc->SetPen(pen);
 
+
+    rgb = Shape::getRGB(fill);
+
+    wxColour fillColor(rgb.at(0), rgb.at(1), rgb.at(2));
     wxBrush brush(fillColor);
     dc->SetBrush(brush);
 
@@ -95,6 +99,7 @@ void PolygonShape::rotate()
         points[i].setY(a_.GetY() + center.x);
     }
 }
+
 
 
 Point PolygonShape::getCenter() const {

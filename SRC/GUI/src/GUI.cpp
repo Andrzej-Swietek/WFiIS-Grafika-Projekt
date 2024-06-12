@@ -13,6 +13,8 @@
 const int ID_UP_LAYER_BUTTON = 6500;
 const int ID_DOWN_LAYER_BUTTON = 6501;
 const int ID_LIST_SHAPES_BUTTON = 6502;
+const int ID_STROKE_PICKER = 6503;
+const int ID_STROKE_PICKER_FILL = 6504;
 
 
 
@@ -132,7 +134,7 @@ GUI::GUI(wxWindow* parent, wxWindowID id, const wxString& title, const wxPoint& 
 
 	colorSizer->Add(m_staticText6, 0, wxALIGN_CENTER | wxALL, 5);
 
-	colorPicker = new wxColourPickerCtrl(this, wxID_ANY, *wxBLACK, wxDefaultPosition, wxDefaultSize, wxCLRP_DEFAULT_STYLE);
+	colorPicker = new wxColourPickerCtrl(this, ID_STROKE_PICKER_FILL, *wxBLACK, wxDefaultPosition, wxDefaultSize, wxCLRP_DEFAULT_STYLE);
 	colorSizer->Add(colorPicker, 0, wxALIGN_CENTER | wxALL, 5);
 
 
@@ -147,11 +149,12 @@ GUI::GUI(wxWindow* parent, wxWindowID id, const wxString& title, const wxPoint& 
 
 	strokeSizer->Add(m_staticText5, 0, wxALIGN_CENTER | wxALL, 5);
 
-	strokePicker = new wxColourPickerCtrl(this, wxID_ANY, *wxBLACK, wxDefaultPosition, wxDefaultSize, wxCLRP_DEFAULT_STYLE);
+	strokePicker = new wxColourPickerCtrl(this, ID_STROKE_PICKER, *wxBLACK, wxDefaultPosition, wxDefaultSize, wxCLRP_DEFAULT_STYLE);
 	strokeSizer->Add(strokePicker, 0, wxALIGN_CENTER | wxALL, 5);
 
 
 	colorsSizer->Add(strokeSizer, 1, wxEXPAND, 5);
+	
 
 
 	controlsInnerSizer->Add(colorsSizer, 0, wxEXPAND, 5);
@@ -277,6 +280,9 @@ GUI::GUI(wxWindow* parent, wxWindowID id, const wxString& title, const wxPoint& 
 	Bind(wxEVT_BUTTON, &GUI::OnUpLayerButtonClick, this, ID_UP_LAYER_BUTTON);
 	Bind(wxEVT_BUTTON, &GUI::OnDownLayerButtonClick, this, ID_DOWN_LAYER_BUTTON);
 	Bind(wxEVT_BUTTON, &GUI::OnListShapesButtonClick, this, ID_LIST_SHAPES_BUTTON);
+	Bind(wxEVT_COLOURPICKER_CHANGED, &GUI::OnStrokePickerChange, this, ID_STROKE_PICKER);
+	Bind(wxEVT_COLOURPICKER_CHANGED, &GUI::OnFillPickerChange, this, ID_STROKE_PICKER_FILL);
+
 }
 
 GUI::~GUI()
@@ -376,6 +382,7 @@ void GUI::RotationSliderUpdate(wxScrollEvent& event)
 	{
 		shape->setRotationAngle(angle);
 	}
+
 	Repaint();
 }
 
@@ -495,6 +502,38 @@ void GUI::OnListShapesButtonClick(wxCommandEvent& event)
 {
 	ShapeDialog dialog(this, shapes);
 	dialog.ShowModal();
+}
+
+void GUI::OnFillPickerChange(wxColourPickerEvent& event) {
+	wxColour newColor = event.GetColour();
+	int red = newColor.GetRed();
+	int green = newColor.GetGreen();
+	int blue = newColor.GetBlue();
+	std::string color = std::to_string(red) + "," + std::to_string(green) + "," + std::to_string(blue);
+
+	const int selected_index = SelectionManager::getInstance()->getSelectedShapeIndex();
+	if (selected_index == -1) return;
+	shapes[selected_index]->setFill(color);
+	Repaint();
+
+
+	Logger::getInstance()->log("OnFillPickerChange", color);
+}
+
+
+void GUI::OnStrokePickerChange(wxColourPickerEvent& event) {
+
+	wxColour newColor = event.GetColour();
+	int red = newColor.GetRed();
+	int green = newColor.GetGreen();
+	int blue = newColor.GetBlue();
+	std::string color = std::to_string(red) + "," + std::to_string(green) + "," + std::to_string(blue);
+	
+	const int selected_index = SelectionManager::getInstance()->getSelectedShapeIndex();
+	if (selected_index == -1) return;
+	shapes[selected_index]->setOutline(color);
+	Repaint();
+
 }
 
 void GUI::updateSelectionStatusDisplay() {

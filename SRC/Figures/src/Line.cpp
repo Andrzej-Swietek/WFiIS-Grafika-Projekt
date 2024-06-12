@@ -62,7 +62,7 @@ void Line::draw(wxDC* dc, int canvWidth, int canvHeight) const
     std::array<int, 3> rgb = Shape::getRGB(outline);
 
     wxColour lineColor(rgb.at(0), rgb.at(1), rgb.at(2));
-
+    
     int strokeWidth = stroke;
 
     wxPen pen(lineColor, strokeWidth);
@@ -122,6 +122,7 @@ void Line::rotate()
     start.setX(a_.GetX()+center.x); start.setY(a_.GetY()+center.y);
     end.setX(b_.GetX()+center.x); end.setY(b_.GetY()+center.y);
 }
+
 
 Point Line::getStart() const {
     return start;

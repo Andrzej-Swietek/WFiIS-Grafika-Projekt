@@ -8,6 +8,8 @@
 #include "vecmat.h"
 #include <array>
 #include <sstream>
+#include "Logger.hpp"
+
 
 enum class ShapeType {
     CIRCLE,
@@ -59,7 +61,6 @@ public:
      * @return no return
     */
     virtual void rotate() = 0;
-
 
     /// GETTERS & SETTERS
 
@@ -122,6 +123,7 @@ public:
     */
     void setRotationAngle(const double rotationAngle);
 
+    //void setColor
 
     /**
      * @brief Get the Shape Type object
@@ -145,7 +147,8 @@ public:
 
     static std::array<int,3> getRGB(const std::string& color);
 
-
+    
+    
     /**
     * @brief Virtual method giving string representation of class
     * @return text 

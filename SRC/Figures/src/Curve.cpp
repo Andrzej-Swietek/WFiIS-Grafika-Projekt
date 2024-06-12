@@ -166,6 +166,8 @@ void Curve::rotate()
     }
 }
 
+
+
 Point Curve::getCenter() const {
     return std::accumulate(
         points.begin(), points.end(), Point(0, 0),
