@@ -8,6 +8,8 @@
 #include "vecmat.h"
 #include <array>
 #include <sstream>
+#include "Logger.hpp"
+
 
 enum class ShapeType {
     CIRCLE,
@@ -59,7 +61,6 @@ public:
      * @return no return
     */
     virtual void rotate() = 0;
-
 
     /// GETTERS & SETTERS
 
@@ -114,6 +115,7 @@ public:
     */
     void setFill(const std::string& fill);
 
+    void setScale(const int& scale);
 
     /**
      * @brief Set the RotationAngle object
@@ -163,6 +165,7 @@ protected:
     std::string outline;
     std::string fill;
     double rotationAngle;
+    int scale=100;
 
     ShapeType shape_type;
 };

@@ -32,6 +32,7 @@ public:
     void rotate() override;
 
 
+
     /// GETTERS & SETTERS
     Point getStart() const;
     Point getEnd() const;

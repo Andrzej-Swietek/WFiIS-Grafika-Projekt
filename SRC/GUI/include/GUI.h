@@ -27,6 +27,7 @@
 #include "ShapesPanel.hpp"
 #include "ImageSaver.hpp"
 
+#include "ShapeDialog.hpp"
 #include "Menu.hpp"
 
 class GUI : public wxFrame
@@ -54,6 +55,7 @@ protected:
 	wxStaticText* orderLayersLabel;
 	wxButton* upLayerBtn;
 	wxButton* downLayerBtn;
+	wxButton* listShapesBtn;
 
 	wxStaticText* selectedLabelText;
 	wxStaticText* selectedShapeStatus;
@@ -84,6 +86,13 @@ public:
 
 	void OnUpLayerButtonClick(wxCommandEvent& event);
 	void OnDownLayerButtonClick(wxCommandEvent& event);
+	void OnListShapesButtonClick(wxCommandEvent& event);
+	//void OnColorPickerChange(wxColourPickerEvent& event);
+	void OnStrokePickerChange(wxColourPickerEvent& event);
+	void OnFillPickerChange(wxColourPickerEvent& event);
+	void OnScaleSliderChange(wxScrollEvent& event);
+
+
 
 	void OnVertexTextChange(wxCommandEvent& event);
 
