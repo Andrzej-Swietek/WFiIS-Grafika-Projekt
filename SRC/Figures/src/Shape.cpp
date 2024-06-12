@@ -1,9 +1,9 @@
 #include "Shape.hpp"
 
-Shape::Shape(): stroke(1), outline("black"), fill("transparent"), rotationAngle(0) {}
+Shape::Shape(): stroke(1), outline("black"), fill("transparent"), rotationAngle(0), scale(100), visible(true) {}
 
 Shape::Shape(int stroke, std::string outline, std::string fill)
-: stroke(stroke), outline(outline), fill(fill), rotationAngle(0)
+: stroke(stroke), outline(outline), fill(fill), rotationAngle(0), scale(100), visible(true)
 {}
 
 int Shape::getStroke() const {
@@ -90,4 +90,16 @@ void Shape::setRotationAngle(const double rotationAngle) {
 
 double Shape::getRotationAngle() const {
     return rotationAngle;
+}
+
+int Shape::getScale() const {
+    return scale;
+}
+
+void Shape::setVisible(const bool visible) {
+    this->visible = visible;
+}
+
+bool Shape::getVisible() const {
+    return visible;
 }

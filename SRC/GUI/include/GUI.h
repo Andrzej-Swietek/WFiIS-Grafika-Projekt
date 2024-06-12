@@ -98,7 +98,7 @@ public:
 
 	void OnPaint(wxPaintEvent& event);
 	void Repaint() const;
-	void RefreshLayersDisplay() const;
+	void RefreshLayersDisplay();
 	void DrawShapes(wxDC& dc, int canvWidth, int canvHeight) const;
 	void RotationSliderUpdate(wxScrollEvent& event);
 

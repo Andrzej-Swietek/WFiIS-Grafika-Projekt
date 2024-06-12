@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<image figure-count="4">
+    <polygon n="7" stroke="5" outline="34,139,34" fill="100,149,237">
+        <point x="5" y="15" />
+        <point x="15" y="25" />
+        <point x="25" y="15" />
+        <point x="35" y="25" />
+        <point x="45" y="15" />
+        <point x="55" y="25" />
+        <point x="65" y="15" />
+    </polygon>
+    <circle x="60" y="60" r="30" stroke="6" outline="218,165,32" fill="0,128,128" />
+    <line x="70" y="70" stroke="4" outline="255,69,0" fill="#fff">
+        <point x="75" y="75" />
+        <point x="85" y="85" />
+    </line>
+    <curve n="6" stroke="3" outline="255,140,0" fill="0,191,255">
+        <point x="15" y="25" />
+        <point x="25" y="35" />
+        <point x="35" y="45" />
+        <point x="45" y="55" />
+        <point x="55" y="65" />
+        <point x="65" y="75" />
+    </curve>
+</image>

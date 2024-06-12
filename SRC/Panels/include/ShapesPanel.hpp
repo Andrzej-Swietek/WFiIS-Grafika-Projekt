@@ -15,6 +15,8 @@ public:
 
     void SetSelectionCallback(std::function<void()> callback);
 
+    void SetHideCallback(std::function<void()> callback);
+
 private:
     void OnHideButtonClick(wxCommandEvent& event);
     void SelectShape(wxCommandEvent& event);
@@ -25,6 +27,7 @@ private:
     wxButton* m_hideButton;
 
     std::function<void()> selectionCallback;
+    std::function<void()> hideCallback;
 
     wxDECLARE_EVENT_TABLE();
 };
