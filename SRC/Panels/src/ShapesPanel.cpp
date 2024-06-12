@@ -13,8 +13,8 @@ ShapesPanel::ShapesPanel(wxWindow* parent, const wxString& shapeName, int shapeI
     m_shapeNameLabel = new wxStaticText(this, wxID_ANY, shapeName);
     sizer->Add(m_shapeNameLabel, 1, wxALL | wxALIGN_CENTER_VERTICAL, 5);
 
-    m_hideButton = new wxButton(this, ID_HIDE_BUTTON, wxT("Hide Shape"));
-    sizer->Add(m_hideButton, 0, wxALL | wxALIGN_CENTER_VERTICAL, 5);
+    //m_hideButton = new wxButton(this, ID_HIDE_BUTTON, wxT("Hide Shape"));
+    //sizer->Add(m_hideButton, 0, wxALL | wxALIGN_CENTER_VERTICAL, 5);
 
     m_selectButton = new wxButton(this, ID_SELECT_BUTTON, wxT("Select Shape"));
     sizer->Add(m_selectButton, 0, wxALL | wxALIGN_CENTER_VERTICAL, 5);
@@ -28,10 +28,16 @@ void ShapesPanel::SetSelectionCallback(std::function<void()> callback)
     selectionCallback = callback;
 }
 
+void ShapesPanel::SetHideCallback(std::function<void()> callback)
+{
+    hideCallback = callback;
+}
+
 void ShapesPanel::OnHideButtonClick(wxCommandEvent& event) {
     wxLogMessage("Hide button clicked for shape ID: %d", m_shapeId);
 
     // Implement the logic to hide the shape here
+    if (hideCallback) hideCallback();
 }
 
 void ShapesPanel::SelectShape(wxCommandEvent& event) {

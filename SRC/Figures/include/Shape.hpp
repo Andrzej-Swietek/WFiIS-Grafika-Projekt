@@ -115,14 +115,43 @@ public:
     */
     void setFill(const std::string& fill);
 
-    void setScale(const int& scale);
 
     /**
-     * @brief Set the RotationAngle object
+     * @brief Set the scale
+     * @param scale - scale
+     * @return no return
+    */
+    void setScale(const int& scale);
+
+
+    /**
+     * @brief Get the scale
+     * @return scale
+    */
+    int getScale() const;
+
+    /**
+     * @brief Set the visible
+     * @param visible - visible
+     * @return no return
+    */
+    void setVisible(const bool visible);
+
+
+    /**
+     * @brief Get the visible
+     * @return visible
+    */
+    bool getVisible() const;
+
+
+    /**
+     * @brief Set the RotationAngle
      * @param rotationAngle - rotation angle
      * @return no return
     */
     void setRotationAngle(const double rotationAngle);
+
 
     /**
      * @brief Get the rotation angle
@@ -137,12 +166,14 @@ public:
     */
     ShapeType getShapeType() const;
 
+
     /**
      * @brief Set the Shape Type object
      * @param shape_type - shape type
      * @return no return
     */
     void setShapeType(ShapeType shape_type);
+
 
     /**
      * @brief Convert shape type to string
@@ -151,6 +182,11 @@ public:
     */
     static std::string shapeTypeToString(ShapeType shape_type);
 
+    /**
+     * @brief get an array of RGB int values based on RGB string
+     * @param color - RGB string
+     * @return RGB array
+    */
     static std::array<int,3> getRGB(const std::string& color);
 
 
@@ -165,8 +201,9 @@ protected:
     std::string outline;
     std::string fill;
     double rotationAngle;
-    int scale=100;
+    int scale;
+
+    bool visible;
 
     ShapeType shape_type;
 };
-

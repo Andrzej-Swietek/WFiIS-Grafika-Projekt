@@ -8,7 +8,7 @@
         <point x="50" y="7" />
     </polygon>
     <circle x="5" y="4" r="5" stroke="10" outline="0,255,255" fill="252,186,3" />
-    <line x="30" y="30" stroke="5" outline="100,200,50" fill="#fff">
+    <line x="30" y="30" stroke="5" outline="100,200,50" fill="0,0,0">
         <point x="20" y="20" />
         <point x="40" y="40" />
     </line>

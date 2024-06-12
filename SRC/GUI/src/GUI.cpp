@@ -164,14 +164,14 @@ GUI::GUI(wxWindow* parent, wxWindowID id, const wxString& title, const wxPoint& 
 	m_staticline1 = new wxStaticLine(this, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxLI_HORIZONTAL);
 	controlsInnerSizer->Add(m_staticline1, 0, wxEXPAND | wxALL, 5);
 
-	wxBoxSizer* transparencySizer;
+	/*wxBoxSizer* transparencySizer;
 	transparencySizer = new wxBoxSizer(wxVERTICAL);
 
 	m_staticText7 = new wxStaticText(this, wxID_ANY, wxT("Transparency:"), wxDefaultPosition, wxDefaultSize, 0);
 	m_staticText7->Wrap(-1);
-	m_staticText7->SetFont(wxFont(12, wxFONTFAMILY_DEFAULT, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL, false, wxEmptyString));
+	m_staticText7->SetFont(wxFont(12, wxFONTFAMILY_DEFAULT, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL, false, wxEmptyString));*/
 
-	transparencySizer->Add(m_staticText7, 0, wxALL, 5);
+	/*transparencySizer->Add(m_staticText7, 0, wxALL, 5);
 
 	wxBoxSizer* bSizer14;
 	bSizer14 = new wxBoxSizer(wxHORIZONTAL);
@@ -180,10 +180,10 @@ GUI::GUI(wxWindow* parent, wxWindowID id, const wxString& title, const wxPoint& 
 	bSizer14->Add(transparencySlider, 1, wxALIGN_CENTER | wxALL, 5);
 
 
-	transparencySizer->Add(bSizer14, 1, wxEXPAND, 5);
+	transparencySizer->Add(bSizer14, 1, wxEXPAND, 5);*/
 
 
-	controlsInnerSizer->Add(transparencySizer, 1, wxEXPAND, 5);
+	//controlsInnerSizer->Add(transparencySizer, 1, wxEXPAND, 5);
 
 
 	controlsSizer->Add(controlsInnerSizer, 2, wxEXPAND, 5);
@@ -274,13 +274,8 @@ GUI::GUI(wxWindow* parent, wxWindowID id, const wxString& title, const wxPoint& 
 
 	scaleSlider->Bind(wxEVT_SCROLL_THUMBTRACK, &GUI::OnScaleSliderChange, this);
 
-	/*std::shared_ptr<Circle> c = std::make_shared<Circle>(new Circle(2,2,1));
-	shapes.push_back(c.get());*/
-
+	//
 	// Bind events to buttons
-	//Bind(wxEVT_BUTTON, &GUI::OnUpLayerButtonClick, this, ID_UP_LAYER_BUTTON);
-	//Bind(wxEVT_BUTTON, &GUI::OnDownLayerButtonClick, this, ID_DOWN_LAYER_BUTTON);
-
 	Bind(wxEVT_BUTTON, &GUI::OnUpLayerButtonClick, this, ID_UP_LAYER_BUTTON);
 	Bind(wxEVT_BUTTON, &GUI::OnDownLayerButtonClick, this, ID_DOWN_LAYER_BUTTON);
 
@@ -308,7 +303,7 @@ void GUI::Repaint() const
 	DrawShapes(dc, w, h);
 }
 
-void GUI::RefreshLayersDisplay() const
+void GUI::RefreshLayersDisplay()
 {
 
 	// Clear old components
@@ -327,12 +322,15 @@ void GUI::RefreshLayersDisplay() const
 	int id = 0;
 	for (const auto& shape : shapes) {
 		wxString shapeName = Shape::shapeTypeToString(shape->getShapeType());
-		int shapeId = id++;														 /* TODO: Get the shape ID */
+		int shapeId = id++;
 		ShapesPanel* shapePanel = new ShapesPanel(
 			layersScrolledWindow,
 			shapeName.append(": ").append(std::to_string(shapeId)),
 			shapeId
 		);
+		shapePanel->SetSelectionCallback([this] { updateSelectionStatusDisplay(); Repaint(); });
+		shapePanel->SetHideCallback([this, &shape] { shape->setVisible(!shape->getVisible()); Repaint(); });
+
 		layersSizer->Add(shapePanel, 0, wxEXPAND | wxALL, 5);
 	}
 
@@ -358,6 +356,7 @@ void GUI::DrawShapes(wxDC& dc, int canvWidth, int canvHeight) const
 	for (const auto& shape : shapes)
 	{
 		/*Logger::getInstance()->log("Info", Shape::shapeTypeToString(shape->getShapeType()));*/
+		if (!shape->getVisible()) continue;
 		shape->draw(&dc, canvWidth, canvHeight);	
 	}
 }
@@ -416,14 +415,15 @@ void GUI::OnOpen(wxCommandEvent& event)
 		wxBoxSizer* layersSizer = new wxBoxSizer(wxVERTICAL);
 		int id = 0;
 		for (const auto& shape : shapes) {
-			wxString shapeName = Shape::shapeTypeToString(shape->getShapeType());	/* TODO: Get the shape name */
-			int shapeId = id++;				/* TODO: Get the shape ID */
+			wxString shapeName = Shape::shapeTypeToString(shape->getShapeType());
+			int shapeId = id++;
 			ShapesPanel* shapePanel = new ShapesPanel(
 				layersScrolledWindow,
 				shapeName.append(": ").append(std::to_string(shapeId)),
 				shapeId
 			);
 			shapePanel->SetSelectionCallback([this] { updateSelectionStatusDisplay(); });
+			shapePanel->SetHideCallback([this, &shape] { shape->setVisible(!shape->getVisible()); });
 			layersSizer->Add(shapePanel, 0, wxEXPAND | wxALL, 5);
 		}
 
@@ -468,7 +468,6 @@ void GUI::OnUpLayerButtonClick(wxCommandEvent& event) {
 	}
 
 	std::swap(shapes[selected_index], shapes[selected_index - 1]);
-	// wxLogMessage("Up button clicked");
 
 	SelectionManager::getInstance()
 		->selectShape(selected_index - 1);
@@ -489,7 +488,6 @@ void GUI::OnDownLayerButtonClick(wxCommandEvent& event) {
 	}
 
 	std::swap(shapes[selected_index], shapes[selected_index + 1]);
-	//wxLogMessage("Down button clicked");
 
 	SelectionManager::getInstance()
 		->selectShape(selected_index + 1);
@@ -546,8 +544,18 @@ void GUI::updateSelectionStatusDisplay() {
 			"No Selection" : Shape::shapeTypeToString( shapes[selected_index]->getShapeType() )
 	);
 
-	if (selected_index!= -1)
-		rotationSlider->SetValue(shapes[selected_index]->getRotationAngle()*180.0/M_PI);
+	if (selected_index != -1) {
+		rotationSlider->SetValue(shapes[selected_index]->getRotationAngle() * 180.0 / M_PI);
+		scaleSlider->SetValue(shapes[selected_index]->getScale());
+
+		std::array<int, 3> outlineArr = Shape::getRGB(shapes[selected_index]->getOutline());
+		wxColour outlineColor(RGB(outlineArr[0], outlineArr[1], outlineArr[2]));
+		strokePicker->SetColour(outlineColor);
+
+		std::array<int, 3> fillArr = Shape::getRGB(shapes[selected_index]->getFill());
+		wxColour fillColor(RGB(fillArr[0], fillArr[1], fillArr[2]));
+		colorPicker->SetColour(fillColor);
+	}
 
 
 	// update vertices inputs

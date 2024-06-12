@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<image figure-count="3">
+    <polygon n="4" stroke="2" outline="0,0,0" fill="255,0,0">
+        <point x="10" y="10" />
+        <point x="20" y="10" />
+        <point x="20" y="20" />
+        <point x="10" y="20" />
+    </polygon>
+    <circle x="15" y="15" r="10" stroke="3" outline="0,0,255" fill="0,255,0" />
+    <line x="5" y="5" stroke="1" outline="0,0,0" fill="#fff">
+        <point x="25" y="25" />
+        <point x="35" y="35" />
+    </line>
+</image>
