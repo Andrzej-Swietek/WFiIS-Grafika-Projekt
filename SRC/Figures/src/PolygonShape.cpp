@@ -52,9 +52,7 @@ void PolygonShape::draw(wxDC* dc, int canvWidth, int canvHeight) const
     rotM.data[1][1] = cos(rotationAngle);
 
     Point center = getCenter();
-    //
-    // for some reason messes up the rotation centre
-    //center.x *= scaler / 100; center.y *= scaler / 100;
+
 
     double scaleFactor = static_cast<double>(scale) / 100.0;
 
@@ -80,6 +78,7 @@ void PolygonShape::draw(wxDC* dc, int canvWidth, int canvHeight) const
     dc->DrawPolygon(vertices.size(), vertices.data());
 }
 
+// can be refactored to something like GetRotatedVertices()
 void PolygonShape::rotate()
 {
     Matrix M;

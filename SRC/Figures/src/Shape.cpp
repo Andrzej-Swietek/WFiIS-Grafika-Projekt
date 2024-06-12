@@ -87,3 +87,7 @@ std::array<int,3> Shape::getRGB(const std::string& color)
 void Shape::setRotationAngle(const double rotationAngle) {
     this->rotationAngle = rotationAngle;
 }
+
+double Shape::getRotationAngle() const {
+    return rotationAngle;
+}

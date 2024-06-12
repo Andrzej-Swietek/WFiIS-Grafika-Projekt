@@ -63,8 +63,12 @@ protected:
 	wxScrolledWindow* layersScrolledWindow;
 	Menu* menu;
 
+	wxBoxSizer* vertexEditorSizer;
+	wxScrolledWindow* vertexEditorScrolledWindow;
+
 
 	void updateSelectionStatusDisplay();
+	void PopulateVertexEditor();
 
 public:
 
@@ -78,6 +82,7 @@ public:
 	void OnSave(wxCommandEvent& event);
 	void OnSaveAs(wxCommandEvent& event);
 	void OnGoToDocs(wxCommandEvent& event);
+	void OnSize(wxSizeEvent& event);
 
 	void OnUpLayerButtonClick(wxCommandEvent& event);
 	void OnDownLayerButtonClick(wxCommandEvent& event);
@@ -89,12 +94,16 @@ public:
 
 
 
+	void OnVertexTextChange(wxCommandEvent& event);
+
+	void OnPaint(wxPaintEvent& event);
 	void Repaint() const;
 	void RefreshLayersDisplay() const;
-	void OnPaint(wxPaintEvent& event);
 	void DrawShapes(wxDC& dc, int canvWidth, int canvHeight) const;
-	void UpdateShapesOnResize();
 	void RotationSliderUpdate(wxScrollEvent& event);
 
 	std::vector<std::unique_ptr<Shape>> shapes;
+
+	std::vector<wxTextCtrl*> m_vertexXFields;
+	std::vector<wxTextCtrl*> m_vertexYFields;
 };

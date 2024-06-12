@@ -124,7 +124,12 @@ public:
     */
     void setRotationAngle(const double rotationAngle);
 
-    
+    /**
+     * @brief Get the rotation angle
+     * @return rotation angle
+    */
+    double getRotationAngle() const;
+
 
     /**
      * @brief Get the Shape Type object
@@ -148,8 +153,7 @@ public:
 
     static std::array<int,3> getRGB(const std::string& color);
 
-    
-    
+
     /**
     * @brief Virtual method giving string representation of class
     * @return text 

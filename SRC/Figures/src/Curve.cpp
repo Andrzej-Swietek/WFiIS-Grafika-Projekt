@@ -23,7 +23,6 @@ void Curve::draw(wxDC* dc, int canvWidth, int canvHeight) const
 {
     int scaler = (canvWidth < canvHeight) ? canvWidth : canvHeight;
 
-    Logger::getInstance()->log("Info curve", outline);
 
     //wxColour lineColor = *wxGREEN;
     std::array<int, 3> rgb = Shape::getRGB(outline);
@@ -44,11 +43,7 @@ void Curve::draw(wxDC* dc, int canvWidth, int canvHeight) const
     rotM.data[1][1] = cos(rotationAngle);
 
     Point center = getCenter();
-    //
-    // for some reason messes up the rotation centre
-    //center.x *= (scaler / 100); center.y *= (scaler / 100);
 
-    Logger::getInstance()->log("Info", "Drawing curve2");
 
     double scaleFactor = static_cast<double>(scale) / 100.0;
 
