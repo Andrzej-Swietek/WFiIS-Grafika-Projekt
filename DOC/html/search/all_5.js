@@ -1,0 +1,26 @@
+var searchData=
+[
+  ['getcenter_0',['getCenter',['../class_circle.html#aa7d77c96764b78b5f2bb19cde9f82d75',1,'Circle::getCenter()'],['../class_curve.html#a31b583fbc9cabc88d514ebbad9c5b587',1,'Curve::getCenter()'],['../class_line.html#aa4d6f5cc4a993c773b4a7fcb66bc9617',1,'Line::getCenter()'],['../class_polygon_shape.html#a8ebd964a046586e29a8b91bc90bfd440',1,'PolygonShape::getCenter()'],['../class_shape.html#a051dc463e29bb8ad64782f141f6b8979',1,'Shape::getCenter()']]],
+  ['getend_1',['getEnd',['../class_line.html#a5e7cf751e6a49bae294c1d55160f6f5d',1,'Line']]],
+  ['getfill_2',['getFill',['../class_shape.html#a47f45520285301f92d7b812b290dc04b',1,'Shape']]],
+  ['getheight_3',['GetHeight',['../class_image_saver_dialog.html#a01b7b63c5aa248f9fb1cebddd9674361',1,'ImageSaverDialog']]],
+  ['getinstance_4',['getInstance',['../class_image_saver.html#a7f0ecbb9f63bb138cd95b3564e29e024',1,'ImageSaver::getInstance()'],['../class_logger.html#afec28ae6d7bdf8f6a0734cb20756de10',1,'Logger::getInstance()'],['../class_selection_manager.html#a225efebd7c00dbfc5bb73365b3c1f970',1,'SelectionManager::getInstance()'],['../class_s_v_g_data_loader_adapter.html#a14dc57e9aec998d51442100af38236cc',1,'SVGDataLoaderAdapter::getInstance()'],['../class_x_m_l_data_loader_adapter.html#ae5affc4cc6a83c4091da77eee111bb31',1,'XMLDataLoaderAdapter::getInstance()']]],
+  ['getn_5',['getN',['../class_curve.html#a6d38c5badd12f3d7bc0ca59de40d0b19',1,'Curve::getN()'],['../class_polygon_shape.html#ae3d65a0738bce8453f5b7f4ac747f27d',1,'PolygonShape::getN()']]],
+  ['getoutline_6',['getOutline',['../class_shape.html#a1dd433d79e14bb619a66436b8181aa54',1,'Shape']]],
+  ['getpoints_7',['getPoints',['../class_curve.html#a31fa725fc5ff9faf8030a055f6423e05',1,'Curve::getPoints()'],['../class_polygon_shape.html#a23c5248e6b2b710ef88779c80230bed1',1,'PolygonShape::getPoints()']]],
+  ['getr_8',['getR',['../class_circle.html#a955ba2846a5c3a9f42b1e38f7ace0860',1,'Circle']]],
+  ['getrgb_9',['getRGB',['../class_shape.html#a5bdc79025873d0e12dc99a5a2cf21215',1,'Shape']]],
+  ['getrotationangle_10',['getRotationAngle',['../class_shape.html#a41a77a8e67a6ae4282d470dcc8e41d80',1,'Shape']]],
+  ['getscale_11',['getScale',['../class_shape.html#a594715ab05f7a01468a9cfd5c28ce8ec',1,'Shape']]],
+  ['getselectedshapeindex_12',['getSelectedShapeIndex',['../class_selection_manager.html#a429bd92b83a4f4eddf5c7c8673dfb300',1,'SelectionManager']]],
+  ['getshapetype_13',['getShapeType',['../class_shape.html#abe95f6fae956f8d700d4d9c5fe62ced7',1,'Shape']]],
+  ['getstart_14',['getStart',['../class_line.html#aa35b2d743f87bb0cbb2b5e7887e3ccf7',1,'Line']]],
+  ['getstroke_15',['getStroke',['../class_shape.html#a0580658244840926911a26cab0eb44a4',1,'Shape']]],
+  ['getvisible_16',['getVisible',['../class_shape.html#a6091ee582ff2600f2ef1791aa49831c6',1,'Shape']]],
+  ['getwidth_17',['GetWidth',['../class_image_saver_dialog.html#a7a7827f40d7659adec05e380f40c1bfa',1,'ImageSaverDialog']]],
+  ['getx_18',['GetX',['../class_vector.html#ab21a7e2b74afadeb8dafefa57c11e8f2',1,'Vector']]],
+  ['getx_19',['getX',['../class_circle.html#aa23d4105007f7a3d1eab348b5af31a4d',1,'Circle']]],
+  ['gety_20',['GetY',['../class_vector.html#a8a5aea0789a00213e546c3c0ba468a96',1,'Vector']]],
+  ['gety_21',['getY',['../class_circle.html#abaed5dde7d530b94cd21d726bf804190',1,'Circle']]],
+  ['gui_22',['GUI',['../class_g_u_i.html',1,'GUI'],['../class_g_u_i.html#afdc5a7004d9f30864c024370e4a54c2a',1,'GUI::GUI()']]]
+];
