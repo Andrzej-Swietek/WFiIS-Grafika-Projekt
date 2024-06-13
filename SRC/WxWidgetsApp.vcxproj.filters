@@ -51,9 +51,6 @@
     <ClCompile Include="Figures\src\Line.cpp">
       <Filter>Source Files\Figures</Filter>
     </ClCompile>
-    <ClCompile Include="Figures\src\Polygon.cpp">
-      <Filter>Source Files\Figures</Filter>
-    </ClCompile>
     <ClCompile Include="Figures\src\Shape.cpp">
       <Filter>Source Files\Figures</Filter>
     </ClCompile>
@@ -66,9 +63,37 @@
     <ClCompile Include="GUI\src\GUI.cpp">
       <Filter>Source Files\GUI</Filter>
     </ClCompile>
+    <ClCompile Include="Figures\src\PolygonShape.cpp">
+      <Filter>Source Files\Figures</Filter>
+    </ClCompile>
+    <ClCompile Include="Utils\src\Logger.cpp">
+      <Filter>Source Files\Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="Panels\src\ShapesPanel.cpp">
+      <Filter>Source Files\Panels</Filter>
+    </ClCompile>
+    <ClCompile Include="Utils\src\vecmat.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Utils\src\SelectionManager.cpp">
+      <Filter>Source Files\Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="GUI\src\Menu.cpp">
+      <Filter>Source Files\GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="Utils\src\ImageSaver.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Utils\src\ImageSaverDialog.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GUI\src\ShapeDialog.cpp">
+      <Filter>Source Files\GUI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+    <None Include="ClassDiagram.cd" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Figures\include\Circle.hpp">
@@ -81,9 +106,6 @@
       <Filter>Header Files\Figures</Filter>
     </ClInclude>
     <ClInclude Include="Figures\include\Point.hpp">
-      <Filter>Header Files\Figures</Filter>
-    </ClInclude>
-    <ClInclude Include="Figures\include\Polygon.hpp">
       <Filter>Header Files\Figures</Filter>
     </ClInclude>
     <ClInclude Include="Figures\include\Shape.hpp">
@@ -106,6 +128,33 @@
     </ClInclude>
     <ClInclude Include="Figures\include\ShapeBuilder.hpp">
       <Filter>Header Files\Figures</Filter>
+    </ClInclude>
+    <ClInclude Include="Figures\include\PolygonShape.hpp">
+      <Filter>Header Files\Figures</Filter>
+    </ClInclude>
+    <ClInclude Include="Utils\include\Logger.hpp">
+      <Filter>Header Files\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="Panels\include\ShapesPanel.hpp">
+      <Filter>Header Files\Panels</Filter>
+    </ClInclude>
+    <ClInclude Include="Utils\include\vecmat.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Utils\include\SelectionManager.hpp">
+      <Filter>Header Files\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="GUI\include\Menu.hpp">
+      <Filter>Header Files\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="Utils\include\ImageSaver.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Utils\include\ImageSaverDialog.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GUI\include\ShapeDialog.hpp">
+      <Filter>Header Files\GUI</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

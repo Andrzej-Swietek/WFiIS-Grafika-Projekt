@@ -1,4 +1,5 @@
 #include "XMLDataLoaderAdapter.hpp"
+#include "Logger.hpp"
 
 XMLDataLoaderAdapter XMLDataLoaderAdapter::instance;
 
@@ -11,15 +12,25 @@ std::vector<std::unique_ptr<Shape>> XMLDataLoaderAdapter::load(const std::string
  {
         std::vector<std::unique_ptr<Shape>> shapes;
         XMLDocument doc;
-        doc.Parse(source.c_str());
-        
-        XMLElement* root = doc.RootElement();
-        if (!root) return shapes;
+        //doc.Parse(source.c_str());
+
+
+        doc.LoadFile(source.c_str());
+        if (doc.LoadFile(source.c_str()) != tinyxml2::XML_SUCCESS) {
+            Logger::getInstance()->log("Error loading XML file");
+            return shapes;
+        }
+
+        //XMLElement* root = doc.RootElement();
+        XMLElement* root = doc.FirstChildElement("image");
+        if (!root){
+            Logger::getInstance()->log("LOADER TEST FAILED: NO ROOT");
+            return shapes;
+        }
         
         for (XMLElement* elem = root->FirstChildElement(); elem != nullptr; elem = elem->NextSiblingElement()) {
             std::string type = elem->Name();
             ShapeBuilder shapeBuilder;
-
             if (type == "polygon") {
                 int n = elem->IntAttribute("n", 0);
                 int stroke = elem->IntAttribute("stroke", 1);
@@ -38,8 +49,8 @@ std::vector<std::unique_ptr<Shape>> XMLDataLoaderAdapter::load(const std::string
                     ->setOutline(outline)
                     ->setFill(fill)
                     ->setPoints(points);
-                Polygon p = shapeBuilder.buildPolygon();
-                shapes.push_back(std::make_unique<Polygon>(p));
+                PolygonShape p = shapeBuilder.buildPolygon();
+                shapes.push_back(std::make_unique<PolygonShape>(p));
             } 
             // Podobne sekcje dla Circle, Ellipse, Line, Curve
 
@@ -78,6 +89,7 @@ std::vector<std::unique_ptr<Shape>> XMLDataLoaderAdapter::load(const std::string
                 int x = elem->IntAttribute("x");
                 int y = elem->IntAttribute("y");
                 int stroke = elem->IntAttribute("stroke");
+                std::string outline = elem->Attribute("outline");
                 std::string fill = elem->Attribute("fill");
                 std::vector<Point> points;
                 for (XMLElement* pointElem = elem->FirstChildElement("point"); pointElem != nullptr; pointElem = pointElem->NextSiblingElement("point")) {
@@ -86,7 +98,13 @@ std::vector<std::unique_ptr<Shape>> XMLDataLoaderAdapter::load(const std::string
                     points.push_back({ px, py });
                 }
 
-                shapeBuilder.builder();
+                shapeBuilder.builder()
+                    ->setX(x)
+                    ->setY(y)
+                    ->setStroke(stroke)
+                    ->setOutline(outline)
+                    ->setFill(fill)
+                    ->setPoints(points);
 
                 Line l = shapeBuilder.buildLine();
 
@@ -103,7 +121,11 @@ std::vector<std::unique_ptr<Shape>> XMLDataLoaderAdapter::load(const std::string
                     points.push_back({ x, y });
                 }
 
-                shapeBuilder.builder();
+                shapeBuilder.builder()
+                    ->setStroke(stroke)
+                    ->setOutline(outline)
+                    ->setFill(fill)
+                    ->setPoints(points);
 
                 Curve c = shapeBuilder.buildCurve();
 
@@ -111,5 +133,7 @@ std::vector<std::unique_ptr<Shape>> XMLDataLoaderAdapter::load(const std::string
             }
         }
         
+
+        Logger::getInstance()->log("LOADER TEST", shapes.size());
         return shapes;
     }
