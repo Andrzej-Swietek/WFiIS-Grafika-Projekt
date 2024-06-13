@@ -18,6 +18,17 @@ enum class ShapeType {
     POLYGON
 };
 
+
+/**
+ * @class Shape
+ * @brief Base class representing a shape with stroke, outline, and fill properties.
+ *
+ * This class defines basic properties and methods for a shape, including stroke width,
+ * outline style and color, fill color, rotation angle, scale, visibility, and shape type.
+ * It provides virtual methods for drawing the shape on a device context and retrieving
+ * its center. Additionally, utility methods for converting shape types to strings and
+ * extracting RGB values from color strings are provided.
+ */
 class Shape {
 public:
     /// CONSTRUCTORS & DESTRUCTORS
@@ -191,8 +202,8 @@ public:
 
 
     /**
-    * @brief Virtual method giving string representation of class
-    * @return text 
+     * @brief get a string representation of a class
+     * @return string representaion of a class
     */
     virtual std::string toString() = 0;
 

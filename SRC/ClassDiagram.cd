@@ -1,2 +1,186 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<ClassDiagram /> 
+<ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="FullSignature">
+  <Class Name="MyApp">
+    <Position X="15.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAA=</HashCode>
+      <FileName>MainFrame.cpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ImageSaver">
+    <Position X="13.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAgAAAAABAAAQABAAAAAAAABA=</HashCode>
+      <FileName>Utils\include\ImageSaver.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ImageSaverDialog">
+    <Position X="15.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAABAAAAAAJAAAAgAAAAAABAAAAAAAAAgAAAAEAAAAA=</HashCode>
+      <FileName>Utils\include\ImageSaverDialog.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Vector">
+    <Position X="10" Y="8.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAYEAQAAAEAAA=</HashCode>
+      <FileName>Utils\include\vecmat.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Matrix">
+    <Position X="15.25" Y="8.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAwAAAEAAA=</HashCode>
+      <FileName>Utils\include\vecmat.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Circle">
+    <Position X="7.5" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAIWFAAAAAgAACAAAABhAGAAAQA=</HashCode>
+      <FileName>Figures\include\Circle.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Curve">
+    <Position X="0.75" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACABCAAAAAAAIAAAMQBAAAAAGAACACkAAgAAAAECA=</HashCode>
+      <FileName>Figures\include\Curve.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Line">
+    <Position X="3" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIAIAAACAAAAAAAgAAIQBIAAAAAAAiAgAAAgAAABAAA=</HashCode>
+      <FileName>Figures\include\Line.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PolygonShape">
+    <Position X="5.25" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACABCAAAAAAAIAAAMQBAACAAEAACACEAAgAAAAECA=</HashCode>
+      <FileName>Figures\include\PolygonShape.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Shape" Collapsed="true">
+    <Position X="4" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EBAECAAAACABAAAAgAIQDCADiQgACCAKAAoAAAAAAAA=</HashCode>
+      <FileName>Figures\include\Shape.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ShapeBuilder">
+    <Position X="17" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>GAACAgCAABABAAAAAAEGGAAAgAAIBAAIEAhhAAAAAEI=</HashCode>
+      <FileName>Figures\include\ShapeBuilder.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GUI">
+    <Position X="11.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>MACBIIEDCS5AYBJkgMAAQAkABRQQAAEQAFAAEAAIBAE=</HashCode>
+      <FileName>GUI\include\GUI.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Menu">
+    <Position X="13.5" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAgAAAAAAAAAAAC4AIAAABQICIIAARAAABAAEhA=</HashCode>
+      <FileName>GUI\include\Menu.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ShapeDialog">
+    <Position X="13.5" Y="8.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAQAAA=</HashCode>
+      <FileName>GUI\include\ShapeDialog.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ShapesPanel">
+    <Position X="15.25" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAADAAAABAAgAAEEgAAABAAAgAAAAAAAAA=</HashCode>
+      <FileName>Panels\include\ShapesPanel.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DataLoader">
+    <Position X="4" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAA=</HashCode>
+      <FileName>Utils\include\DataLoader.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FileSaver&lt;T&gt;">
+    <Position X="10" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAACAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAA=</HashCode>
+      <FileName>Utils\include\FileSaver.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Logger">
+    <Position X="10" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gAAACAAAAAIAAAEAAACACAAACABAAAQAAABAAAAAAAA=</HashCode>
+      <FileName>Utils\include\Logger.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SelectionManager">
+    <Position X="10" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AABAAAAAAAAAAAIAAAAAAAAAACBAAAwAAAAAAIAEAAA=</HashCode>
+      <FileName>Utils\include\SelectionManager.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SVGDataLoaderAdapter">
+    <Position X="1.5" Y="7.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAIAAAAAAAAAAAAAAAABCAAQAAAAgAAAAAAA=</HashCode>
+      <FileName>Utils\include\SVGDataLoaderAdapter.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="XMLDataLoaderAdapter">
+    <Position X="6" Y="7.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAIAAAAAAgAAAAAAAAABAAAQAAAAgAAAAAAA=</HashCode>
+      <FileName>Utils\include\XMLDataLoaderAdapter.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Struct Name="Point">
+    <Position X="17" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAgAAAAAAGAQAAAAAAAAAAAABgAGAAAAA=</HashCode>
+      <FileName>Figures\include\Point.hpp</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Enum Name="ShapeType">
+    <Position X="7.25" Y="10.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CAAAAAAAAAAAAAACAAAACAAAAAEAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Figures\include\Shape.hpp</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="__unnamed_enum_0415_1">
+    <Position X="3" Y="10.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>EAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Panels\include\ShapesPanel.hpp</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="LogOutput">
+    <Position X="1.25" Y="10.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAQAIAAAA=</HashCode>
+      <FileName>Utils\include\Logger.hpp</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="Color">
+    <Position X="5.25" Y="10.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAgAQIAAAAAAAAgAAkAAEAAAEAAAAAAAAAA=</HashCode>
+      <FileName>Utils\include\Logger.hpp</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

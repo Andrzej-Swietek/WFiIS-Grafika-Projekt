@@ -34,20 +34,58 @@ enum class Color {
  */
 class Logger {
 public:
+    /**
+     * @brief Get the singleton instance of Logger.
+     *
+     * @return Logger* Singleton instance of Logger.
+     */
     static Logger* getInstance();
 
     void log(const char* message);
 
+    /**
+     * @brief Log a message to the specified output(s).
+     *
+     * Logs the message to the console, a file, or both depending on the current settings.
+     *
+     * @tparam T Type of value to log.
+     * @param message Message to log.
+     * @param value Value to log (optional).
+     */
     template <typename T>
     void log(const char* message, T value);
 
+
+    /**
+     * @brief Set the log file path.
+     *
+     * @param logFile Path to the log file.
+     */
     void setLogFile(const std::string& logFile);
+
+
+    /**
+     * @brief Set the log output mode.
+     *
+     * @param output LogOutput enum specifying output mode (console, file, both).
+     */
     void setLogOutput(LogOutput output);
 
 private:
-    Logger() = default;
+    Logger() = default; // Private constructor for singleton pattern
 
+
+    /**
+     * @brief Log the current timestamp.
+     */
     void logTimeStamp();
+
+
+    /**
+     * @brief Get the current timestamp as a string.
+     *
+     * @return std::string Current timestamp string.
+     */
     std::string getTimeStamp();
 
     static Logger* instance;
